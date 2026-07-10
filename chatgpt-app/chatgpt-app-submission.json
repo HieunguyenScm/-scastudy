@@ -1,0 +1,104 @@
+{
+  "$schema": "https://developers.openai.com/apps-sdk/schemas/chatgpt-app-submission.v1.json",
+  "schema_version": 1,
+  "app_info": {
+    "display_name": "ctnascm",
+    "subtitle": "Học Supply Chain 24 tuần",
+    "description": "ctnascm giúp người học tra cứu lộ trình Supply Chain 24 tuần, đọc bài học có source map, hiểu thuật ngữ và lấy assignment theo từng module ngay trong ChatGPT.",
+    "category": "EDUCATION"
+  },
+  "tools": {
+    "search": {
+      "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Chỉ tìm kiếm curriculum, glossary và assignment tĩnh của ctnascm mà không thay đổi dữ liệu.",
+        "open_world_justification": "Không ghi dữ liệu ra internet hoặc hệ thống bên thứ ba.",
+        "destructive_justification": "Không xóa, ghi đè hoặc thực hiện hành động không thể hoàn tác."
+      }
+    },
+    "fetch": {
+      "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Chỉ trả về nội dung của một item theo id đã tìm thấy.",
+        "open_world_justification": "Không thay đổi trạng thái công khai hoặc hệ thống bên ngoài.",
+        "destructive_justification": "Không có thao tác xóa, cập nhật hoặc ghi dữ liệu."
+      }
+    },
+    "get_learning_week": {
+      "annotations": { "readOnlyHint": true, "openWorldHint": false, "destructiveHint": false },
+      "justifications": {
+        "read_only_justification": "Chỉ đọc mục tiêu, bài học, bài tập và source map của một tuần từ 1 đến 24.",
+        "open_world_justification": "Không gọi dịch vụ bên ngoài hoặc tạo thay đổi ngoài app.",
+        "destructive_justification": "Không xóa hoặc ghi đè bất kỳ dữ liệu nào."
+      }
+    }
+  },
+  "test_cases": [
+    {
+      "description": "Tìm bài học liên quan tới baseline forecasting.",
+      "user_prompt": "Tìm cho tôi bài học về baseline forecast trong lộ trình ctnascm.",
+      "file_attachment_urls": null,
+      "tools_triggered": "search",
+      "expected_output": "Trả về các tuần forecasting phù hợp, ưu tiên tuần 9, kèm link mở bài.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Đọc đầy đủ một glossary item từ kết quả tìm kiếm.",
+      "user_prompt": "Mở nội dung chi tiết của thuật ngữ Safety stock mà ctnascm vừa tìm thấy.",
+      "file_attachment_urls": null,
+      "tools_triggered": "fetch",
+      "expected_output": "Trả về định nghĩa tiếng Việt và ví dụ vận hành của Safety stock.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Lấy nội dung có cấu trúc của một tuần cụ thể.",
+      "user_prompt": "Cho tôi mục tiêu, bài thực hành và source map của tuần 10.",
+      "file_attachment_urls": null,
+      "tools_triggered": "get_learning_week",
+      "expected_output": "Trả về tuần 10 với objectives, concepts, practice, deliverable và source map.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Tìm assignment Demand Planning.",
+      "user_prompt": "Tìm assignment cho module Demand Planning và Forecasting.",
+      "file_attachment_urls": null,
+      "tools_triggered": "search",
+      "expected_output": "Trả về Demand Forecasting Review và link tới Case workspace.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Lấy tuần cuối để chuẩn bị capstone.",
+      "user_prompt": "Tôi cần làm gì ở tuần 24 để hoàn thiện portfolio?",
+      "file_attachment_urls": null,
+      "tools_triggered": "get_learning_week",
+      "expected_output": "Trả về nội dung capstone, deliverable và nguồn tham khảo của tuần 24.",
+      "expected_output_url": null
+    }
+  ],
+  "negative_test_cases": [
+    {
+      "description": "Không kích hoạt cho yêu cầu lịch cá nhân.",
+      "user_prompt": "Lịch họp của tôi ngày mai có gì?",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "Không gọi ctnascm vì calendar nằm ngoài phạm vi curriculum Supply Chain.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Không kích hoạt cho yêu cầu giao dịch mua hàng.",
+      "user_prompt": "Mua giúp tôi một laptop mới.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "Không gọi ctnascm vì app không mua hàng hoặc thay đổi hệ thống bên ngoài.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Không kích hoạt cho yêu cầu gửi email.",
+      "user_prompt": "Gửi email báo cáo này cho sếp của tôi.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "Không gọi ctnascm vì app chỉ đọc nội dung học và không gửi tin nhắn.",
+      "expected_output_url": null
+    }
+  ]
+}

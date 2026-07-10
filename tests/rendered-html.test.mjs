@@ -2,43 +2,50 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render() {
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
-  const { default: worker } = await import(workerUrl.href);
+const read = (path) => readFile(new URL(path, import.meta.url), "utf8");
 
-  return worker.fetch(
-    new Request("http://localhost/", { headers: { accept: "text/html" } }),
-    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
-    { waitUntil() {}, passThroughOnException() {} },
-  );
-}
-
-test("server-renders the supply chain learning experience", async () => {
-  const response = await render();
-  assert.equal(response.status, 200);
-  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
-
-  const html = await response.text();
-  assert.match(html, /Chuỗi học/);
-  assert.match(html, /Lộ trình Supply Chain 24 tuần/);
-  assert.match(html, /24 tuần, đi từ gốc đến sâu/);
-  assert.match(html, /KHO TÀI LIỆU/);
-  assert.match(html, /SOURCE MAP/);
-  assert.match(html, /Supply Chain Management For Dummies/);
-  assert.match(html, /Tracker/);
-  assert.doesNotMatch(html, /codex-preview|Your site is taking shape|SkeletonPreview|react-loading-skeleton/);
-});
-
-test("source keeps the starter preview removed", async () => {
-  const [page, layout, packageJson] = await Promise.all([
-    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../package.json", import.meta.url), "utf8"),
+test("curriculum is complete and traceable", async () => {
+  const [curriculum, sources, quizzes, assignments, glossary] = await Promise.all([
+    read("../content/curriculum.json").then(JSON.parse),
+    read("../content/sources.json").then(JSON.parse),
+    read("../content/quizzes.json").then(JSON.parse),
+    read("../content/assignments.json").then(JSON.parse),
+    read("../content/glossary.json").then(JSON.parse),
   ]);
 
-  assert.match(page, /export default function Home/);
-  assert.match(layout, /Chuỗi học/);
-  assert.doesNotMatch(layout, /codex-preview|_sites-preview/);
-  assert.doesNotMatch(packageJson, /react-loading-skeleton/);
+  assert.equal(curriculum.length, 24);
+  assert.deepEqual(curriculum.map((week) => week.week), Array.from({ length: 24 }, (_, index) => index + 1));
+  assert.equal(new Set(curriculum.map((week) => week.module)).size, 6);
+  assert.ok(curriculum.every((week) => week.summary && week.summaryEn && week.sourceRefs.length >= 2));
+  assert.ok(curriculum.flatMap((week) => week.sourceRefs).every((ref) => sources.some((source) => source.id === ref.sourceId)));
+  assert.equal(quizzes.length, 6);
+  assert.ok(quizzes.every((quiz) => quiz.questions.length === 5));
+  assert.equal(assignments.length, 6);
+  assert.ok(glossary.length >= 50);
+});
+
+test("private learning surfaces and persistence are wired", async () => {
+  const [page, dashboard, weekPage, tutorRoute, progressRoute, caseRoute, migration, layout] = await Promise.all([
+    read("../app/page.tsx"),
+    read("../app/dashboard-client.tsx"),
+    read("../app/week/[week]/page.tsx"),
+    read("../app/api/tutor/route.ts"),
+    read("../app/api/progress/route.ts"),
+    read("../app/api/cases/route.ts"),
+    read("../drizzle/0000_dazzling_albert_cleary.sql"),
+    read("../app/layout.tsx"),
+  ]);
+
+  assert.match(page, /requireChatGPTUser/);
+  assert.match(weekPage, /requireChatGPTUser/);
+  assert.match(dashboard, /24 tuần, 6 năng lực/);
+  assert.match(dashboard, /CTN TUTOR/);
+  assert.match(tutorRoute, /api\.openai\.com\/v1\/responses/);
+  assert.match(tutorRoute, /OPENAI_API_KEY/);
+  assert.match(progressRoute, /onConflictDoUpdate/);
+  assert.match(caseRoute, /caseStudies/);
+  assert.match(migration, /CREATE TABLE `progress`/);
+  assert.match(migration, /CREATE TABLE `case_studies`/);
+  assert.match(layout, /robots: \{ index: false, follow: false \}/);
+  assert.doesNotMatch(dashboard + layout, /codex-preview|SkeletonPreview|react-loading-skeleton/);
 });

@@ -1,0 +1,44 @@
+[
+  {"module":1,"title":"Quiz 01 - Nền tảng Supply Chain","questions":[
+    {"id":"m1q1","question":"Điểm khác nhau quan trọng nhất giữa demand và forecast là gì?","options":["Demand là nhu cầu thực tế, forecast là ước lượng","Demand luôn lớn hơn forecast","Forecast là đơn hàng đã xác nhận","Hai khái niệm giống nhau"],"answerIndex":0,"explanation":"Demand là điều đã hoặc đang xảy ra; forecast là ước lượng cho tương lai."},
+    {"id":"m1q2","question":"Ba dòng chảy cốt lõi của supply chain là gì?","options":["People, process, technology","Material, information, financial","Plan, source, make","Cost, quality, speed"],"answerIndex":1,"explanation":"Dòng vật chất, thông tin và tài chính nối các node của chuỗi."},
+    {"id":"m1q3","question":"Reorder point cơ bản gồm thành phần nào?","options":["EOQ + MOQ","Demand trong lead time + safety stock","Average inventory + holding cost","Forecast bias + service level"],"answerIndex":1,"explanation":"Điểm đặt hàng phải che nhu cầu trong lead time và một phần bất định."},
+    {"id":"m1q4","question":"KPI nào đo giao đúng hạn và đủ số lượng?","options":["WAPE","OTIF","Inventory turns","Cash-to-cash"],"answerIndex":1,"explanation":"OTIF là On Time In Full."},
+    {"id":"m1q5","question":"Điều gì thường làm bullwhip effect mạnh hơn?","options":["Chia sẻ dữ liệu tốt","Lead time ngắn","Batch ordering và promotion","Replenishment thường xuyên"],"answerIndex":2,"explanation":"Batching, promotion và thiếu thông tin làm méo tín hiệu demand."}
+  ]},
+  {"module":2,"title":"Quiz 02 - Data & BI","questions":[
+    {"id":"m2q1","question":"Data grain mô tả điều gì?","options":["Màu của dashboard","Một dòng dữ liệu đại diện cho cái gì","Số lượng bảng","Loại chart"],"answerIndex":1,"explanation":"Grain xác định mức chi tiết của mỗi record."},
+    {"id":"m2q2","question":"Rủi ro lớn của JOIN sai grain là gì?","options":["File nhẹ hơn","Double-counting metrics","Không thể dùng WHERE","Mất màu chart"],"answerIndex":1,"explanation":"Quan hệ many-to-many không kiểm soát có thể nhân bản doanh thu và tồn kho."},
+    {"id":"m2q3","question":"Window function phù hợp với việc nào?","options":["Xóa database","Ranking và rolling metrics","Đổi tên file","Tạo mật khẩu"],"answerIndex":1,"explanation":"Window functions tính toán trên nhóm record mà vẫn giữ từng dòng."},
+    {"id":"m2q4","question":"Tiêu đề chart tốt nên làm gì?","options":["Chỉ nêu tên metric","Nói kết luận quan trọng","Dùng càng nhiều từ càng tốt","Lặp lại legend"],"answerIndex":1,"explanation":"Action title giúp audience hiểu điều cần chú ý trước khi đọc chi tiết."},
+    {"id":"m2q5","question":"Pipeline phân tích nên tách theo thứ tự nào?","options":["Chart-clean-load","Load-clean-validate-analyse-output","Output-load-delete","Analyse-load-clean"],"answerIndex":1,"explanation":"Tách bước giúp pipeline dễ kiểm tra và chạy lại."}
+  ]},
+  {"module":3,"title":"Quiz 03 - Demand Planning & Forecasting","questions":[
+    {"id":"m3q1","question":"Vì sao cần baseline forecast?","options":["Để bỏ qua actual","Để kiểm tra model phức tạp có tạo thêm giá trị","Để forecast luôn bằng zero","Để tăng số chart"],"answerIndex":1,"explanation":"Baseline là chuẩn tối thiểu cho model comparison."},
+    {"id":"m3q2","question":"Metric nào gặp vấn đề khi actual gần bằng zero?","options":["MAE","MAPE","Bias","RMSE"],"answerIndex":1,"explanation":"MAPE chia sai số cho actual nên có thể bùng nổ gần zero."},
+    {"id":"m3q3","question":"Forecast bias dương kéo dài thường biểu thị gì?","options":["Forecast có xu hướng cao hơn actual","Không có sai số","Actual luôn bằng forecast","Seasonality biến mất"],"answerIndex":0,"explanation":"Quy ước có thể khác theo công ty, nhưng phải thống nhất và theo dõi tính hệ thống."},
+    {"id":"m3q4","question":"Backtest time series cần tránh điều gì?","options":["Giữ thứ tự thời gian","Data leakage từ tương lai","Nhiều forecast origins","So sánh baseline"],"answerIndex":1,"explanation":"Model không được nhìn dữ liệu chưa tồn tại tại thời điểm forecast."},
+    {"id":"m3q5","question":"Override có chất lượng cần gì?","options":["Không lưu dấu vết","Owner, reason code và đo FVA","Chỉ dựa trên cảm giác","Luôn làm forecast cao hơn"],"answerIndex":1,"explanation":"Traceability và FVA giúp tổ chức học từ override."}
+  ]},
+  {"module":4,"title":"Quiz 04 - Planning & Inventory","questions":[
+    {"id":"m4q1","question":"S&OP thường quyết định ở mức nào?","options":["Từng phút máy chạy","Aggregate product family và trung hạn","Từng invoice","Từng pallet trong kho"],"answerIndex":1,"explanation":"S&OP cân bằng demand-supply ở mức aggregate và tactical horizon."},
+    {"id":"m4q2","question":"ABC segmentation chủ yếu dựa trên gì?","options":["Màu bao bì","Annual consumption value","Tên supplier","Số ký tự SKU"],"answerIndex":1,"explanation":"ABC tập trung vào economic importance."},
+    {"id":"m4q3","question":"XYZ segmentation phản ánh điều gì?","options":["Khả năng dự báo/độ biến động","Giá trị tuyệt đối","Khoảng cách vận tải","Số lượng customer"],"answerIndex":0,"explanation":"XYZ thường dựa trên variability hoặc forecastability."},
+    {"id":"m4q4","question":"MOQ ảnh hưởng replenishment thế nào?","options":["Không ảnh hưởng","Có thể tăng average inventory","Luôn giảm stockout về zero","Loại bỏ lead time"],"answerIndex":1,"explanation":"Order tối thiểu có thể buộc đặt nhiều hơn nhu cầu lý thuyết."},
+    {"id":"m4q5","question":"MRP trả lời câu hỏi cốt lõi nào?","options":["Cần vật tư gì, bao nhiêu và khi nào","Nên tuyển ai","Nên dùng chart nào","Nên vay ngân hàng nào"],"answerIndex":0,"explanation":"MRP time-phase nhu cầu dependent items từ MPS và BOM."}
+  ]},
+  {"module":5,"title":"Quiz 05 - Optimization & Simulation","questions":[
+    {"id":"m5q1","question":"Trong linear programming, decision variable là gì?","options":["Kết quả không thể thay đổi","Đại lượng mô hình được phép lựa chọn","Tên worksheet","Một KPI quá khứ"],"answerIndex":1,"explanation":"Decision variables là các quyết định mà solver xác định."},
+    {"id":"m5q2","question":"Constraint có vai trò gì?","options":["Mô tả giới hạn phải tôn trọng","Trang trí model","Tăng số chart","Xóa objective"],"answerIndex":0,"explanation":"Constraints đại diện capacity, demand, policy và giới hạn thực tế."},
+    {"id":"m5q3","question":"Network design cân bằng nhóm trade-off nào?","options":["Font và màu","Fixed cost, transport, inventory và service","Email và calendar","Recruitment và payroll"],"answerIndex":1,"explanation":"Các thành phần cost-service cùng thay đổi khi cấu trúc network đổi."},
+    {"id":"m5q4","question":"Simulation phù hợp nhất khi nào?","options":["Hệ thống có variability, queue và dynamics","Chỉ cần cộng hai số","Không có dữ liệu hay assumption","Cần một định nghĩa từ điển"],"answerIndex":0,"explanation":"Simulation thể hiện hành vi hệ thống theo thời gian và bất định."},
+    {"id":"m5q5","question":"Sensitivity analysis giúp trả lời gì?","options":["Kết quả đổi thế nào khi input/assumption đổi","Ai thiết kế logo","File nằm ở đâu","SQL có viết hoa không"],"answerIndex":0,"explanation":"Sensitivity cho biết recommendation có bền vững hay không."}
+  ]},
+  {"module":6,"title":"Quiz 06 - AI, Systems & Career","questions":[
+    {"id":"m6q1","question":"Cost-to-serve dùng để làm gì?","options":["Chỉ đo doanh thu","Đo nguồn lực và chi phí phục vụ theo customer/channel","Dự báo thời tiết","Đổi tên SKU"],"answerIndex":1,"explanation":"Cost-to-serve làm rõ profitability sau các activity supply chain."},
+    {"id":"m6q2","question":"Human-in-the-loop phù hợp nhất với trường hợp nào?","options":["Decision impact cao hoặc dữ liệu yếu","Mọi tác vụ đều không cần người","Chỉ để trang trí","Không có model"],"answerIndex":0,"explanation":"AI hỗ trợ, còn con người kiểm soát quyết định rủi ro cao."},
+    {"id":"m6q3","question":"Feedback loop là gì?","options":["Output quay lại ảnh hưởng input/hành vi tương lai","Một email tự động","Một bảng tĩnh","Một lỗi font"],"answerIndex":0,"explanation":"Feedback tạo hành vi động của hệ thống."},
+    {"id":"m6q4","question":"Portfolio mạnh cần thể hiện gì ngoài kết quả?","options":["Problem, data, assumptions, approach và limitations","Chỉ screenshot","Chỉ tên tool","Chỉ số trang"],"answerIndex":0,"explanation":"Nhà tuyển dụng cần thấy cách suy nghĩ và khả năng bảo vệ quyết định."},
+    {"id":"m6q5","question":"Autonomous planning nên bắt đầu từ đâu?","options":["Mua model đắt nhất","Decision workflow và exception cần hỗ trợ","Xóa planner","Tự động mọi thứ ngay"],"answerIndex":1,"explanation":"Use case phải gắn với decision, dữ liệu và governance cụ thể."}
+  ]}
+]
