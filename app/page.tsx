@@ -11,6 +11,12 @@ type Week = {
   book: string;
 };
 
+type LessonDetail = {
+  summary: string;
+  concepts: string[];
+  practice: string;
+};
+
 const weeks: Week[] = [
   { id: 1, title: "Supply chain là gì?", track: "Nền tảng", output: "Bản đồ end-to-end", time: "2h 30m", book: "Supply Chain Management For Dummies" },
   { id: 2, title: "Demand, supply & lead time", track: "Nền tảng", output: "Giải thích bullwhip effect", time: "2h 30m", book: "Introduction to Materials Management" },
@@ -38,6 +44,33 @@ const weeks: Week[] = [
   { id: 24, title: "Capstone & mock interview", track: "Capstone", output: "Portfolio project", time: "8h", book: "Bulletproof Problem Solving" },
 ];
 
+const lessonDetails: Record<number, LessonDetail> = {
+  1: { summary: "Supply chain là mạng lưới biến nhu cầu thành sản phẩm hoặc dịch vụ được giao thành công. Hãy nhìn toàn chuỗi thay vì chỉ nhìn một phòng ban.", concepts: ["Dòng hàng hóa, dòng tiền, dòng thông tin", "Supplier → manufacturer → distributor → customer", "Trade-off giữa chi phí, tốc độ và mức phục vụ"], practice: "Chọn một sản phẩm quen thuộc, vẽ 5 node trong chuỗi và ghi lại 3 dòng chảy giữa các node." },
+  2: { summary: "Demand là nhu cầu thật; forecast chỉ là ước lượng. Lead time và mức phục vụ khiến một biến động nhỏ ở cửa hàng có thể phóng đại ngược lên nhà máy.", concepts: ["Demand, supply, lead time, service level", "Stockout và overstock", "Bullwhip effect: tín hiệu nhu cầu bị khuếch đại"], practice: "Viết lại bullwhip effect bằng ví dụ siêu thị hoặc nhu cầu bia Tết, không dùng thuật ngữ chuyên môn." },
+  3: { summary: "Inventory là một khoản bảo hiểm có chi phí. Mục tiêu không phải cắt tồn kho đồng loạt mà là giữ đúng lượng tồn kho cho mức dịch vụ cần thiết.", concepts: ["Cycle stock và safety stock", "Reorder point = demand trong lead time + safety stock", "Holding cost, ordering cost, stockout cost"], practice: "Lập bảng reorder point cho 5 SKU với demand/ngày, lead time và độ biến động khác nhau." },
+  4: { summary: "KPI tốt giúp cả chuỗi cùng nhìn về một vấn đề. Đừng chỉ báo cáo số; hãy nối KPI với quyết định cần làm tiếp theo.", concepts: ["OTIF và fill rate", "Forecast accuracy và forecast bias", "Inventory turns và cash-to-cash cycle"], practice: "Tạo dashboard một trang và viết 5 insight, mỗi insight phải có bằng chứng và hành động đề xuất." },
+  5: { summary: "Một dashboard đáng tin bắt đầu từ dữ liệu sạch và câu hỏi kinh doanh rõ. Tidy data giúp lọc, nhóm và so sánh dễ hơn.", concepts: ["Data dictionary và grain của bảng", "Missing values, duplicate rows, outliers", "Chọn chart theo câu hỏi: trend, ranking, composition"], practice: "Làm sạch order history và tạo một line chart, một bar chart cùng một bảng ranking." },
+  6: { summary: "SQL là cách hỏi dữ liệu có cấu trúc. Nắm JOIN và grain của bảng quan trọng hơn việc nhớ thật nhiều cú pháp.", concepts: ["SELECT, WHERE, GROUP BY, CASE WHEN", "JOIN orders, shipments, inventory", "Window function cho ranking và rolling metric"], practice: "Viết 20 query cho sales by SKU, fill rate, lead time trung bình và top customer." },
+  7: { summary: "Python và pandas giúp lặp lại phân tích thay vì làm thủ công từng file. Hãy bắt đầu bằng một pipeline nhỏ, rõ đầu vào và đầu ra.", concepts: ["DataFrame, filter, groupby, merge", "Pivot và xử lý ngày tháng", "Tách bước load → clean → analyze → visualize"], practice: "Tạo notebook có 5 bảng tổng hợp, 3 chart và một đoạn kết luận cho người không biết code." },
+  8: { summary: "Storytelling không phải làm biểu đồ đẹp hơn; đó là chọn một thông điệp đúng và dẫn người đọc đến quyết định.", concepts: ["Observation khác insight", "Situation → complication → question → answer", "Tiêu đề biểu đồ phải nói được điều quan trọng"], practice: "Biến một dashboard thành memo 1 trang gồm issue, evidence, recommendation và risk." },
+  9: { summary: "Forecast là một quyết định có sai số, không phải lời tiên tri. Luôn bắt đầu với baseline để biết mô hình phức tạp có thực sự tốt hơn không.", concepts: ["Naive forecast và moving average", "Trend, seasonality, noise", "Baseline và forecast horizon"], practice: "So sánh naive forecast với moving average cho một SKU và giải thích vì sao chọn model." },
+  10: { summary: "Đánh giá forecast phải tôn trọng thứ tự thời gian. Một model có sai số trung bình thấp vẫn có thể lệch có hệ thống.", concepts: ["Decomposition và holdout theo thời gian", "MAE, MAPE, RMSE", "Bias và vấn đề MAPE khi actual gần bằng 0"], practice: "Forecast 12 tuần, tính 3 metrics và ghi rõ metric nào phù hợp với bối cảnh của bạn." },
+  11: { summary: "Forecast multi-SKU cần một pipeline có thể đánh giá theo từng SKU. Không phải SKU nào cũng nên được tự động hóa cùng một cách.", concepts: ["Train/test split theo thời gian", "Rolling forecast và model evaluation", "Exception management cho SKU khó dự báo"], practice: "Forecast 10 SKU, xếp hạng theo error và chọn 2 SKU cần xử lý bằng exception." },
+  12: { summary: "Demand planning là quy trình phối hợp chứ không chỉ là file forecast. Mọi override từ sales cần có lý do và dấu vết để học lại sau này.", concepts: ["Demand review và consensus forecast", "Override, bias control, exception review", "Kết nối forecast với supply và capacity"], practice: "Lập monthly forecast review cho 5 SKU có sai số cao, ghi nguyên nhân và hành động." },
+  13: { summary: "Planning hierarchy đi từ quyết định tổng hợp dài hạn đến lịch thực thi chi tiết. Mỗi tầng có horizon, dữ liệu và người ra quyết định khác nhau.", concepts: ["S&OP và aggregate plan", "MPS, BOM và MRP", "Capacity planning và production scheduling"], practice: "Vẽ sơ đồ planning hierarchy cho một công ty sản xuất đơn giản và ghi vai trò từng tầng." },
+  14: { summary: "ABC/XYZ giúp phân bổ công sức quản trị theo giá trị và độ biến động. Service level nên khác nhau theo segment, không áp một mức cho mọi SKU.", concepts: ["ABC theo annual consumption value", "XYZ theo variability hoặc predictability", "Service policy cho A-X, A-Z, C-X, C-Z"], practice: "Phân loại 20 SKU thành ABC/XYZ và đề xuất policy cho từng ô ma trận." },
+  15: { summary: "Replenishment policy biến dữ liệu thành quy tắc đặt hàng. MOQ và review period có thể làm policy lý thuyết lệch khỏi thực tế.", concepts: ["Reorder point, min-max, periodic review", "MOQ, order frequency và supplier constraint", "Stockout so với overstock"], practice: "Đề xuất policy cho 10 SKU gồm reorder point, safety stock và nhịp review." },
+  16: { summary: "Giải case tốt bắt đầu bằng framing: vấn đề kinh doanh là gì, metric nào đang xấu, assumption nào cần kiểm tra và recommendation sẽ đánh đổi điều gì.", concepts: ["Issue tree và problem statement", "Assumptions, evidence, recommendation", "Trade-off và rủi ro triển khai"], practice: "Viết case memo 2 trang với issue, analysis, recommendation, trade-off và next step." },
+  17: { summary: "Linear programming biến bài toán kinh doanh thành decision variables, objective và constraints. Mô hình tốt phải nói rõ cái gì đang được tối ưu.", concepts: ["Decision variables", "Objective function và constraints", "Feasible solution và sensitivity"], practice: "Xây bài toán vận tải từ warehouse đến customer với capacity, demand và transportation cost." },
+  18: { summary: "Network design là quyết định chiến lược về vị trí, công suất và luồng hàng. Mở thêm kho có thể giảm transport nhưng tăng fixed cost và inventory.", concepts: ["Facility location và capacity", "Fixed cost, variable cost, service distance", "Scenario comparison"], practice: "So sánh 2–3 kịch bản network và trình bày trade-off chi phí với service." },
+  19: { summary: "Simulation giúp nhìn variability, queue và bottleneck - những thứ một nghiệm tối ưu tĩnh thường che khuất.", concepts: ["Scenario và random variability", "Queue, throughput, utilization", "Service level và stockout trong nhiều lần chạy"], practice: "Mô phỏng 3 kịch bản lead time/demand variability và so sánh service level." },
+  20: { summary: "Một project optimization cần có model, assumption, sensitivity và recommendation. Kết quả chỉ đáng tin khi bạn biết nó đổi thế nào khi input đổi.", concepts: ["Model framing", "Scenario và sensitivity analysis", "Business memo đi kèm model"], practice: "Xây model tối ưu chi phí/dịch vụ, chạy demand +20% và giải thích kết quả thay đổi ra sao." },
+  21: { summary: "Supply chain decisions chạm vào working capital và lợi nhuận. Service cao hơn không tự động có nghĩa là kinh doanh tốt hơn.", concepts: ["Inventory carrying cost", "Working capital và cash-to-cash", "Cost-to-serve theo customer hoặc channel"], practice: "Tính cost-to-serve cho 3 customer/channel và tìm nơi service đang không có lãi." },
+  22: { summary: "ASCM Dictionary giúp thống nhất ngôn ngữ giữa planning, operations và analytics. Hãy biến định nghĩa thành ví dụ có thể dùng trong phỏng vấn.", concepts: ["Strategy, planning, scheduling, execution", "Continuous improvement", "Glossary theo ngữ cảnh doanh nghiệp"], practice: "Tạo glossary 50 thuật ngữ, mỗi thuật ngữ có định nghĩa tiếng Việt và một ví dụ." },
+  23: { summary: "Case tổng hợp yêu cầu nhìn hệ thống: feedback loop, delay, leverage point và cách một quyết định ở node này tạo tác động ở node khác.", concepts: ["Systems map và feedback loop", "Problem solving cycle", "Executive communication"], practice: "Làm recommendation deck 5–7 slide với problem, data, options, recommendation và risk." },
+  24: { summary: "Capstone là bằng chứng bạn có thể đi từ câu hỏi kinh doanh đến data, model, insight và recommendation. Hãy luyện cách kể project trong 3, 10 và 30 phút.", concepts: ["Portfolio packaging", "Model, dashboard, memo, deck", "Mock interview và defense"], practice: "Hoàn thành một portfolio project end-to-end và chuẩn bị ba phiên bản trình bày theo thời lượng." },
+};
+
 const months = [
   { label: "Tháng 01", title: "Nền tảng supply chain", note: "Nhìn thấy dòng hàng hóa, tiền và thông tin.", color: "mint", weeks: "01—04" },
   { label: "Tháng 02", title: "Công cụ & dữ liệu", note: "Biến bảng dữ liệu thành insight có thể dùng.", color: "sage", weeks: "05—08" },
@@ -59,6 +92,7 @@ export default function Home() {
   const [completed, setCompleted] = useState<number[]>([]);
   const [activeTab, setActiveTab] = useState("Tổng quan");
   const selectedWeek = useMemo(() => weeks.find((week) => week.id === activeWeek) ?? weeks[0], [activeWeek]);
+  const selectedDetail = lessonDetails[selectedWeek.id];
 
   const jumpTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -133,8 +167,12 @@ export default function Home() {
           <div className="lesson-body">
             <div className="lesson-meta"><span>{selectedWeek.time}</span><span>·</span><span>Đọc + làm bài</span></div>
             <h2>{selectedWeek.title}</h2>
-            <p>Hiểu một chuỗi cung ứng như một hệ thống: ai cung cấp, ai biến đổi, ai phân phối, ai trả tiền và thông tin đi ngược lại như thế nào.</p>
-            <div className="lesson-tags"><span>flow mapping</span><span>SCOR model</span><span>bullwhip effect</span></div>
+            <p>{selectedDetail.summary}</p>
+            <div className="lesson-content-grid">
+              <div><span className="lesson-subtitle">CẦN NẮM</span><ul>{selectedDetail.concepts.map((concept) => <li key={concept}>{concept}</li>)}</ul></div>
+              <div><span className="lesson-subtitle">BÀI THỰC HÀNH</span><p className="practice-copy">{selectedDetail.practice}</p></div>
+            </div>
+            <div className="lesson-tags">{selectedDetail.concepts.slice(0, 3).map((concept) => <span key={concept}>{concept}</span>)}</div>
             <div className="lesson-footer"><button className="button dark" onClick={() => toggleCompleted(selectedWeek.id)}>{completed.includes(selectedWeek.id) ? "Đã hoàn thành ✓" : "Đánh dấu đã học"}</button><span className="lesson-source">Đọc chính · {selectedWeek.book}</span></div>
           </div>
         </article>
