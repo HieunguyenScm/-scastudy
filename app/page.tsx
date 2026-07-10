@@ -137,7 +137,7 @@ export default function Home() {
       </section>
 
       <section className="metrics section-wrap" aria-label="Tiến độ học tập">
-        <div className="metric-card"><span className="metric-icon">↗</span><div className="metric-label">Tiến độ tổng</div><div className="metric-value">{String(Math.max(1, completed.length)).padStart(2, "0")} <small>/ 24 tuần</small></div></div>
+        <div className="metric-card"><span className="metric-icon">↗</span><div className="metric-label">Tiến độ tổng</div><div className="metric-value">{String(completed.length).padStart(2, "0")} <small>/ 24 tuần</small></div></div>
         <div className="metric-card"><span className="metric-icon">◷</span><div className="metric-label">Giờ học tuần này</div><div className="metric-value">03:20 <small>giờ</small></div></div>
         <div className="metric-card"><span className="metric-icon">✦</span><div className="metric-label">Output đã tạo</div><div className="metric-value">06 <small>sản phẩm</small></div></div>
         <div className="metric-card"><span className="metric-icon">♧</span><div className="metric-label">Chuỗi ngày học</div><div className="metric-value">12 <small>ngày liên tục</small></div></div>
@@ -146,7 +146,7 @@ export default function Home() {
       <section className="roadmap section-wrap" id="roadmap">
         <div className="section-heading">
           <div><div className="eyebrow clay-text">BẢN ĐỒ HÀNH TRÌNH</div><h2>24 tuần, đi từ gốc đến sâu</h2></div>
-          <div className="progress-note"><span>Đang ở tháng 01</span><span>· Foundations</span><div className="progress-bar"><span style={{ width: `${Math.max(4, (completed.length / 24) * 100)}%` }} /></div></div>
+          <div className="progress-note"><span>Đang ở tháng 01</span><span>· Foundations</span><div className="progress-bar"><span style={{ width: `${(completed.length / 24) * 100}%` }} /></div></div>
         </div>
         <div className="month-grid">
           {months.map((month) => (
