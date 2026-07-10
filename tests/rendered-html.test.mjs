@@ -24,6 +24,8 @@ test("server-renders the supply chain learning experience", async () => {
   assert.match(html, /Lộ trình Supply Chain 24 tuần/);
   assert.match(html, /24 tuần, đi từ gốc đến sâu/);
   assert.match(html, /KHO TÀI LIỆU/);
+  assert.match(html, /SOURCE MAP/);
+  assert.match(html, /Supply Chain Management For Dummies/);
   assert.match(html, /Tracker/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|SkeletonPreview|react-loading-skeleton/);
 });

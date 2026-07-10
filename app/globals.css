@@ -85,6 +85,9 @@ h1 em { color: var(--clay); font-style: normal; }
 .lesson-tags span { border: 1px solid #587360; color: #d3ded0; font-size: 11px; padding: 8px 10px; }
 .lesson-footer { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 .lesson-source { color: #a8bbab; font-size: 11px; }
+.source-map { margin-top: 22px; padding-top: 14px; border-top: 1px solid #587360; }
+.source-map > div { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 9px; }
+.source-map > div span { color: #b9cbbd; border: 1px solid #587360; padding: 6px 8px; font-size: 10px; }
 .session-card { background: var(--paper-deep); padding: 36px 34px; border: 1px solid var(--line); }
 .session-card h3 { color: var(--forest); font-size: 39px; line-height: 1.02; margin: 22px 0 32px; }
 .session-list { border-top: 1px solid #cfc4b4; }

@@ -1,0 +1,12 @@
+[
+  {"term":"Supply chain","meaning":"Mạng lưới các tổ chức, người, hoạt động và nguồn lực biến nhu cầu thành sản phẩm/dịch vụ được giao."},
+  {"term":"Demand","meaning":"Nhu cầu thật của khách hàng trong một khoảng thời gian và bối cảnh cụ thể."},
+  {"term":"Lead time","meaning":"Thời gian từ lúc phát sinh yêu cầu đến khi hàng hoặc dịch vụ sẵn sàng."},
+  {"term":"Service level","meaning":"Xác suất hoặc mức độ đáp ứng nhu cầu mà hệ thống cam kết."},
+  {"term":"Safety stock","meaning":"Tồn kho đệm để hấp thụ biến động demand hoặc lead time."},
+  {"term":"Reorder point","meaning":"Mức tồn kho kích hoạt việc replenishment."},
+  {"term":"Bullwhip effect","meaning":"Biến động đơn hàng bị khuếch đại khi đi ngược từ khách hàng về upstream."},
+  {"term":"OTIF","meaning":"On Time In Full - giao đúng hạn và đủ số lượng."},
+  {"term":"Fill rate","meaning":"Tỷ lệ nhu cầu được đáp ứng ngay từ lượng hàng sẵn có."},
+  {"term":"Forecast bias","meaning":"Xu hướng forecast liên tục cao hơn hoặc thấp hơn actual demand."}
+]

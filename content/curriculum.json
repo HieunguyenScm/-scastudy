@@ -1,0 +1,46 @@
+[
+  {
+    "week": 1,
+    "module": "Nền tảng supply chain",
+    "title": "Supply chain là gì?",
+    "objectives": ["Giải thích được supply chain end-to-end", "Phân biệt dòng hàng hóa, tiền và thông tin"],
+    "summary": "Supply chain là mạng lưới biến nhu cầu thành sản phẩm hoặc dịch vụ được giao thành công. Hãy nhìn toàn chuỗi thay vì chỉ nhìn một phòng ban.",
+    "concepts": ["Dòng hàng hóa, dòng tiền, dòng thông tin", "Supplier → manufacturer → distributor → customer", "Trade-off giữa chi phí, tốc độ và mức phục vụ"],
+    "practice": "Chọn một sản phẩm quen thuộc, vẽ 5 node trong chuỗi và ghi lại 3 dòng chảy giữa các node.",
+    "output": "Bản đồ end-to-end",
+    "sourceIds": ["scm-dummies", "chopra", "ascm-dictionary", "systems"]
+  },
+  {
+    "week": 2,
+    "module": "Nền tảng supply chain",
+    "title": "Demand, supply & lead time",
+    "objectives": ["Phân biệt demand thật với forecast", "Giải thích tác động của lead time và bullwhip effect"],
+    "summary": "Demand là nhu cầu thật; forecast chỉ là ước lượng. Lead time và mức phục vụ khiến một biến động nhỏ ở cửa hàng có thể phóng đại ngược lên nhà máy.",
+    "concepts": ["Demand, supply, lead time, service level", "Stockout và overstock", "Bullwhip effect: tín hiệu nhu cầu bị khuếch đại"],
+    "practice": "Viết lại bullwhip effect bằng ví dụ siêu thị hoặc nhu cầu bia Tết, không dùng thuật ngữ chuyên môn.",
+    "output": "Giải thích bullwhip effect",
+    "sourceIds": ["materials-management", "scm-dummies", "chopra", "mpc", "advanced-planning"]
+  },
+  {
+    "week": 3,
+    "module": "Nền tảng supply chain",
+    "title": "Inventory basics",
+    "objectives": ["Hiểu inventory là trade-off giữa service và cost", "Tính reorder point cơ bản"],
+    "summary": "Inventory là một khoản bảo hiểm có chi phí. Mục tiêu không phải cắt tồn kho đồng loạt mà là giữ đúng lượng tồn kho cho mức dịch vụ cần thiết.",
+    "concepts": ["Cycle stock và safety stock", "Reorder point = demand trong lead time + safety stock", "Holding cost, ordering cost, stockout cost"],
+    "practice": "Lập bảng reorder point cho 5 SKU với demand/ngày, lead time và độ biến động khác nhau.",
+    "output": "Bảng reorder point",
+    "sourceIds": ["materials-management", "mpc", "sc-analytics-data", "quantitative-analysis"]
+  },
+  {
+    "week": 4,
+    "module": "Nền tảng supply chain",
+    "title": "KPI supply chain",
+    "objectives": ["Phân biệt KPI dịch vụ, chi phí và vốn", "Viết insight gắn với hành động"],
+    "summary": "KPI tốt giúp cả chuỗi cùng nhìn về một vấn đề. Đừng chỉ báo cáo số; hãy nối KPI với quyết định cần làm tiếp theo.",
+    "concepts": ["OTIF và fill rate", "Forecast accuracy và forecast bias", "Inventory turns và cash-to-cash cycle"],
+    "practice": "Tạo dashboard một trang và viết 5 insight, mỗi insight phải có bằng chứng và hành động đề xuất.",
+    "output": "Dashboard 1 trang",
+    "sourceIds": ["sc-analytics-concepts", "sc-analytics-data", "quantitative-analysis", "storytelling", "problem-solving", "systems"]
+  }
+]

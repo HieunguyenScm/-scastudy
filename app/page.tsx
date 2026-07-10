@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import curriculum from "../content/curriculum.json";
+import sources from "../content/sources.json";
 
 type Week = {
   id: number;
@@ -92,7 +94,11 @@ export default function Home() {
   const [completed, setCompleted] = useState<number[]>([]);
   const [activeTab, setActiveTab] = useState("Tổng quan");
   const selectedWeek = useMemo(() => weeks.find((week) => week.id === activeWeek) ?? weeks[0], [activeWeek]);
-  const selectedDetail = lessonDetails[selectedWeek.id];
+  const selectedCurriculum = curriculum.find((lesson) => lesson.week === selectedWeek.id);
+  const selectedDetail = selectedCurriculum ?? lessonDetails[selectedWeek.id];
+  const selectedSources = selectedCurriculum?.sourceIds
+    .map((sourceId) => sources.find((source) => source.id === sourceId))
+    .filter((source): source is (typeof sources)[number] => Boolean(source)) ?? [];
 
   const jumpTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -174,6 +180,7 @@ export default function Home() {
             </div>
             <div className="lesson-tags">{selectedDetail.concepts.slice(0, 3).map((concept) => <span key={concept}>{concept}</span>)}</div>
             <div className="lesson-footer"><button className="button dark" onClick={() => toggleCompleted(selectedWeek.id)}>{completed.includes(selectedWeek.id) ? "Đã hoàn thành ✓" : "Đánh dấu đã học"}</button><span className="lesson-source">Đọc chính · {selectedWeek.book}</span></div>
+            {selectedSources.length > 0 && <div className="source-map"><span className="lesson-subtitle">SOURCE MAP · {selectedSources.length} TÀI LIỆU</span><div>{selectedSources.map((source) => <span key={source.id} title={source.note}>{source.title}</span>)}</div></div>}
           </div>
         </article>
         <aside className="session-card">
