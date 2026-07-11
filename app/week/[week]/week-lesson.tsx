@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { Week } from "../../../lib/content";
+import type { SourceExcerpt, Week } from "../../../lib/content";
 import TutorAnswer, { type TutorPayload } from "../../tutor-answer";
 import SubmissionWorkspace from "./submission-workspace";
 import type { LearningAsset, LessonBlock } from "../../../lib/learning";
@@ -99,6 +99,7 @@ export default function WeekLesson({
   week,
   quiz,
   sourceMap,
+  sourceExcerpts,
   lessonBlocks,
   learningAssets,
   rubric,
@@ -106,6 +107,7 @@ export default function WeekLesson({
   week: Week;
   quiz: LessonQuiz | null;
   sourceMap: SourceItem[];
+  sourceExcerpts: SourceExcerpt[];
   lessonBlocks: LessonBlock[];
   learningAssets: LearningAsset[];
   rubric: Array<{ id: string; label: string; weight: number }>;
@@ -452,6 +454,11 @@ export default function WeekLesson({
           <section className="content-panel">
             <div className="panel-index">02</div>
             <div><p className="kicker">CORE CONCEPTS</p><h2>Khái niệm cần nắm</h2><div className="concept-grid">{week.concepts.map((concept, index) => <article key={concept}><span>{String(index + 1).padStart(2, "0")}</span><strong>{concept}</strong></article>)}</div><div className="english-summary"><span>ENGLISH SUMMARY</span><p>{week.summaryEn}</p></div></div>
+          </section>
+
+          <section className="content-panel reading-panel">
+            <div className="panel-index">03</div>
+            <div><p className="kicker">READ FROM YOUR UPLOADED PDFS</p><h2>Đọc trực tiếp từ tài liệu gốc</h2><p className="panel-intro">Các đoạn dưới đây được trích từ PDF đã upload, gắn với chương và trang để mày học có nguồn. Đọc phần này trước khi làm lab.</p><div className="source-reading-list">{sourceExcerpts.filter((item) => item.excerpt.trim()).slice(0, 4).map((item) => <article key={`${item.sourceId}-${item.chapter}`}><div className="source-reading-meta"><strong>{item.title}</strong><span>{item.chapter} · {item.pages}</span></div><p>{item.excerpt}</p><small>{item.note}</small></article>)}{!sourceExcerpts.some((item) => item.excerpt.trim()) ? <p className="empty-state">PDF này cần OCR để đọc tự động. Hãy dùng source map để mở đúng chương trong bản gốc.</p> : null}</div></div>
           </section>
 
           <section className="content-panel practice-panel">

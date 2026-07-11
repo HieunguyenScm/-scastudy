@@ -7,20 +7,109 @@
     "titleEn": "End-to-end Supply Chain",
     "hours": "4-6 giờ",
     "level": "Cơ bản",
-    "tools": ["Excel", "Miro"],
-    "objectives": ["Giải thích supply chain như một hệ thống end-to-end", "Vẽ được material, information và financial flow", "Nhận diện supplier, focal firm, channel và customer"],
+    "tools": [
+      "Excel",
+      "Miro"
+    ],
+    "objectives": [
+      "Giải thích supply chain như một hệ thống end-to-end",
+      "Vẽ được material, information và financial flow",
+      "Nhận diện supplier, focal firm, channel và customer"
+    ],
     "summary": "Supply chain không chỉ là vận chuyển hay mua hàng. Đó là mạng lưới các tổ chức và quy trình phối hợp để biến demand thành giá trị cho customer. Người làm Demand Planning phải nhìn cùng lúc dòng hàng, dòng thông tin và dòng tiền để tránh tối ưu một bộ phận nhưng làm toàn chuỗi kém đi.",
     "summaryEn": "A supply chain is a network that transforms customer demand into delivered value through coordinated material, information and financial flows.",
-    "concepts": ["Upstream / downstream", "Focal firm", "Material - information - financial flow", "Efficiency vs responsiveness"],
-    "practice": ["Chọn một sản phẩm FMCG và vẽ tối thiểu 7 node", "Gắn 3 dòng chảy vào từng mối liên kết", "Viết 5 rủi ro có thể làm đứt dòng chảy"],
+    "concepts": [
+      "Upstream / downstream",
+      "Focal firm",
+      "Material - information - financial flow",
+      "Efficiency vs responsiveness"
+    ],
+    "practice": [
+      "Chọn một sản phẩm FMCG và vẽ tối thiểu 7 node",
+      "Gắn 3 dòng chảy vào từng mối liên kết",
+      "Viết 5 rủi ro có thể làm đứt dòng chảy"
+    ],
     "deliverable": "Supply Chain map cho một sản phẩm FMCG",
     "portfolio": "01 sơ đồ end-to-end có chú thích và một trang giải thích",
     "sourceRefs": [
-      {"sourceId": "scm-dummies", "chapter": "Part 1, Chapter 1-2", "pages": "PDF tr. 21 trở đi", "note": "Khái niệm, ba dòng chảy và cách nhìn hệ thống"},
-      {"sourceId": "chopra", "chapter": "Chapter 1 - Understanding the Supply Chain", "pages": "Mục lục PDF tr. 9", "note": "Decision phases và process views"},
-      {"sourceId": "materials-management", "chapter": "Chapter 1 - Introduction to Materials Management", "pages": "tr. 13-25", "note": "Supply chain concept và materials management"},
-      {"sourceId": "sc-analytics-concepts", "chapter": "Chapter 1", "pages": "tr. 1-19", "note": "Structure, processes và flows"}
-    ]
+      {
+        "sourceId": "scm-dummies",
+        "chapter": "Part 1, Chapter 1-2",
+        "pages": "PDF tr. 21 trở đi",
+        "note": "Khái niệm, ba dòng chảy và cách nhìn hệ thống"
+      },
+      {
+        "sourceId": "chopra",
+        "chapter": "Chapter 1 - Understanding the Supply Chain",
+        "pages": "Mục lục PDF tr. 9",
+        "note": "Decision phases và process views"
+      },
+      {
+        "sourceId": "materials-management",
+        "chapter": "Chapter 1 - Introduction to Materials Management",
+        "pages": "tr. 13-25",
+        "note": "Supply chain concept và materials management"
+      },
+      {
+        "sourceId": "sc-analytics-concepts",
+        "chapter": "Chapter 1",
+        "pages": "tr. 1-19",
+        "note": "Structure, processes và flows"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Supply chain là mạng lưới các bên cùng nhau biến nhu cầu của khách hàng thành sản phẩm hoặc dịch vụ được giao đúng nơi, đúng lúc, đúng số lượng, với chi phí chấp nhận được — không chỉ là 'vận chuyển' hay 'kho'.",
+      "sections": [
+        {
+          "heading": "Các mắt xích trong một chuỗi cung ứng",
+          "body": "Một chuỗi cung ứng điển hình gồm: Supplier (bên cung cấp nguyên liệu, linh kiện, hàng hóa, dịch vụ), Manufacturer (bên sản xuất hoặc lắp ráp), Warehouse/Distribution Center (nơi lưu trữ và điều phối hàng), Transport/Logistics (bên di chuyển hàng), Retailer/Channel (nơi bán hàng hoặc giao tiếp với khách), và Customer (người tạo ra nhu cầu thật). Nếu bạn nhìn một chai nước trên kệ, supply chain nằm ở tất cả các câu hỏi: nguyên liệu đến từ đâu, ai sản xuất, sản xuất bao nhiêu, hàng nằm ở kho nào, khi nào cần giao đến cửa hàng, nếu Tết demand tăng gấp đôi thì ai quyết định tăng hàng, và nếu giao chậm thì công ty mất doanh thu hay mất lòng tin của khách."
+        },
+        {
+          "heading": "Ba dòng chảy: hàng hóa, tiền, thông tin",
+          "body": "Dòng hàng hóa đi từ nguồn cung đến khách hàng, ví dụ malt -> nhà máy bia -> kho miền Nam -> nhà phân phối -> cửa hàng -> người mua; câu hỏi cần hỏi là hàng đang ở đâu, có đủ không, có đúng chất lượng không, có đến kịp không. Dòng tiền thường đi ngược lại: khách trả tiền -> retailer -> distributor -> manufacturer -> supplier, nhưng thực tế có công nợ, chiết khấu, payment terms, rebate, chi phí vận chuyển và chi phí tồn kho xen vào; câu hỏi cần hỏi là quyết định này làm giảm chi phí, tăng doanh thu, hay chỉ đẩy vốn vào tồn kho. Dòng thông tin gồm demand forecast, đơn hàng, tồn kho, lead time, capacity, promotion plan, giá, complaint; dòng thông tin sai là một lý do lớn làm chuỗi cung ứng rối loạn, nên câu hỏi cần hỏi là ai biết nhu cầu thật, ai ra quyết định, và thông tin có đến đúng người đúng lúc không."
+        },
+        {
+          "heading": "Trade-off là bản chất của supply chain",
+          "body": "Trước Tết, nhu cầu bia tăng. Nếu công ty forecast thấp: nhà máy sản xuất không đủ, kho nhanh hết hàng, cửa hàng bị stockout, sales mất doanh thu, khách chuyển sang nhãn hiệu khác. Nếu công ty forecast quá cao: sản xuất dư thừa, kho đầy hàng sau Tết, vốn bị kẹt trong inventory, có thể phải giảm giá xả hàng. Giới supply chain là giới của trade-off — bạn hiếm khi có đáp án hoàn hảo, mà phải chọn phương án tốt nhất với dữ liệu và ràng buộc hiện có."
+        },
+        {
+          "heading": "Cách một analyst giỏi bắt đầu",
+          "body": "Một analyst giỏi không bắt đầu bằng công thức mà bắt đầu bằng bản đồ hệ thống, tự hỏi: Ai là customer? Nhu cầu là gì? Sản phẩm/dịch vụ đi qua những node nào? Mỗi node quyết định cái gì? KPI nào cho biết hệ thống đang tốt hay xấu? Nếu một node lỗi, hậu quả lan sang đâu? Trả lời được 6 câu hỏi này cho một sản phẩm cụ thể là nền tảng của mọi phân tích supply chain sau này."
+        }
+      ],
+      "workedExample": {
+        "title": "Ví dụ FMCG: Bia Tết",
+        "narrative": "Một hãng bia chuẩn bị cho mùa Tết, khi nhu cầu tiêu thụ thường tăng gấp 1.5-2 lần so với tháng thường. Bộ phận demand planning phải quyết định sản xuất và phân bổ hàng cho các kho miền Bắc, Trung, Nam trước Tết khoảng 6-8 tuần vì lead time sản xuất và vận chuyển không cho phép phản ứng tức thời khi nhu cầu thực tế xuất hiện.",
+        "steps": [
+          "Nếu forecast thấp hơn thực tế: nhà máy không sản xuất kịp, kho hết hàng trước Tết, cửa hàng stockout đúng lúc nhu cầu cao nhất, công ty mất doanh thu và có thể mất khách vào tay đối thủ.",
+          "Nếu forecast cao hơn thực tế: nhà máy sản xuất dư, kho đầy hàng tồn sau Tết, vốn bị kẹt trong inventory, công ty phải giảm giá xả hàng và chấp nhận biên lợi nhuận thấp hơn.",
+          "Vì vậy demand planner không chỉ cần một con số forecast, mà cần biết mức độ chắc chắn của con số đó để quyết định safety stock và kế hoạch dự phòng cho cả hai kịch bản."
+        ],
+        "takeaway": "Không có forecast nào đúng tuyệt đối; công việc của supply chain là làm cho hậu quả của một dự báo sai — dù cao hay thấp — có thể chấp nhận được về chi phí và về dịch vụ khách hàng."
+      },
+      "selfCheck": [
+        {
+          "question": "Supply chain khác logistics ở điểm nào?",
+          "answer": "Logistics thường tập trung vào lưu kho và vận chuyển; supply chain rộng hơn, gồm planning, mua hàng, sản xuất, tồn kho, phân phối, tài chính, và quan hệ giữa các bên."
+        },
+        {
+          "question": "Vì sao dòng thông tin có thể quan trọng ngang dòng hàng hóa?",
+          "answer": "Vì nếu thông tin demand, tồn kho, lead time sai, các bên sẽ đặt hàng, sản xuất hoặc giao hàng sai — dòng hàng hóa chỉ đúng khi dòng thông tin đứng sau nó đúng."
+        },
+        {
+          "question": "Nếu demand tăng đột biến, ai trong chuỗi cung ứng bị ảnh hưởng?",
+          "answer": "Customer, retailer, warehouse, manufacturer, supplier đều bị ảnh hưởng, nhưng theo thời gian và mức độ khác nhau — thường lan từ downstream lên upstream với độ trễ."
+        },
+        {
+          "question": "Tồn kho cao là tốt hay xấu?",
+          "answer": "Tùy tình huống. Tồn kho cao giúp service tốt hơn nhưng làm tăng chi phí và kẹt vốn; quyết định đúng phụ thuộc vào demand pattern, lead time và service target của từng SKU."
+        },
+        {
+          "question": "Một KPI tốt cần giúp ra quyết định nào?",
+          "answer": "KPI tốt phải nói cho người dùng biết cần làm gì tiếp theo: tăng hàng, giảm hàng, sửa forecast, đổi supplier, tăng capacity, hay đổi policy — không chỉ mô tả hiện trạng."
+        }
+      ]
+    }
   },
   {
     "week": 2,
@@ -30,20 +119,101 @@
     "titleEn": "Demand, supply, lead time and bullwhip",
     "hours": "4-6 giờ",
     "level": "Cơ bản",
-    "tools": ["Excel"],
-    "objectives": ["Phân biệt actual demand, order và forecast", "Giải thích lead time và variability", "Mô tả bullwhip effect bằng ví dụ FMCG"],
+    "tools": [
+      "Excel"
+    ],
+    "objectives": [
+      "Phân biệt actual demand, order và forecast",
+      "Giải thích lead time và variability",
+      "Mô tả bullwhip effect bằng ví dụ FMCG"
+    ],
     "summary": "Demand là nhu cầu thực tế, còn forecast là ước lượng. Khi lead time dài, batch ordering, khuyến mãi hoặc thiếu chia sẻ dữ liệu xuất hiện, biến động nhỏ ở retail có thể bị khuếch đại ngược lên supplier. Demand Planner cần đo cả sai số và bias, đồng thời hiểu nguyên nhân vận hành phía sau con số.",
     "summaryEn": "Small demand changes can amplify upstream when lead times, batching, promotions and poor information sharing distort the signal.",
-    "concepts": ["Actual demand vs order", "Lead time", "Variability", "Bullwhip effect", "Demand signal"],
-    "practice": ["Mô phỏng beer game đơn giản bằng Excel", "So sánh demand và order theo 12 tuần", "Viết 3 hành động giảm bullwhip"],
+    "concepts": [
+      "Actual demand vs order",
+      "Lead time",
+      "Variability",
+      "Bullwhip effect",
+      "Demand signal"
+    ],
+    "practice": [
+      "Mô phỏng beer game đơn giản bằng Excel",
+      "So sánh demand và order theo 12 tuần",
+      "Viết 3 hành động giảm bullwhip"
+    ],
     "deliverable": "Bullwhip explainer và biểu đồ demand-order",
     "portfolio": "01 infographic tiếng Việt có thuật ngữ English",
     "sourceRefs": [
-      {"sourceId": "materials-management", "chapter": "Chapter 8 - Forecasting and Demand Management", "pages": "tr. 202-222", "note": "Demand management và forecast tracking"},
-      {"sourceId": "mpc", "chapter": "Chapter 3 - Demand Management", "pages": "tr. 45-69", "note": "Demand trong MPC và CPFR"},
-      {"sourceId": "chopra", "chapter": "Chapter 10 - Coordination in a Supply Chain", "pages": "Theo mục lục", "note": "Coordination và bullwhip"},
-      {"sourceId": "ascm-dictionary", "chapter": "Các mục Demand, Lead Time, Bullwhip Effect", "pages": "Tra cứu alphabet", "note": "Chuẩn hóa thuật ngữ"}
-    ]
+      {
+        "sourceId": "materials-management",
+        "chapter": "Chapter 8 - Forecasting and Demand Management",
+        "pages": "tr. 202-222",
+        "note": "Demand management và forecast tracking"
+      },
+      {
+        "sourceId": "mpc",
+        "chapter": "Chapter 3 - Demand Management",
+        "pages": "tr. 45-69",
+        "note": "Demand trong MPC và CPFR"
+      },
+      {
+        "sourceId": "chopra",
+        "chapter": "Chapter 10 - Coordination in a Supply Chain",
+        "pages": "Theo mục lục",
+        "note": "Coordination và bullwhip"
+      },
+      {
+        "sourceId": "ascm-dictionary",
+        "chapter": "Các mục Demand, Lead Time, Bullwhip Effect",
+        "pages": "Tra cứu alphabet",
+        "note": "Chuẩn hóa thuật ngữ"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Demand là nhu cầu thực tế, còn forecast là ước lượng. Khi lead time dài, batch ordering, khuyến mãi hoặc thiếu chia sẻ dữ liệu xuất hiện, biến động nhỏ ở retail có thể bị khuếch đại ngược lên supplier. Demand Planner cần đo cả sai số và bias, đồng thời hiểu nguyên nhân vận hành phía sau con số. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Demand là nhu cầu thực tế, còn forecast là ước lượng. Khi lead time dài, batch ordering, khuyến mãi hoặc thiếu chia sẻ dữ liệu xuất hiện, biến động nhỏ ở retail có thể bị khuếch đại ngược lên supplier. Demand Planner cần đo cả sai số và bias, đồng thời hiểu nguyên nhân vận hành phía sau con số. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Nền tảng Supply Chain đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Actual demand vs order, Lead time, Variability, Bullwhip effect, Demand signal. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Bullwhip explainer và biểu đồ demand-order. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Demand, supply, lead time và bullwhip",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán demand, supply, lead time và bullwhip trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Demand, supply, lead time và bullwhip.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Mô phỏng beer game đơn giản bằng Excel."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 2 là gì?",
+          "answer": "Phân biệt actual demand, order và forecast"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Bullwhip explainer và biểu đồ demand-order và lựa chọn action cho bài toán Demand, supply, lead time và bullwhip trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 3,
@@ -53,19 +223,96 @@
     "titleEn": "Inventory fundamentals",
     "hours": "5-7 giờ",
     "level": "Cơ bản",
-    "tools": ["Excel"],
-    "objectives": ["Phân biệt cycle stock và safety stock", "Tính EOQ và reorder point cơ bản", "Giải thích trade-off service-cost-cash"],
+    "tools": [
+      "Excel"
+    ],
+    "objectives": [
+      "Phân biệt cycle stock và safety stock",
+      "Tính EOQ và reorder point cơ bản",
+      "Giải thích trade-off service-cost-cash"
+    ],
     "summary": "Inventory là bộ đệm chống bất định nhưng cũng khóa vốn và che giấu vấn đề. Mục tiêu không phải giảm mọi tồn kho, mà chọn đúng policy theo demand pattern, lead time, service target và chi phí. Một SKU quan trọng nhưng biến động cao cần cách quản trị khác SKU ổn định, giá trị thấp.",
     "summaryEn": "Inventory protects service under uncertainty but consumes cash; the right policy depends on demand, lead time, service target and cost.",
-    "concepts": ["Cycle stock", "Safety stock", "EOQ", "Reorder point", "Service level", "Inventory turns"],
-    "practice": ["Tính EOQ cho 5 SKU", "Tính reorder point theo average demand và lead time", "So sánh hai mức service target"],
+    "concepts": [
+      "Cycle stock",
+      "Safety stock",
+      "EOQ",
+      "Reorder point",
+      "Service level",
+      "Inventory turns"
+    ],
+    "practice": [
+      "Tính EOQ cho 5 SKU",
+      "Tính reorder point theo average demand và lead time",
+      "So sánh hai mức service target"
+    ],
     "deliverable": "Inventory policy calculator v1",
     "portfolio": "01 file Excel có assumptions, formulas và sensitivity",
     "sourceRefs": [
-      {"sourceId": "materials-management", "chapter": "Chapter 9-11", "pages": "tr. 233-290", "note": "Inventory, order quantity, safety stock và order point"},
-      {"sourceId": "quantitative-analysis", "chapter": "Chapter 6 - Inventory Control Models", "pages": "tr. 195-248", "note": "Mô hình inventory định lượng"},
-      {"sourceId": "sc-analytics-concepts", "chapter": "Chapter 7.2", "pages": "tr. 225-235", "note": "Inventory management methods"}
-    ]
+      {
+        "sourceId": "materials-management",
+        "chapter": "Chapter 9-11",
+        "pages": "tr. 233-290",
+        "note": "Inventory, order quantity, safety stock và order point"
+      },
+      {
+        "sourceId": "quantitative-analysis",
+        "chapter": "Chapter 6 - Inventory Control Models",
+        "pages": "tr. 195-248",
+        "note": "Mô hình inventory định lượng"
+      },
+      {
+        "sourceId": "sc-analytics-concepts",
+        "chapter": "Chapter 7.2",
+        "pages": "tr. 225-235",
+        "note": "Inventory management methods"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Inventory là bộ đệm chống bất định nhưng cũng khóa vốn và che giấu vấn đề. Mục tiêu không phải giảm mọi tồn kho, mà chọn đúng policy theo demand pattern, lead time, service target và chi phí. Một SKU quan trọng nhưng biến động cao cần cách quản trị khác SKU ổn định, giá trị thấp. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Inventory là bộ đệm chống bất định nhưng cũng khóa vốn và che giấu vấn đề. Mục tiêu không phải giảm mọi tồn kho, mà chọn đúng policy theo demand pattern, lead time, service target và chi phí. Một SKU quan trọng nhưng biến động cao cần cách quản trị khác SKU ổn định, giá trị thấp. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Nền tảng Supply Chain đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Cycle stock, Safety stock, EOQ, Reorder point, Service level, Inventory turns. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Inventory policy calculator v1. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Inventory fundamentals",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán inventory fundamentals trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Inventory fundamentals.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Tính EOQ cho 5 SKU."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 3 là gì?",
+          "answer": "Phân biệt cycle stock và safety stock"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Inventory policy calculator v1 và lựa chọn action cho bài toán Inventory fundamentals trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 4,
@@ -75,20 +322,103 @@
     "titleEn": "Supply Chain KPIs and operating language",
     "hours": "4-6 giờ",
     "level": "Cơ bản",
-    "tools": ["Excel", "Power BI"],
-    "objectives": ["Tính OTIF, fill rate, inventory turns và cash-to-cash", "Phân biệt metric dẫn dắt và kết quả", "Viết insight gắn với quyết định"],
+    "tools": [
+      "Excel",
+      "Power BI"
+    ],
+    "objectives": [
+      "Tính OTIF, fill rate, inventory turns và cash-to-cash",
+      "Phân biệt metric dẫn dắt và kết quả",
+      "Viết insight gắn với quyết định"
+    ],
     "summary": "KPI chỉ hữu ích khi nó nối được mục tiêu kinh doanh với hành động. OTIF phản ánh lời hứa giao hàng, fill rate phản ánh khả năng đáp ứng ngay, inventory turns phản ánh hiệu quả vốn. Dashboard tốt phải nói rõ vấn đề, nguyên nhân khả dĩ và quyết định tiếp theo.",
     "summaryEn": "Useful KPIs connect business outcomes to decisions, balancing service, cost and working capital.",
-    "concepts": ["OTIF", "Fill rate", "Forecast accuracy", "Forecast bias", "Inventory turns", "Cash-to-cash"],
-    "practice": ["Tạo KPI dictionary", "Tính 6 KPI từ bộ dữ liệu mẫu", "Viết 5 insight theo cấu trúc evidence-impact-action"],
+    "concepts": [
+      "OTIF",
+      "Fill rate",
+      "Forecast accuracy",
+      "Forecast bias",
+      "Inventory turns",
+      "Cash-to-cash"
+    ],
+    "practice": [
+      "Tạo KPI dictionary",
+      "Tính 6 KPI từ bộ dữ liệu mẫu",
+      "Viết 5 insight theo cấu trúc evidence-impact-action"
+    ],
     "deliverable": "Executive KPI dashboard v1",
     "portfolio": "01 dashboard và 01 memo insight",
     "sourceRefs": [
-      {"sourceId": "chopra", "chapter": "Chapter 3 - Supply Chain Drivers and Metrics", "pages": "Theo mục lục", "note": "Drivers, metrics và financial measures"},
-      {"sourceId": "mpc", "chapter": "Chapter 2 - ERP", "pages": "tr. 27-32", "note": "Integrated metrics và cash-to-cash"},
-      {"sourceId": "sc-analytics-data", "chapter": "Chapter 3", "pages": "tr. 52-73", "note": "Problem statements, measures và presenting results"},
-      {"sourceId": "ascm-dictionary", "chapter": "Các mục KPI liên quan", "pages": "Tra cứu alphabet", "note": "Định nghĩa chuẩn ASCM"}
-    ]
+      {
+        "sourceId": "chopra",
+        "chapter": "Chapter 3 - Supply Chain Drivers and Metrics",
+        "pages": "Theo mục lục",
+        "note": "Drivers, metrics và financial measures"
+      },
+      {
+        "sourceId": "mpc",
+        "chapter": "Chapter 2 - ERP",
+        "pages": "tr. 27-32",
+        "note": "Integrated metrics và cash-to-cash"
+      },
+      {
+        "sourceId": "sc-analytics-data",
+        "chapter": "Chapter 3",
+        "pages": "tr. 52-73",
+        "note": "Problem statements, measures và presenting results"
+      },
+      {
+        "sourceId": "ascm-dictionary",
+        "chapter": "Các mục KPI liên quan",
+        "pages": "Tra cứu alphabet",
+        "note": "Định nghĩa chuẩn ASCM"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "KPI chỉ hữu ích khi nó nối được mục tiêu kinh doanh với hành động. OTIF phản ánh lời hứa giao hàng, fill rate phản ánh khả năng đáp ứng ngay, inventory turns phản ánh hiệu quả vốn. Dashboard tốt phải nói rõ vấn đề, nguyên nhân khả dĩ và quyết định tiếp theo. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "KPI chỉ hữu ích khi nó nối được mục tiêu kinh doanh với hành động. OTIF phản ánh lời hứa giao hàng, fill rate phản ánh khả năng đáp ứng ngay, inventory turns phản ánh hiệu quả vốn. Dashboard tốt phải nói rõ vấn đề, nguyên nhân khả dĩ và quyết định tiếp theo. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Nền tảng Supply Chain đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào OTIF, Fill rate, Forecast accuracy, Forecast bias, Inventory turns, Cash-to-cash. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Executive KPI dashboard v1. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: KPI và ngôn ngữ vận hành",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán kpi và ngôn ngữ vận hành trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: KPI và ngôn ngữ vận hành.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Tạo KPI dictionary."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 4 là gì?",
+          "answer": "Tính OTIF, fill rate, inventory turns và cash-to-cash"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Executive KPI dashboard v1 và lựa chọn action cho bài toán KPI và ngôn ngữ vận hành trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 5,
@@ -98,18 +428,91 @@
     "titleEn": "Data cleaning and data modelling",
     "hours": "5-7 giờ",
     "level": "Cơ bản+",
-    "tools": ["Excel", "Power Query", "Power BI"],
-    "objectives": ["Xác định grain và data dictionary", "Làm sạch missing, duplicate và outlier", "Thiết kế star schema đơn giản"],
+    "tools": [
+      "Excel",
+      "Power Query",
+      "Power BI"
+    ],
+    "objectives": [
+      "Xác định grain và data dictionary",
+      "Làm sạch missing, duplicate và outlier",
+      "Thiết kế star schema đơn giản"
+    ],
     "summary": "Phân tích supply chain thường thất bại trước khi tới mô hình vì dữ liệu không cùng grain, sai key hoặc thiếu định nghĩa. Tuần này xây pipeline load-clean-validate để mọi KPI và forecast phía sau có thể lặp lại và kiểm tra được.",
     "summaryEn": "Reliable analytics starts with clear grain, keys, definitions and a repeatable data-quality pipeline.",
-    "concepts": ["Data grain", "Primary key", "Data dictionary", "Data quality", "Star schema"],
-    "practice": ["Làm sạch order history", "Tạo bảng date, product, customer", "Viết 10 data quality checks"],
+    "concepts": [
+      "Data grain",
+      "Primary key",
+      "Data dictionary",
+      "Data quality",
+      "Star schema"
+    ],
+    "practice": [
+      "Làm sạch order history",
+      "Tạo bảng date, product, customer",
+      "Viết 10 data quality checks"
+    ],
     "deliverable": "Clean dataset và data dictionary",
     "portfolio": "01 Power Query pipeline có audit sheet",
     "sourceRefs": [
-      {"sourceId": "sc-analytics-concepts", "chapter": "Chapter 3 - Data Manipulation", "pages": "tr. 45-82", "note": "Loading, merging, cleaning và aggregation"},
-      {"sourceId": "sc-analytics-data", "chapter": "Chapter 3", "pages": "tr. 52-73", "note": "Data collection, pre-processing và analysis"}
-    ]
+      {
+        "sourceId": "sc-analytics-concepts",
+        "chapter": "Chapter 3 - Data Manipulation",
+        "pages": "tr. 45-82",
+        "note": "Loading, merging, cleaning và aggregation"
+      },
+      {
+        "sourceId": "sc-analytics-data",
+        "chapter": "Chapter 3",
+        "pages": "tr. 52-73",
+        "note": "Data collection, pre-processing và analysis"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Phân tích supply chain thường thất bại trước khi tới mô hình vì dữ liệu không cùng grain, sai key hoặc thiếu định nghĩa. Tuần này xây pipeline load-clean-validate để mọi KPI và forecast phía sau có thể lặp lại và kiểm tra được. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Phân tích supply chain thường thất bại trước khi tới mô hình vì dữ liệu không cùng grain, sai key hoặc thiếu định nghĩa. Tuần này xây pipeline load-clean-validate để mọi KPI và forecast phía sau có thể lặp lại và kiểm tra được. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Data & BI đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Data grain, Primary key, Data dictionary, Data quality, Star schema. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Clean dataset và data dictionary. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Data cleaning và data model",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán data cleaning và data model trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Data cleaning và data model.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Làm sạch order history."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 5 là gì?",
+          "answer": "Xác định grain và data dictionary"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Clean dataset và data dictionary và lựa chọn action cho bài toán Data cleaning và data model trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 6,
@@ -119,18 +522,91 @@
     "titleEn": "SQL for Supply Chain Analysts",
     "hours": "6-8 giờ",
     "level": "Cơ bản+",
-    "tools": ["SQL", "SQLite"],
-    "objectives": ["Query order, shipment và inventory tables", "Dùng JOIN, GROUP BY và window functions", "Kiểm soát grain sau mỗi JOIN"],
+    "tools": [
+      "SQL",
+      "SQLite"
+    ],
+    "objectives": [
+      "Query order, shipment và inventory tables",
+      "Dùng JOIN, GROUP BY và window functions",
+      "Kiểm soát grain sau mỗi JOIN"
+    ],
     "summary": "SQL là cách biến câu hỏi kinh doanh thành truy vấn có thể kiểm tra. Trọng tâm không phải thuộc cú pháp, mà là hiểu grain, quan hệ giữa bảng và cách một JOIN sai có thể nhân bản doanh thu hoặc tồn kho.",
     "summaryEn": "SQL turns business questions into auditable queries; grain and join logic matter more than memorizing syntax.",
-    "concepts": ["SELECT / WHERE", "JOIN", "GROUP BY", "CASE WHEN", "CTE", "Window function"],
-    "practice": ["Viết 20 query", "Tạo view OTIF và fill rate", "Phát hiện một lỗi double-counting"],
+    "concepts": [
+      "SELECT / WHERE",
+      "JOIN",
+      "GROUP BY",
+      "CASE WHEN",
+      "CTE",
+      "Window function"
+    ],
+    "practice": [
+      "Viết 20 query",
+      "Tạo view OTIF và fill rate",
+      "Phát hiện một lỗi double-counting"
+    ],
     "deliverable": "SQL query pack cho 10 câu hỏi business",
     "portfolio": "01 repository SQL có README và output mẫu",
     "sourceRefs": [
-      {"sourceId": "sc-analytics-concepts", "chapter": "Chapter 3 - Data Manipulation", "pages": "tr. 45-82", "note": "Khung thao tác dữ liệu để chuyển sang SQL"},
-      {"sourceId": "quantitative-analysis", "chapter": "Chapter 1", "pages": "tr. 1-19", "note": "Problem-model-data-solution cycle"}
-    ]
+      {
+        "sourceId": "sc-analytics-concepts",
+        "chapter": "Chapter 3 - Data Manipulation",
+        "pages": "tr. 45-82",
+        "note": "Khung thao tác dữ liệu để chuyển sang SQL"
+      },
+      {
+        "sourceId": "quantitative-analysis",
+        "chapter": "Chapter 1",
+        "pages": "tr. 1-19",
+        "note": "Problem-model-data-solution cycle"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "SQL là cách biến câu hỏi kinh doanh thành truy vấn có thể kiểm tra. Trọng tâm không phải thuộc cú pháp, mà là hiểu grain, quan hệ giữa bảng và cách một JOIN sai có thể nhân bản doanh thu hoặc tồn kho. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "SQL là cách biến câu hỏi kinh doanh thành truy vấn có thể kiểm tra. Trọng tâm không phải thuộc cú pháp, mà là hiểu grain, quan hệ giữa bảng và cách một JOIN sai có thể nhân bản doanh thu hoặc tồn kho. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Data & BI đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào SELECT / WHERE, JOIN, GROUP BY, CASE WHEN, CTE, Window function. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable SQL query pack cho 10 câu hỏi business. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: SQL cho Supply Chain Analyst",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán sql cho supply chain analyst trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: SQL cho Supply Chain Analyst.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Viết 20 query."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 6 là gì?",
+          "answer": "Query order, shipment và inventory tables"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện SQL query pack cho 10 câu hỏi business và lựa chọn action cho bài toán SQL cho Supply Chain Analyst trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 7,
@@ -140,18 +616,92 @@
     "titleEn": "Python and pandas pipeline",
     "hours": "6-8 giờ",
     "level": "Cơ bản+",
-    "tools": ["Python", "pandas", "Jupyter"],
-    "objectives": ["Đọc, merge và aggregate dữ liệu bằng pandas", "Tạo pipeline có thể chạy lại", "Viết notebook cho người không biết code"],
+    "tools": [
+      "Python",
+      "pandas",
+      "Jupyter"
+    ],
+    "objectives": [
+      "Đọc, merge và aggregate dữ liệu bằng pandas",
+      "Tạo pipeline có thể chạy lại",
+      "Viết notebook cho người không biết code"
+    ],
     "summary": "Python giúp tự động hóa công việc lặp lại và mở đường cho forecasting, optimization, simulation. Pipeline tốt phải tách input, cleaning, validation, analysis và output; mọi bước cần rõ assumption và có thể chạy lại.",
     "summaryEn": "A reproducible pandas pipeline separates loading, cleaning, validation, analysis and outputs.",
-    "concepts": ["DataFrame", "groupby", "merge", "pivot", "datetime", "reproducibility"],
-    "practice": ["Chuyển pipeline Excel sang pandas", "Tạo 5 summary tables", "Xuất dataset sạch cho Power BI"],
+    "concepts": [
+      "DataFrame",
+      "groupby",
+      "merge",
+      "pivot",
+      "datetime",
+      "reproducibility"
+    ],
+    "practice": [
+      "Chuyển pipeline Excel sang pandas",
+      "Tạo 5 summary tables",
+      "Xuất dataset sạch cho Power BI"
+    ],
     "deliverable": "Notebook phân tích order-to-delivery",
     "portfolio": "01 notebook có narrative, charts và kết luận",
     "sourceRefs": [
-      {"sourceId": "sc-analytics-concepts", "chapter": "Chapter 2-4", "pages": "tr. 21-112", "note": "Python, data manipulation và visualization"},
-      {"sourceId": "sc-analytics-data", "chapter": "Chapter 3", "pages": "tr. 52-73", "note": "Analytics lifecycle và presenting results"}
-    ]
+      {
+        "sourceId": "sc-analytics-concepts",
+        "chapter": "Chapter 2-4",
+        "pages": "tr. 21-112",
+        "note": "Python, data manipulation và visualization"
+      },
+      {
+        "sourceId": "sc-analytics-data",
+        "chapter": "Chapter 3",
+        "pages": "tr. 52-73",
+        "note": "Analytics lifecycle và presenting results"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Python giúp tự động hóa công việc lặp lại và mở đường cho forecasting, optimization, simulation. Pipeline tốt phải tách input, cleaning, validation, analysis và output; mọi bước cần rõ assumption và có thể chạy lại. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Python giúp tự động hóa công việc lặp lại và mở đường cho forecasting, optimization, simulation. Pipeline tốt phải tách input, cleaning, validation, analysis và output; mọi bước cần rõ assumption và có thể chạy lại. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Data & BI đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào DataFrame, groupby, merge, pivot, datetime, reproducibility. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Notebook phân tích order-to-delivery. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Python và pandas pipeline",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán python và pandas pipeline trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Python và pandas pipeline.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Chuyển pipeline Excel sang pandas."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 7 là gì?",
+          "answer": "Đọc, merge và aggregate dữ liệu bằng pandas"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Notebook phân tích order-to-delivery và lựa chọn action cho bài toán Python và pandas pipeline trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 8,
@@ -161,18 +711,91 @@
     "titleEn": "Power BI and storytelling with data",
     "hours": "6-8 giờ",
     "level": "Trung cấp",
-    "tools": ["Power BI", "DAX"],
-    "objectives": ["Chọn visual theo câu hỏi", "Thiết kế visual hierarchy", "Kể một story từ situation tới action"],
+    "tools": [
+      "Power BI",
+      "DAX"
+    ],
+    "objectives": [
+      "Chọn visual theo câu hỏi",
+      "Thiết kế visual hierarchy",
+      "Kể một story từ situation tới action"
+    ],
     "summary": "Dashboard không phải bộ sưu tập biểu đồ. Nó là giao diện ra quyết định: audience cần biết điều gì, bằng chứng nào quan trọng và hành động nào nên xảy ra. Loại bỏ clutter, dùng màu có chủ đích và đặt tiêu đề như một kết luận.",
     "summaryEn": "A dashboard is a decision interface: lead the audience from context and evidence to a clear action.",
-    "concepts": ["Audience", "Big idea", "Chart choice", "Clutter", "Visual hierarchy", "Story arc"],
-    "practice": ["Redesign dashboard tuần 4", "Viết action title cho mọi chart", "Thực hiện before-after review"],
+    "concepts": [
+      "Audience",
+      "Big idea",
+      "Chart choice",
+      "Clutter",
+      "Visual hierarchy",
+      "Story arc"
+    ],
+    "practice": [
+      "Redesign dashboard tuần 4",
+      "Viết action title cho mọi chart",
+      "Thực hiện before-after review"
+    ],
     "deliverable": "Executive dashboard v2 và one-page memo",
     "portfolio": "01 case study before-after",
     "sourceRefs": [
-      {"sourceId": "storytelling", "chapter": "Chapter 1-8", "pages": "tr. 19-206", "note": "Context, visual, attention, design và storytelling"},
-      {"sourceId": "storytelling-practice", "chapter": "Chapter 1-6", "pages": "tr. 1-284", "note": "Bài tập thực hành có hướng dẫn"}
-    ]
+      {
+        "sourceId": "storytelling",
+        "chapter": "Chapter 1-8",
+        "pages": "tr. 19-206",
+        "note": "Context, visual, attention, design và storytelling"
+      },
+      {
+        "sourceId": "storytelling-practice",
+        "chapter": "Chapter 1-6",
+        "pages": "tr. 1-284",
+        "note": "Bài tập thực hành có hướng dẫn"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Dashboard không phải bộ sưu tập biểu đồ. Nó là giao diện ra quyết định: audience cần biết điều gì, bằng chứng nào quan trọng và hành động nào nên xảy ra. Loại bỏ clutter, dùng màu có chủ đích và đặt tiêu đề như một kết luận. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Dashboard không phải bộ sưu tập biểu đồ. Nó là giao diện ra quyết định: audience cần biết điều gì, bằng chứng nào quan trọng và hành động nào nên xảy ra. Loại bỏ clutter, dùng màu có chủ đích và đặt tiêu đề như một kết luận. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Data & BI đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Audience, Big idea, Chart choice, Clutter, Visual hierarchy, Story arc. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Executive dashboard v2 và one-page memo. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Power BI và storytelling with data",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán power bi và storytelling with data trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Power BI và storytelling with data.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Redesign dashboard tuần 4."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 8 là gì?",
+          "answer": "Chọn visual theo câu hỏi"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Executive dashboard v2 và one-page memo và lựa chọn action cho bài toán Power BI và storytelling with data trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 9,
@@ -182,19 +805,96 @@
     "titleEn": "Forecasting mindset and baselines",
     "hours": "5-7 giờ",
     "level": "Trung cấp",
-    "tools": ["Excel", "Python"],
-    "objectives": ["Tách signal và noise", "Tạo naive và moving-average baseline", "Chọn forecast horizon phù hợp"],
+    "tools": [
+      "Excel",
+      "Python"
+    ],
+    "objectives": [
+      "Tách signal và noise",
+      "Tạo naive và moving-average baseline",
+      "Chọn forecast horizon phù hợp"
+    ],
     "summary": "Forecast là một ước lượng có sai số, không phải lời hứa chắc chắn. Baseline đơn giản tạo chuẩn so sánh để biết mô hình phức tạp có thực sự tăng giá trị. Forecast phải gắn với horizon, aggregation level và quyết định cần hỗ trợ.",
     "summaryEn": "Forecasts are uncertain estimates; simple baselines reveal whether more complex methods add business value.",
-    "concepts": ["Forecast horizon", "Naive forecast", "Moving average", "Signal vs noise", "Aggregation"],
-    "practice": ["Tạo 3 baseline", "So sánh theo SKU và category", "Viết model selection note"],
+    "concepts": [
+      "Forecast horizon",
+      "Naive forecast",
+      "Moving average",
+      "Signal vs noise",
+      "Aggregation"
+    ],
+    "practice": [
+      "Tạo 3 baseline",
+      "So sánh theo SKU và category",
+      "Viết model selection note"
+    ],
     "deliverable": "Baseline forecast workbook",
     "portfolio": "01 forecast evaluation note",
     "sourceRefs": [
-      {"sourceId": "materials-management", "chapter": "Chapter 8", "pages": "tr. 202-222", "note": "Principles và intrinsic techniques"},
-      {"sourceId": "mpc", "chapter": "Chapter 4 - Forecasting", "pages": "tr. 75-104", "note": "Forecast information, moving average và evaluation"},
-      {"sourceId": "chopra", "chapter": "Chapter 7 - Demand Forecasting", "pages": "Theo mục lục", "note": "Forecast components, methods và Excel"}
-    ]
+      {
+        "sourceId": "materials-management",
+        "chapter": "Chapter 8",
+        "pages": "tr. 202-222",
+        "note": "Principles và intrinsic techniques"
+      },
+      {
+        "sourceId": "mpc",
+        "chapter": "Chapter 4 - Forecasting",
+        "pages": "tr. 75-104",
+        "note": "Forecast information, moving average và evaluation"
+      },
+      {
+        "sourceId": "chopra",
+        "chapter": "Chapter 7 - Demand Forecasting",
+        "pages": "Theo mục lục",
+        "note": "Forecast components, methods và Excel"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Forecast là một ước lượng có sai số, không phải lời hứa chắc chắn. Baseline đơn giản tạo chuẩn so sánh để biết mô hình phức tạp có thực sự tăng giá trị. Forecast phải gắn với horizon, aggregation level và quyết định cần hỗ trợ. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Forecast là một ước lượng có sai số, không phải lời hứa chắc chắn. Baseline đơn giản tạo chuẩn so sánh để biết mô hình phức tạp có thực sự tăng giá trị. Forecast phải gắn với horizon, aggregation level và quyết định cần hỗ trợ. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Demand Planning & Forecasting đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Forecast horizon, Naive forecast, Moving average, Signal vs noise, Aggregation. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Baseline forecast workbook. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Forecasting mindset và baseline",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán forecasting mindset và baseline trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Forecasting mindset và baseline.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Tạo 3 baseline."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 9 là gì?",
+          "answer": "Tách signal và noise"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Baseline forecast workbook và lựa chọn action cho bài toán Forecasting mindset và baseline trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 10,
@@ -204,19 +904,98 @@
     "titleEn": "Time series and forecast accuracy",
     "hours": "6-8 giờ",
     "level": "Trung cấp",
-    "tools": ["Excel", "Python"],
-    "objectives": ["Nhận diện trend và seasonality", "Tính MAE, RMSE, MAPE và WAPE", "Đo forecast bias"],
+    "tools": [
+      "Excel",
+      "Python"
+    ],
+    "objectives": [
+      "Nhận diện trend và seasonality",
+      "Tính MAE, RMSE, MAPE và WAPE",
+      "Đo forecast bias"
+    ],
     "summary": "Sai số phải được đánh giá theo thời gian và theo mức độ quan trọng của SKU. MAPE dễ hiểu nhưng có vấn đề khi actual gần zero; WAPE phù hợp để nhìn aggregate; bias cho biết mô hình liên tục over-forecast hay under-forecast.",
     "summaryEn": "Accuracy metrics must match the business context; bias reveals systematic over- or under-forecasting.",
-    "concepts": ["Trend", "Seasonality", "Train-test split", "MAE", "MAPE", "WAPE", "Bias"],
-    "practice": ["Tạo time-based holdout", "Tính 5 metrics", "Làm error decomposition theo ABC"],
+    "concepts": [
+      "Trend",
+      "Seasonality",
+      "Train-test split",
+      "MAE",
+      "MAPE",
+      "WAPE",
+      "Bias"
+    ],
+    "practice": [
+      "Tạo time-based holdout",
+      "Tính 5 metrics",
+      "Làm error decomposition theo ABC"
+    ],
     "deliverable": "Forecast accuracy dashboard",
     "portfolio": "01 notebook metric comparison",
     "sourceRefs": [
-      {"sourceId": "quantitative-analysis", "chapter": "Chapter 5 - Forecasting", "pages": "tr. 153-194", "note": "Forecasting models và error measures"},
-      {"sourceId": "mpc", "chapter": "Chapter 4", "pages": "tr. 79-99", "note": "Decomposition, smoothing và evaluation"},
-      {"sourceId": "sc-analytics-concepts", "chapter": "Chapter 8.2-8.3", "pages": "tr. 273-301", "note": "Demand forecasting và time series"}
-    ]
+      {
+        "sourceId": "quantitative-analysis",
+        "chapter": "Chapter 5 - Forecasting",
+        "pages": "tr. 153-194",
+        "note": "Forecasting models và error measures"
+      },
+      {
+        "sourceId": "mpc",
+        "chapter": "Chapter 4",
+        "pages": "tr. 79-99",
+        "note": "Decomposition, smoothing và evaluation"
+      },
+      {
+        "sourceId": "sc-analytics-concepts",
+        "chapter": "Chapter 8.2-8.3",
+        "pages": "tr. 273-301",
+        "note": "Demand forecasting và time series"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Sai số phải được đánh giá theo thời gian và theo mức độ quan trọng của SKU. MAPE dễ hiểu nhưng có vấn đề khi actual gần zero; WAPE phù hợp để nhìn aggregate; bias cho biết mô hình liên tục over-forecast hay under-forecast. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Sai số phải được đánh giá theo thời gian và theo mức độ quan trọng của SKU. MAPE dễ hiểu nhưng có vấn đề khi actual gần zero; WAPE phù hợp để nhìn aggregate; bias cho biết mô hình liên tục over-forecast hay under-forecast. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Demand Planning & Forecasting đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Trend, Seasonality, Train-test split, MAE, MAPE, WAPE, Bias. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Forecast accuracy dashboard. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Time series và forecast accuracy",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán time series và forecast accuracy trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Time series và forecast accuracy.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Tạo time-based holdout."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 10 là gì?",
+          "answer": "Nhận diện trend và seasonality"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Forecast accuracy dashboard và lựa chọn action cho bài toán Time series và forecast accuracy trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 11,
@@ -226,18 +1005,91 @@
     "titleEn": "Multi-SKU forecasting with Python",
     "hours": "7-9 giờ",
     "level": "Trung cấp",
-    "tools": ["Python", "pandas", "scikit-learn"],
-    "objectives": ["Xây pipeline forecast theo SKU", "Backtest theo rolling window", "Quản trị exception thay vì xem mọi SKU"],
+    "tools": [
+      "Python",
+      "pandas",
+      "scikit-learn"
+    ],
+    "objectives": [
+      "Xây pipeline forecast theo SKU",
+      "Backtest theo rolling window",
+      "Quản trị exception thay vì xem mọi SKU"
+    ],
     "summary": "Forecasting ở quy mô nhiều SKU đòi hỏi pipeline, không phải một model đơn lẻ. Quy trình cần baseline, backtest, ranking error và exception list. Chỉ những SKU có impact lớn hoặc pattern bất thường mới cần human review sâu.",
     "summaryEn": "Multi-SKU forecasting is a pipeline of baselines, backtests, error ranking and exception management.",
-    "concepts": ["Rolling backtest", "Feature engineering", "Model per segment", "Exception management", "Reproducible pipeline"],
-    "practice": ["Forecast ít nhất 30 SKU", "Tạo ranking theo WAPE và bias", "Chọn top exceptions"],
+    "concepts": [
+      "Rolling backtest",
+      "Feature engineering",
+      "Model per segment",
+      "Exception management",
+      "Reproducible pipeline"
+    ],
+    "practice": [
+      "Forecast ít nhất 30 SKU",
+      "Tạo ranking theo WAPE và bias",
+      "Chọn top exceptions"
+    ],
     "deliverable": "Multi-SKU forecasting notebook",
     "portfolio": "01 model card và exception dashboard",
     "sourceRefs": [
-      {"sourceId": "sc-analytics-concepts", "chapter": "Chapter 8.3-8.4", "pages": "tr. 275-318", "note": "Time series và machine learning methods"},
-      {"sourceId": "sc-analytics-data", "chapter": "Chapter 6.3", "pages": "tr. 153-173", "note": "Forecasting applied to order fulfilment"}
-    ]
+      {
+        "sourceId": "sc-analytics-concepts",
+        "chapter": "Chapter 8.3-8.4",
+        "pages": "tr. 275-318",
+        "note": "Time series và machine learning methods"
+      },
+      {
+        "sourceId": "sc-analytics-data",
+        "chapter": "Chapter 6.3",
+        "pages": "tr. 153-173",
+        "note": "Forecasting applied to order fulfilment"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Forecasting ở quy mô nhiều SKU đòi hỏi pipeline, không phải một model đơn lẻ. Quy trình cần baseline, backtest, ranking error và exception list. Chỉ những SKU có impact lớn hoặc pattern bất thường mới cần human review sâu. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Forecasting ở quy mô nhiều SKU đòi hỏi pipeline, không phải một model đơn lẻ. Quy trình cần baseline, backtest, ranking error và exception list. Chỉ những SKU có impact lớn hoặc pattern bất thường mới cần human review sâu. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Demand Planning & Forecasting đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Rolling backtest, Feature engineering, Model per segment, Exception management, Reproducible pipeline. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Multi-SKU forecasting notebook. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Forecasting multi-SKU bằng Python",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán forecasting multi-sku bằng python trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Forecasting multi-SKU bằng Python.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Forecast ít nhất 30 SKU."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 11 là gì?",
+          "answer": "Xây pipeline forecast theo SKU"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Multi-SKU forecasting notebook và lựa chọn action cho bài toán Forecasting multi-SKU bằng Python trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 12,
@@ -247,19 +1099,96 @@
     "titleEn": "Demand Planning process and consensus",
     "hours": "5-7 giờ",
     "level": "Trung cấp",
-    "tools": ["Excel", "Power BI"],
-    "objectives": ["Thiết kế monthly demand review", "Quản trị override và FVA", "Kết nối forecast với supply constraints"],
+    "tools": [
+      "Excel",
+      "Power BI"
+    ],
+    "objectives": [
+      "Thiết kế monthly demand review",
+      "Quản trị override và FVA",
+      "Kết nối forecast với supply constraints"
+    ],
     "summary": "Demand Planning là quy trình phối hợp giữa statistical forecast, market intelligence và business decisions. Mọi override phải có owner, reason code và đo Forecast Value Added. Consensus không có nghĩa là lấy trung bình ý kiến; đó là quyết định có trách nhiệm và traceability.",
     "summaryEn": "Demand Planning combines statistical forecasts with market intelligence, controlled overrides and accountable consensus.",
-    "concepts": ["Consensus forecast", "Override", "Forecast Value Added", "Demand review", "Exception review"],
-    "practice": ["Thiết kế demand review agenda", "Tạo override log", "Đo FVA theo stakeholder"],
+    "concepts": [
+      "Consensus forecast",
+      "Override",
+      "Forecast Value Added",
+      "Demand review",
+      "Exception review"
+    ],
+    "practice": [
+      "Thiết kế demand review agenda",
+      "Tạo override log",
+      "Đo FVA theo stakeholder"
+    ],
     "deliverable": "Monthly demand review pack",
     "portfolio": "01 mock demand review cho FMCG",
     "sourceRefs": [
-      {"sourceId": "mpc", "chapter": "Chapter 3-5", "pages": "tr. 45-143", "note": "Demand management, forecasting và S&OP"},
-      {"sourceId": "materials-management", "chapter": "Chapter 8", "pages": "tr. 202-222", "note": "Demand management và tracking"},
-      {"sourceId": "advanced-planning", "chapter": "Chapter 4-5", "pages": "tr. 81-108 trở đi", "note": "Planning tasks và APS structure"}
-    ]
+      {
+        "sourceId": "mpc",
+        "chapter": "Chapter 3-5",
+        "pages": "tr. 45-143",
+        "note": "Demand management, forecasting và S&OP"
+      },
+      {
+        "sourceId": "materials-management",
+        "chapter": "Chapter 8",
+        "pages": "tr. 202-222",
+        "note": "Demand management và tracking"
+      },
+      {
+        "sourceId": "advanced-planning",
+        "chapter": "Chapter 4-5",
+        "pages": "tr. 81-108 trở đi",
+        "note": "Planning tasks và APS structure"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Demand Planning là quy trình phối hợp giữa statistical forecast, market intelligence và business decisions. Mọi override phải có owner, reason code và đo Forecast Value Added. Consensus không có nghĩa là lấy trung bình ý kiến; đó là quyết định có trách nhiệm và traceability. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Demand Planning là quy trình phối hợp giữa statistical forecast, market intelligence và business decisions. Mọi override phải có owner, reason code và đo Forecast Value Added. Consensus không có nghĩa là lấy trung bình ý kiến; đó là quyết định có trách nhiệm và traceability. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Demand Planning & Forecasting đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Consensus forecast, Override, Forecast Value Added, Demand review, Exception review. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Monthly demand review pack. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Demand Planning process và consensus",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán demand planning process và consensus trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Demand Planning process và consensus.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Thiết kế demand review agenda."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 12 là gì?",
+          "answer": "Thiết kế monthly demand review"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Monthly demand review pack và lựa chọn action cho bài toán Demand Planning process và consensus trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 13,
@@ -269,19 +1198,97 @@
     "titleEn": "Planning hierarchy: S&OP to execution",
     "hours": "5-7 giờ",
     "level": "Trung cấp",
-    "tools": ["Excel", "PowerPoint"],
-    "objectives": ["Mô tả S&OP, MPS, MRP và scheduling", "Phân biệt horizon và granularity", "Vẽ planning calendar"],
+    "tools": [
+      "Excel",
+      "PowerPoint"
+    ],
+    "objectives": [
+      "Mô tả S&OP, MPS, MRP và scheduling",
+      "Phân biệt horizon và granularity",
+      "Vẽ planning calendar"
+    ],
     "summary": "Planning hierarchy giữ cho chiến lược, kế hoạch trung hạn và execution nói cùng một ngôn ngữ. S&OP quyết định ở mức aggregate, MPS chuyển thành output cụ thể, MRP tính nhu cầu vật tư và scheduling biến kế hoạch thành thứ tự thực thi.",
     "summaryEn": "Planning hierarchy aligns aggregate business decisions with master scheduling, material planning and execution.",
-    "concepts": ["S&OP", "MPS", "MRP", "Capacity planning", "Scheduling", "Planning horizon"],
-    "practice": ["Vẽ planning hierarchy", "Gắn owner và cadence", "Mô tả input-output mỗi tầng"],
+    "concepts": [
+      "S&OP",
+      "MPS",
+      "MRP",
+      "Capacity planning",
+      "Scheduling",
+      "Planning horizon"
+    ],
+    "practice": [
+      "Vẽ planning hierarchy",
+      "Gắn owner và cadence",
+      "Mô tả input-output mỗi tầng"
+    ],
     "deliverable": "Planning operating model",
     "portfolio": "01 planning calendar và RACI",
     "sourceRefs": [
-      {"sourceId": "materials-management", "chapter": "Chapter 2-6", "pages": "tr. 30-177", "note": "Production plan, MPS, MRP, capacity và control"},
-      {"sourceId": "mpc", "chapter": "Chapter 1, 5, 7-10", "pages": "tr. 1-12; 115-300", "note": "MPC framework và planning layers"},
-      {"sourceId": "advanced-planning", "chapter": "Chapter 4 - Advanced Planning", "pages": "tr. 81-106", "note": "Planning tasks along the supply chain"}
-    ]
+      {
+        "sourceId": "materials-management",
+        "chapter": "Chapter 2-6",
+        "pages": "tr. 30-177",
+        "note": "Production plan, MPS, MRP, capacity và control"
+      },
+      {
+        "sourceId": "mpc",
+        "chapter": "Chapter 1, 5, 7-10",
+        "pages": "tr. 1-12; 115-300",
+        "note": "MPC framework và planning layers"
+      },
+      {
+        "sourceId": "advanced-planning",
+        "chapter": "Chapter 4 - Advanced Planning",
+        "pages": "tr. 81-106",
+        "note": "Planning tasks along the supply chain"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Planning hierarchy giữ cho chiến lược, kế hoạch trung hạn và execution nói cùng một ngôn ngữ. S&OP quyết định ở mức aggregate, MPS chuyển thành output cụ thể, MRP tính nhu cầu vật tư và scheduling biến kế hoạch thành thứ tự thực thi. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Planning hierarchy giữ cho chiến lược, kế hoạch trung hạn và execution nói cùng một ngôn ngữ. S&OP quyết định ở mức aggregate, MPS chuyển thành output cụ thể, MRP tính nhu cầu vật tư và scheduling biến kế hoạch thành thứ tự thực thi. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Planning & Inventory đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào S&OP, MPS, MRP, Capacity planning, Scheduling, Planning horizon. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Planning operating model. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Planning hierarchy: S&OP tới execution",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán planning hierarchy: s&op tới execution trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Planning hierarchy: S&OP tới execution.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Vẽ planning hierarchy."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 13 là gì?",
+          "answer": "Mô tả S&OP, MPS, MRP và scheduling"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Planning operating model và lựa chọn action cho bài toán Planning hierarchy: S&OP tới execution trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 14,
@@ -291,18 +1298,90 @@
     "titleEn": "ABC/XYZ segmentation and safety stock",
     "hours": "6-8 giờ",
     "level": "Trung cấp",
-    "tools": ["Excel", "Python"],
-    "objectives": ["Phân loại ABC theo annual consumption value", "Phân loại XYZ theo variability", "Thiết lập service policy theo segment"],
+    "tools": [
+      "Excel",
+      "Python"
+    ],
+    "objectives": [
+      "Phân loại ABC theo annual consumption value",
+      "Phân loại XYZ theo variability",
+      "Thiết lập service policy theo segment"
+    ],
     "summary": "Không nên dùng một policy cho mọi SKU. ABC cho biết economic importance, XYZ cho biết predictability. Kết hợp hai chiều giúp tập trung công sức planner, service target và phương pháp replenishment vào nơi tạo nhiều giá trị nhất.",
     "summaryEn": "ABC/XYZ segmentation matches planning effort, service targets and replenishment rules to SKU value and predictability.",
-    "concepts": ["ABC", "XYZ", "Coefficient of variation", "Service target", "Safety stock"],
-    "practice": ["Phân loại 100 SKU", "Thiết kế 9 policy cells", "Sensitivity service level"],
+    "concepts": [
+      "ABC",
+      "XYZ",
+      "Coefficient of variation",
+      "Service target",
+      "Safety stock"
+    ],
+    "practice": [
+      "Phân loại 100 SKU",
+      "Thiết kế 9 policy cells",
+      "Sensitivity service level"
+    ],
     "deliverable": "ABC/XYZ segmentation model",
     "portfolio": "01 policy matrix có business rationale",
     "sourceRefs": [
-      {"sourceId": "materials-management", "chapter": "Chapter 9 và 11", "pages": "tr. 233-249; 273-290", "note": "ABC, safety stock và service level"},
-      {"sourceId": "mpc", "chapter": "Chapter 9 và 16", "pages": "tr. 253-269; 469 trở đi", "note": "Buffering và order point methods"}
-    ]
+      {
+        "sourceId": "materials-management",
+        "chapter": "Chapter 9 và 11",
+        "pages": "tr. 233-249; 273-290",
+        "note": "ABC, safety stock và service level"
+      },
+      {
+        "sourceId": "mpc",
+        "chapter": "Chapter 9 và 16",
+        "pages": "tr. 253-269; 469 trở đi",
+        "note": "Buffering và order point methods"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Không nên dùng một policy cho mọi SKU. ABC cho biết economic importance, XYZ cho biết predictability. Kết hợp hai chiều giúp tập trung công sức planner, service target và phương pháp replenishment vào nơi tạo nhiều giá trị nhất. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Không nên dùng một policy cho mọi SKU. ABC cho biết economic importance, XYZ cho biết predictability. Kết hợp hai chiều giúp tập trung công sức planner, service target và phương pháp replenishment vào nơi tạo nhiều giá trị nhất. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Planning & Inventory đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào ABC, XYZ, Coefficient of variation, Service target, Safety stock. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable ABC/XYZ segmentation model. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: ABC/XYZ và safety stock",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán abc/xyz và safety stock trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: ABC/XYZ và safety stock.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Phân loại 100 SKU."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 14 là gì?",
+          "answer": "Phân loại ABC theo annual consumption value"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện ABC/XYZ segmentation model và lựa chọn action cho bài toán ABC/XYZ và safety stock trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 15,
@@ -312,19 +1391,97 @@
     "titleEn": "Replenishment policies and constraints",
     "hours": "6-8 giờ",
     "level": "Trung cấp",
-    "tools": ["Excel", "Python"],
-    "objectives": ["So sánh continuous và periodic review", "Tích hợp MOQ, case pack và review calendar", "Đánh giá service-cost trade-off"],
+    "tools": [
+      "Excel",
+      "Python"
+    ],
+    "objectives": [
+      "So sánh continuous và periodic review",
+      "Tích hợp MOQ, case pack và review calendar",
+      "Đánh giá service-cost trade-off"
+    ],
     "summary": "Policy lý thuyết phải sống được trong thực tế supplier constraints. MOQ, case pack, order calendar, shelf life và capacity có thể làm policy tối ưu trên giấy trở nên tệ. Planner cần mô phỏng policy với dữ liệu lịch sử trước khi triển khai.",
     "summaryEn": "Practical replenishment policies must account for MOQ, pack size, review cycles, shelf life and capacity constraints.",
-    "concepts": ["Continuous review", "Periodic review", "Min-max", "MOQ", "Shelf life", "Policy simulation"],
-    "practice": ["Thiết kế policy cho 20 SKU", "Backtest stockout và average inventory", "Thêm MOQ và case pack"],
+    "concepts": [
+      "Continuous review",
+      "Periodic review",
+      "Min-max",
+      "MOQ",
+      "Shelf life",
+      "Policy simulation"
+    ],
+    "practice": [
+      "Thiết kế policy cho 20 SKU",
+      "Backtest stockout và average inventory",
+      "Thêm MOQ và case pack"
+    ],
     "deliverable": "Replenishment simulator",
     "portfolio": "01 policy recommendation memo",
     "sourceRefs": [
-      {"sourceId": "materials-management", "chapter": "Chapter 10-11", "pages": "tr. 257-290", "note": "Order quantity và ordering systems"},
-      {"sourceId": "chopra", "chapter": "Chapter 11-12", "pages": "Theo mục lục", "note": "Cycle inventory và safety inventory"},
-      {"sourceId": "sc-analytics-data", "chapter": "Chapter 6.5-6.9", "pages": "tr. 179-198", "note": "Inventory methods trong execution"}
-    ]
+      {
+        "sourceId": "materials-management",
+        "chapter": "Chapter 10-11",
+        "pages": "tr. 257-290",
+        "note": "Order quantity và ordering systems"
+      },
+      {
+        "sourceId": "chopra",
+        "chapter": "Chapter 11-12",
+        "pages": "Theo mục lục",
+        "note": "Cycle inventory và safety inventory"
+      },
+      {
+        "sourceId": "sc-analytics-data",
+        "chapter": "Chapter 6.5-6.9",
+        "pages": "tr. 179-198",
+        "note": "Inventory methods trong execution"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Policy lý thuyết phải sống được trong thực tế supplier constraints. MOQ, case pack, order calendar, shelf life và capacity có thể làm policy tối ưu trên giấy trở nên tệ. Planner cần mô phỏng policy với dữ liệu lịch sử trước khi triển khai. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Policy lý thuyết phải sống được trong thực tế supplier constraints. MOQ, case pack, order calendar, shelf life và capacity có thể làm policy tối ưu trên giấy trở nên tệ. Planner cần mô phỏng policy với dữ liệu lịch sử trước khi triển khai. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Planning & Inventory đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Continuous review, Periodic review, Min-max, MOQ, Shelf life, Policy simulation. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Replenishment simulator. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Replenishment policy và constraints",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán replenishment policy và constraints trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Replenishment policy và constraints.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Thiết kế policy cho 20 SKU."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 15 là gì?",
+          "answer": "So sánh continuous và periodic review"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Replenishment simulator và lựa chọn action cho bài toán Replenishment policy và constraints trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 16,
@@ -334,19 +1491,97 @@
     "titleEn": "FMCG demand and inventory case",
     "hours": "8-10 giờ",
     "level": "Trung cấp",
-    "tools": ["Excel", "Power BI", "PowerPoint"],
-    "objectives": ["Frame một vấn đề planning hoàn chỉnh", "Kết hợp forecast, inventory và service", "Đề xuất action có trade-off"],
+    "tools": [
+      "Excel",
+      "Power BI",
+      "PowerPoint"
+    ],
+    "objectives": [
+      "Frame một vấn đề planning hoàn chỉnh",
+      "Kết hợp forecast, inventory và service",
+      "Đề xuất action có trade-off"
+    ],
     "summary": "Case tổng hợp buộc mày đi từ symptom tới root cause: forecast bias, promotion uplift, lead-time variability hay policy sai. Recommendation tốt phải định lượng impact lên service, inventory và working capital, đồng thời nêu risk triển khai.",
     "summaryEn": "An integrated planning case connects forecast error, inventory policy and service outcomes to a quantified recommendation.",
-    "concepts": ["Problem statement", "Issue tree", "Root cause", "Scenario", "Recommendation"],
-    "practice": ["Phân tích case FMCG 52 tuần", "Xây issue tree", "Trình bày 3 scenario"],
+    "concepts": [
+      "Problem statement",
+      "Issue tree",
+      "Root cause",
+      "Scenario",
+      "Recommendation"
+    ],
+    "practice": [
+      "Phân tích case FMCG 52 tuần",
+      "Xây issue tree",
+      "Trình bày 3 scenario"
+    ],
     "deliverable": "Case memo 2 trang và dashboard",
     "portfolio": "Project 1 - FMCG Demand & Inventory Review",
     "sourceRefs": [
-      {"sourceId": "problem-solving", "chapter": "Chapter 1-5", "pages": "Theo mục lục", "note": "Problem definition, disaggregation, workplan và analysis"},
-      {"sourceId": "storytelling", "chapter": "Chapter 7-9", "pages": "tr. 165-240", "note": "Story và case studies"},
-      {"sourceId": "materials-management", "chapter": "Case studies Chapter 8-11", "pages": "tr. 229-298", "note": "Forecast và inventory cases"}
-    ]
+      {
+        "sourceId": "problem-solving",
+        "chapter": "Chapter 1-5",
+        "pages": "Theo mục lục",
+        "note": "Problem definition, disaggregation, workplan và analysis"
+      },
+      {
+        "sourceId": "storytelling",
+        "chapter": "Chapter 7-9",
+        "pages": "tr. 165-240",
+        "note": "Story và case studies"
+      },
+      {
+        "sourceId": "materials-management",
+        "chapter": "Case studies Chapter 8-11",
+        "pages": "tr. 229-298",
+        "note": "Forecast và inventory cases"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Case tổng hợp buộc mày đi từ symptom tới root cause: forecast bias, promotion uplift, lead-time variability hay policy sai. Recommendation tốt phải định lượng impact lên service, inventory và working capital, đồng thời nêu risk triển khai. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Case tổng hợp buộc mày đi từ symptom tới root cause: forecast bias, promotion uplift, lead-time variability hay policy sai. Recommendation tốt phải định lượng impact lên service, inventory và working capital, đồng thời nêu risk triển khai. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Planning & Inventory đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Problem statement, Issue tree, Root cause, Scenario, Recommendation. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Case memo 2 trang và dashboard. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: FMCG case: demand và inventory",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán fmcg case: demand và inventory trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: FMCG case: demand và inventory.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Phân tích case FMCG 52 tuần."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 16 là gì?",
+          "answer": "Frame một vấn đề planning hoàn chỉnh"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Case memo 2 trang và dashboard và lựa chọn action cho bài toán FMCG case: demand và inventory trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 17,
@@ -356,18 +1591,91 @@
     "titleEn": "Linear programming for transportation",
     "hours": "7-9 giờ",
     "level": "Trung cấp+",
-    "tools": ["Excel Solver", "Python", "PuLP"],
-    "objectives": ["Định nghĩa decision variables", "Viết objective và constraints", "Giải transportation model"],
+    "tools": [
+      "Excel Solver",
+      "Python",
+      "PuLP"
+    ],
+    "objectives": [
+      "Định nghĩa decision variables",
+      "Viết objective và constraints",
+      "Giải transportation model"
+    ],
     "summary": "Linear programming biến bài toán kinh doanh thành một cấu trúc rõ: quyết định nào được phép thay đổi, mục tiêu cần tối ưu và ràng buộc phải tôn trọng. Mô hình không thay người ra quyết định; nó làm trade-off minh bạch hơn.",
     "summaryEn": "Linear programming makes decisions, objectives and constraints explicit so trade-offs can be evaluated consistently.",
-    "concepts": ["Decision variable", "Objective function", "Constraint", "Feasibility", "Sensitivity"],
-    "practice": ["Giải model 3 kho x 5 thị trường", "So sánh Excel và PuLP", "Phân tích shadow price cơ bản"],
+    "concepts": [
+      "Decision variable",
+      "Objective function",
+      "Constraint",
+      "Feasibility",
+      "Sensitivity"
+    ],
+    "practice": [
+      "Giải model 3 kho x 5 thị trường",
+      "So sánh Excel và PuLP",
+      "Phân tích shadow price cơ bản"
+    ],
     "deliverable": "Transportation optimization model",
     "portfolio": "01 optimization notebook và decision memo",
     "sourceRefs": [
-      {"sourceId": "quantitative-analysis", "chapter": "Chapter 7-9", "pages": "tr. 249-394", "note": "LP, applications và transportation models"},
-      {"sourceId": "mpc", "chapter": "Chapter 6 - Advanced S&OP", "pages": "tr. 161-180", "note": "LP và Excel Solver trong planning"}
-    ]
+      {
+        "sourceId": "quantitative-analysis",
+        "chapter": "Chapter 7-9",
+        "pages": "tr. 249-394",
+        "note": "LP, applications và transportation models"
+      },
+      {
+        "sourceId": "mpc",
+        "chapter": "Chapter 6 - Advanced S&OP",
+        "pages": "tr. 161-180",
+        "note": "LP và Excel Solver trong planning"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Linear programming biến bài toán kinh doanh thành một cấu trúc rõ: quyết định nào được phép thay đổi, mục tiêu cần tối ưu và ràng buộc phải tôn trọng. Mô hình không thay người ra quyết định; nó làm trade-off minh bạch hơn. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Linear programming biến bài toán kinh doanh thành một cấu trúc rõ: quyết định nào được phép thay đổi, mục tiêu cần tối ưu và ràng buộc phải tôn trọng. Mô hình không thay người ra quyết định; nó làm trade-off minh bạch hơn. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Optimization & Simulation đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Decision variable, Objective function, Constraint, Feasibility, Sensitivity. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Transportation optimization model. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Linear programming cho vận tải",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán linear programming cho vận tải trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Linear programming cho vận tải.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Giải model 3 kho x 5 thị trường."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 17 là gì?",
+          "answer": "Định nghĩa decision variables"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Transportation optimization model và lựa chọn action cho bài toán Linear programming cho vận tải trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 18,
@@ -377,19 +1685,97 @@
     "titleEn": "Network design and scenario planning",
     "hours": "7-9 giờ",
     "level": "Trung cấp+",
-    "tools": ["Python", "PuLP", "Power BI"],
-    "objectives": ["Mô hình facility-location cơ bản", "So sánh cost và service distance", "Thiết kế scenario stress test"],
+    "tools": [
+      "Python",
+      "PuLP",
+      "Power BI"
+    ],
+    "objectives": [
+      "Mô hình facility-location cơ bản",
+      "So sánh cost và service distance",
+      "Thiết kế scenario stress test"
+    ],
     "summary": "Mở hoặc đóng warehouse là quyết định dài hạn: fixed cost, transport, inventory và service cùng thay đổi. Network model giúp lượng hóa các lựa chọn, còn scenario planning kiểm tra độ bền của quyết định khi demand, fuel cost hoặc capacity thay đổi.",
     "summaryEn": "Network design balances fixed cost, transport, inventory and service under uncertain demand and capacity scenarios.",
-    "concepts": ["Facility location", "Fixed vs variable cost", "Capacity", "Service distance", "Scenario"],
-    "practice": ["Mô hình 3 phương án network", "Stress demand +20%", "Tạo map kết quả"],
+    "concepts": [
+      "Facility location",
+      "Fixed vs variable cost",
+      "Capacity",
+      "Service distance",
+      "Scenario"
+    ],
+    "practice": [
+      "Mô hình 3 phương án network",
+      "Stress demand +20%",
+      "Tạo map kết quả"
+    ],
     "deliverable": "Network design scenario model",
     "portfolio": "01 executive recommendation deck",
     "sourceRefs": [
-      {"sourceId": "chopra", "chapter": "Chapter 4-6", "pages": "Theo mục lục", "note": "Distribution, network và global design"},
-      {"sourceId": "sc-analytics-concepts", "chapter": "Chapter 9.5", "pages": "tr. 332-341", "note": "Logistics network design với PuLP"},
-      {"sourceId": "sc-analytics-data", "chapter": "Chapter 5.7-5.8", "pages": "tr. 122-141", "note": "Network models và mathematical programming"}
-    ]
+      {
+        "sourceId": "chopra",
+        "chapter": "Chapter 4-6",
+        "pages": "Theo mục lục",
+        "note": "Distribution, network và global design"
+      },
+      {
+        "sourceId": "sc-analytics-concepts",
+        "chapter": "Chapter 9.5",
+        "pages": "tr. 332-341",
+        "note": "Logistics network design với PuLP"
+      },
+      {
+        "sourceId": "sc-analytics-data",
+        "chapter": "Chapter 5.7-5.8",
+        "pages": "tr. 122-141",
+        "note": "Network models và mathematical programming"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Mở hoặc đóng warehouse là quyết định dài hạn: fixed cost, transport, inventory và service cùng thay đổi. Network model giúp lượng hóa các lựa chọn, còn scenario planning kiểm tra độ bền của quyết định khi demand, fuel cost hoặc capacity thay đổi. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Mở hoặc đóng warehouse là quyết định dài hạn: fixed cost, transport, inventory và service cùng thay đổi. Network model giúp lượng hóa các lựa chọn, còn scenario planning kiểm tra độ bền của quyết định khi demand, fuel cost hoặc capacity thay đổi. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Optimization & Simulation đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Facility location, Fixed vs variable cost, Capacity, Service distance, Scenario. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Network design scenario model. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Network design và scenario planning",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán network design và scenario planning trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Network design và scenario planning.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Mô hình 3 phương án network."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 18 là gì?",
+          "answer": "Mô hình facility-location cơ bản"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Network design scenario model và lựa chọn action cho bài toán Network design và scenario planning trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 19,
@@ -399,19 +1785,97 @@
     "titleEn": "Simulation and AnyLogic thinking",
     "hours": "7-9 giờ",
     "level": "Trung cấp+",
-    "tools": ["AnyLogic", "Python"],
-    "objectives": ["Phân biệt optimization và simulation", "Mô hình variability, queue và bottleneck", "Thiết kế experiment có replication"],
+    "tools": [
+      "AnyLogic",
+      "Python"
+    ],
+    "objectives": [
+      "Phân biệt optimization và simulation",
+      "Mô hình variability, queue và bottleneck",
+      "Thiết kế experiment có replication"
+    ],
     "summary": "Optimization tìm nghiệm tốt nhất cho một mô hình; simulation cho thấy hệ thống hành xử thế nào theo thời gian và bất định. AnyLogic giúp trực quan hóa flow, queue, utilization và service outcome trước khi thay đổi hệ thống thật.",
     "summaryEn": "Simulation explores how variability, queues and bottlenecks shape system behaviour over time.",
-    "concepts": ["Discrete-event simulation", "Entity", "Resource", "Queue", "Replication", "Warm-up"],
-    "practice": ["Mô hình receiving-picking-shipping", "Chạy 30 replications", "So sánh 3 staffing scenarios"],
+    "concepts": [
+      "Discrete-event simulation",
+      "Entity",
+      "Resource",
+      "Queue",
+      "Replication",
+      "Warm-up"
+    ],
+    "practice": [
+      "Mô hình receiving-picking-shipping",
+      "Chạy 30 replications",
+      "So sánh 3 staffing scenarios"
+    ],
     "deliverable": "Warehouse simulation experiment",
     "portfolio": "01 AnyLogic model demo và result report",
     "sourceRefs": [
-      {"sourceId": "quantitative-analysis", "chapter": "Chapter 13-14", "pages": "tr. 499-572", "note": "Queuing và simulation modelling"},
-      {"sourceId": "sc-analytics-data", "chapter": "Chapter 5.5-5.6", "pages": "tr. 113-121", "note": "Queue và simulation trong design"},
-      {"sourceId": "scm-dummies", "chapter": "Chapter 18", "pages": "Theo mục lục", "note": "Modelling, simulation và optimization"}
-    ]
+      {
+        "sourceId": "quantitative-analysis",
+        "chapter": "Chapter 13-14",
+        "pages": "tr. 499-572",
+        "note": "Queuing và simulation modelling"
+      },
+      {
+        "sourceId": "sc-analytics-data",
+        "chapter": "Chapter 5.5-5.6",
+        "pages": "tr. 113-121",
+        "note": "Queue và simulation trong design"
+      },
+      {
+        "sourceId": "scm-dummies",
+        "chapter": "Chapter 18",
+        "pages": "Theo mục lục",
+        "note": "Modelling, simulation và optimization"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Optimization tìm nghiệm tốt nhất cho một mô hình; simulation cho thấy hệ thống hành xử thế nào theo thời gian và bất định. AnyLogic giúp trực quan hóa flow, queue, utilization và service outcome trước khi thay đổi hệ thống thật. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Optimization tìm nghiệm tốt nhất cho một mô hình; simulation cho thấy hệ thống hành xử thế nào theo thời gian và bất định. AnyLogic giúp trực quan hóa flow, queue, utilization và service outcome trước khi thay đổi hệ thống thật. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Optimization & Simulation đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Discrete-event simulation, Entity, Resource, Queue, Replication, Warm-up. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Warehouse simulation experiment. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Simulation và AnyLogic thinking",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán simulation và anylogic thinking trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Simulation và AnyLogic thinking.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Mô hình receiving-picking-shipping."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 19 là gì?",
+          "answer": "Phân biệt optimization và simulation"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Warehouse simulation experiment và lựa chọn action cho bài toán Simulation và AnyLogic thinking trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 20,
@@ -421,19 +1885,97 @@
     "titleEn": "Prescriptive analytics project",
     "hours": "9-12 giờ",
     "level": "Nâng cao",
-    "tools": ["Python", "Power BI", "AnyLogic"],
-    "objectives": ["Kết hợp model và business constraints", "Làm sensitivity analysis", "Đóng gói recommendation có risk"],
+    "tools": [
+      "Python",
+      "Power BI",
+      "AnyLogic"
+    ],
+    "objectives": [
+      "Kết hợp model và business constraints",
+      "Làm sensitivity analysis",
+      "Đóng gói recommendation có risk"
+    ],
     "summary": "Project prescriptive analytics phải vượt qua câu hỏi 'model chạy chưa?'. Mày cần chứng minh dữ liệu hợp lý, constraints phản ánh thực tế, kết quả ổn định dưới scenario và recommendation có thể triển khai với owner, milestone, risk.",
     "summaryEn": "A prescriptive analytics project is complete only when the model, assumptions, sensitivities and implementation recommendation are defensible.",
-    "concepts": ["Model validation", "Sensitivity", "Scenario", "Implementation", "Decision memo"],
-    "practice": ["Chọn network hoặc inventory problem", "Chạy ít nhất 5 scenarios", "Review với checklist model risk"],
+    "concepts": [
+      "Model validation",
+      "Sensitivity",
+      "Scenario",
+      "Implementation",
+      "Decision memo"
+    ],
+    "practice": [
+      "Chọn network hoặc inventory problem",
+      "Chạy ít nhất 5 scenarios",
+      "Review với checklist model risk"
+    ],
     "deliverable": "Optimization/simulation project",
     "portfolio": "Project 2 - Prescriptive Supply Chain Analytics",
     "sourceRefs": [
-      {"sourceId": "quantitative-analysis", "chapter": "Chapter 1 và 7-14", "pages": "tr. 1-19; 249-572", "note": "Quantitative approach và model families"},
-      {"sourceId": "sc-analytics-data", "chapter": "Chapter 4-6", "pages": "tr. 74-219", "note": "Analytics trong strategy, design và execution"},
-      {"sourceId": "problem-solving", "chapter": "Chapter 5-7", "pages": "Theo mục lục", "note": "Analysis, synthesis và story"}
-    ]
+      {
+        "sourceId": "quantitative-analysis",
+        "chapter": "Chapter 1 và 7-14",
+        "pages": "tr. 1-19; 249-572",
+        "note": "Quantitative approach và model families"
+      },
+      {
+        "sourceId": "sc-analytics-data",
+        "chapter": "Chapter 4-6",
+        "pages": "tr. 74-219",
+        "note": "Analytics trong strategy, design và execution"
+      },
+      {
+        "sourceId": "problem-solving",
+        "chapter": "Chapter 5-7",
+        "pages": "Theo mục lục",
+        "note": "Analysis, synthesis và story"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Project prescriptive analytics phải vượt qua câu hỏi 'model chạy chưa?'. Mày cần chứng minh dữ liệu hợp lý, constraints phản ánh thực tế, kết quả ổn định dưới scenario và recommendation có thể triển khai với owner, milestone, risk. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Project prescriptive analytics phải vượt qua câu hỏi 'model chạy chưa?'. Mày cần chứng minh dữ liệu hợp lý, constraints phản ánh thực tế, kết quả ổn định dưới scenario và recommendation có thể triển khai với owner, milestone, risk. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Optimization & Simulation đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Model validation, Sensitivity, Scenario, Implementation, Decision memo. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Optimization/simulation project. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Prescriptive analytics project",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán prescriptive analytics project trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Prescriptive analytics project.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Chọn network hoặc inventory problem."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 20 là gì?",
+          "answer": "Kết hợp model và business constraints"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Optimization/simulation project và lựa chọn action cho bài toán Prescriptive analytics project trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 21,
@@ -443,19 +1985,96 @@
     "titleEn": "Supply Chain finance and cost-to-serve",
     "hours": "5-7 giờ",
     "level": "Nâng cao",
-    "tools": ["Excel", "Power BI"],
-    "objectives": ["Tính carrying cost và working capital", "Phân tích cost-to-serve", "Nối service decision với profit"],
+    "tools": [
+      "Excel",
+      "Power BI"
+    ],
+    "objectives": [
+      "Tính carrying cost và working capital",
+      "Phân tích cost-to-serve",
+      "Nối service decision với profit"
+    ],
     "summary": "Supply chain tạo lợi nhuận không chỉ bằng giảm cost mà bằng phục vụ đúng customer theo đúng economics. Cost-to-serve bóc tách order profile, channel, transport, handling và inventory để thấy khách hàng hoặc SKU nào đang tiêu thụ nguồn lực vượt giá trị tạo ra.",
     "summaryEn": "Cost-to-serve connects service choices to working capital, operating cost and customer profitability.",
-    "concepts": ["Working capital", "Cash-to-cash", "Carrying cost", "Cost-to-serve", "Customer profitability"],
-    "practice": ["Tính cost-to-serve 3 channels", "Tạo profitability waterfall", "Đề xuất service differentiation"],
+    "concepts": [
+      "Working capital",
+      "Cash-to-cash",
+      "Carrying cost",
+      "Cost-to-serve",
+      "Customer profitability"
+    ],
+    "practice": [
+      "Tính cost-to-serve 3 channels",
+      "Tạo profitability waterfall",
+      "Đề xuất service differentiation"
+    ],
     "deliverable": "Cost-to-serve dashboard",
     "portfolio": "01 finance-oriented recommendation",
     "sourceRefs": [
-      {"sourceId": "mpc", "chapter": "Chapter 2", "pages": "tr. 27-32", "note": "Integrated metrics và cash-to-cash"},
-      {"sourceId": "materials-management", "chapter": "Chapter 9", "pages": "tr. 239-245", "note": "Inventory costs và financial statements"},
-      {"sourceId": "scm-dummies", "chapter": "Chapter 15-16", "pages": "Theo mục lục", "note": "Finance, inventory và metrics"}
-    ]
+      {
+        "sourceId": "mpc",
+        "chapter": "Chapter 2",
+        "pages": "tr. 27-32",
+        "note": "Integrated metrics và cash-to-cash"
+      },
+      {
+        "sourceId": "materials-management",
+        "chapter": "Chapter 9",
+        "pages": "tr. 239-245",
+        "note": "Inventory costs và financial statements"
+      },
+      {
+        "sourceId": "scm-dummies",
+        "chapter": "Chapter 15-16",
+        "pages": "Theo mục lục",
+        "note": "Finance, inventory và metrics"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Supply chain tạo lợi nhuận không chỉ bằng giảm cost mà bằng phục vụ đúng customer theo đúng economics. Cost-to-serve bóc tách order profile, channel, transport, handling và inventory để thấy khách hàng hoặc SKU nào đang tiêu thụ nguồn lực vượt giá trị tạo ra. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Supply chain tạo lợi nhuận không chỉ bằng giảm cost mà bằng phục vụ đúng customer theo đúng economics. Cost-to-serve bóc tách order profile, channel, transport, handling và inventory để thấy khách hàng hoặc SKU nào đang tiêu thụ nguồn lực vượt giá trị tạo ra. Hãy bắt đầu bằng câu hỏi: quyết định nào trong AI, Systems & Career đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Working capital, Cash-to-cash, Carrying cost, Cost-to-serve, Customer profitability. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Cost-to-serve dashboard. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Supply Chain finance và cost-to-serve",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán supply chain finance và cost-to-serve trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Supply Chain finance và cost-to-serve.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Tính cost-to-serve 3 channels."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 21 là gì?",
+          "answer": "Tính carrying cost và working capital"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Cost-to-serve dashboard và lựa chọn action cho bài toán Supply Chain finance và cost-to-serve trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 22,
@@ -465,19 +2084,97 @@
     "titleEn": "Supply Chain AI and autonomous planning",
     "hours": "6-8 giờ",
     "level": "Nâng cao",
-    "tools": ["Python", "OpenAI API", "Power BI"],
-    "objectives": ["Phân biệt automation, ML và GenAI", "Thiết kế human-in-the-loop planning", "Đánh giá data, model và governance risk"],
+    "tools": [
+      "Python",
+      "OpenAI API",
+      "Power BI"
+    ],
+    "objectives": [
+      "Phân biệt automation, ML và GenAI",
+      "Thiết kế human-in-the-loop planning",
+      "Đánh giá data, model và governance risk"
+    ],
     "summary": "Supply Chain AI không bắt đầu bằng model; nó bắt đầu bằng decision workflow. AI nên tự động hóa việc lặp lại, phát hiện exception, giải thích driver và hỗ trợ scenario, trong khi planner giữ quyền quyết định ở các trường hợp impact cao hoặc dữ liệu yếu.",
     "summaryEn": "Supply Chain AI should augment decision workflows with automation, exception detection and explainable recommendations under human control.",
-    "concepts": ["Predictive vs generative AI", "Human-in-the-loop", "Exception agent", "Data governance", "Model monitoring"],
-    "practice": ["Thiết kế Demand Planning Copilot", "Viết risk register", "Tạo prompt và evaluation set"],
+    "concepts": [
+      "Predictive vs generative AI",
+      "Human-in-the-loop",
+      "Exception agent",
+      "Data governance",
+      "Model monitoring"
+    ],
+    "practice": [
+      "Thiết kế Demand Planning Copilot",
+      "Viết risk register",
+      "Tạo prompt và evaluation set"
+    ],
     "deliverable": "AI use-case canvas và prototype",
     "portfolio": "01 Supply Chain AI product brief",
     "sourceRefs": [
-      {"sourceId": "ascm-dictionary", "chapter": "Autonomous supply chain planning", "pages": "Mục A, PDF khoảng tr. 22", "note": "Định nghĩa autonomous planning"},
-      {"sourceId": "scm-dummies", "chapter": "Chapter 14 và 18", "pages": "Theo mục lục", "note": "AI, digital supply chain và analytics"},
-      {"sourceId": "sc-analytics-concepts", "chapter": "Chapter 8.4", "pages": "tr. 302-318", "note": "Machine learning cho forecasting"}
-    ]
+      {
+        "sourceId": "ascm-dictionary",
+        "chapter": "Autonomous supply chain planning",
+        "pages": "Mục A, PDF khoảng tr. 22",
+        "note": "Định nghĩa autonomous planning"
+      },
+      {
+        "sourceId": "scm-dummies",
+        "chapter": "Chapter 14 và 18",
+        "pages": "Theo mục lục",
+        "note": "AI, digital supply chain và analytics"
+      },
+      {
+        "sourceId": "sc-analytics-concepts",
+        "chapter": "Chapter 8.4",
+        "pages": "tr. 302-318",
+        "note": "Machine learning cho forecasting"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Supply Chain AI không bắt đầu bằng model; nó bắt đầu bằng decision workflow. AI nên tự động hóa việc lặp lại, phát hiện exception, giải thích driver và hỗ trợ scenario, trong khi planner giữ quyền quyết định ở các trường hợp impact cao hoặc dữ liệu yếu. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Supply Chain AI không bắt đầu bằng model; nó bắt đầu bằng decision workflow. AI nên tự động hóa việc lặp lại, phát hiện exception, giải thích driver và hỗ trợ scenario, trong khi planner giữ quyền quyết định ở các trường hợp impact cao hoặc dữ liệu yếu. Hãy bắt đầu bằng câu hỏi: quyết định nào trong AI, Systems & Career đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Predictive vs generative AI, Human-in-the-loop, Exception agent, Data governance, Model monitoring. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable AI use-case canvas và prototype. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Supply Chain AI và autonomous planning",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán supply chain ai và autonomous planning trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Supply Chain AI và autonomous planning.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Thiết kế Demand Planning Copilot."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 22 là gì?",
+          "answer": "Phân biệt automation, ML và GenAI"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện AI use-case canvas và prototype và lựa chọn action cho bài toán Supply Chain AI và autonomous planning trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 23,
@@ -487,19 +2184,98 @@
     "titleEn": "Systems thinking and executive storytelling",
     "hours": "6-8 giờ",
     "level": "Nâng cao",
-    "tools": ["Miro", "PowerPoint", "Power BI"],
-    "objectives": ["Vẽ feedback loop và delay", "Tìm leverage points", "Kể recommendation theo executive storyline"],
+    "tools": [
+      "Miro",
+      "PowerPoint",
+      "Power BI"
+    ],
+    "objectives": [
+      "Vẽ feedback loop và delay",
+      "Tìm leverage points",
+      "Kể recommendation theo executive storyline"
+    ],
     "summary": "Supply chain có feedback, delay và unintended consequences. Systems thinking giúp tránh chữa symptom; problem solving giúp chia nhỏ vấn đề; storytelling giúp biến analysis thành quyết định. Ba năng lực này tạo khác biệt giữa analyst làm báo cáo và planner dẫn dắt hành động.",
     "summaryEn": "Systems thinking exposes feedback and delays; structured problem solving and storytelling turn insight into action.",
-    "concepts": ["Feedback loop", "Delay", "System trap", "Leverage point", "Issue tree", "Storyline"],
-    "practice": ["Vẽ causal loop cho promotion-stockout", "Chọn 3 leverage points", "Tạo deck 7 slides"],
+    "concepts": [
+      "Feedback loop",
+      "Delay",
+      "System trap",
+      "Leverage point",
+      "Issue tree",
+      "Storyline"
+    ],
+    "practice": [
+      "Vẽ causal loop cho promotion-stockout",
+      "Chọn 3 leverage points",
+      "Tạo deck 7 slides"
+    ],
     "deliverable": "Executive recommendation deck",
     "portfolio": "01 systems map và board-ready story",
     "sourceRefs": [
-      {"sourceId": "systems", "chapter": "Introduction và phần System Structure", "pages": "PDF tr. 17-45 trở đi", "note": "System lens, feedback và structure"},
-      {"sourceId": "problem-solving", "chapter": "Chapter 2-7", "pages": "Theo mục lục", "note": "Problem framing tới synthesis"},
-      {"sourceId": "storytelling", "chapter": "Chapter 7-9", "pages": "tr. 165-240", "note": "Storytelling và cases"}
-    ]
+      {
+        "sourceId": "systems",
+        "chapter": "Introduction và phần System Structure",
+        "pages": "PDF tr. 17-45 trở đi",
+        "note": "System lens, feedback và structure"
+      },
+      {
+        "sourceId": "problem-solving",
+        "chapter": "Chapter 2-7",
+        "pages": "Theo mục lục",
+        "note": "Problem framing tới synthesis"
+      },
+      {
+        "sourceId": "storytelling",
+        "chapter": "Chapter 7-9",
+        "pages": "tr. 165-240",
+        "note": "Storytelling và cases"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Supply chain có feedback, delay và unintended consequences. Systems thinking giúp tránh chữa symptom; problem solving giúp chia nhỏ vấn đề; storytelling giúp biến analysis thành quyết định. Ba năng lực này tạo khác biệt giữa analyst làm báo cáo và planner dẫn dắt hành động. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Supply chain có feedback, delay và unintended consequences. Systems thinking giúp tránh chữa symptom; problem solving giúp chia nhỏ vấn đề; storytelling giúp biến analysis thành quyết định. Ba năng lực này tạo khác biệt giữa analyst làm báo cáo và planner dẫn dắt hành động. Hãy bắt đầu bằng câu hỏi: quyết định nào trong AI, Systems & Career đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Feedback loop, Delay, System trap, Leverage point, Issue tree, Storyline. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Executive recommendation deck. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Systems thinking và executive storytelling",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán systems thinking và executive storytelling trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Systems thinking và executive storytelling.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Vẽ causal loop cho promotion-stockout."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 23 là gì?",
+          "answer": "Vẽ feedback loop và delay"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Executive recommendation deck và lựa chọn action cho bài toán Systems thinking và executive storytelling trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   },
   {
     "week": 24,
@@ -509,18 +2285,99 @@
     "titleEn": "Capstone, portfolio and mock interview",
     "hours": "10-14 giờ",
     "level": "Nâng cao",
-    "tools": ["Excel", "SQL", "Power BI", "Python", "AnyLogic", "OpenAI API"],
-    "objectives": ["Đóng gói một project end-to-end", "Trình bày business impact", "Bảo vệ assumptions và model choices"],
+    "tools": [
+      "Excel",
+      "SQL",
+      "Power BI",
+      "Python",
+      "AnyLogic",
+      "OpenAI API"
+    ],
+    "objectives": [
+      "Đóng gói một project end-to-end",
+      "Trình bày business impact",
+      "Bảo vệ assumptions và model choices"
+    ],
     "summary": "Capstone chứng minh mày có thể đi từ câu hỏi kinh doanh tới dữ liệu, model, insight và recommendation. Portfolio cần thể hiện cả cách suy nghĩ, không chỉ ảnh dashboard: problem, data, assumptions, approach, result, limitation và next step.",
     "summaryEn": "The capstone proves an end-to-end ability to frame a business problem, analyse data, build a model and defend a recommendation.",
-    "concepts": ["Portfolio narrative", "Model card", "Business impact", "Limitations", "Interview STAR"],
-    "practice": ["Hoàn thiện capstone", "Thu video demo 5 phút", "Luyện 20 câu interview"],
+    "concepts": [
+      "Portfolio narrative",
+      "Model card",
+      "Business impact",
+      "Limitations",
+      "Interview STAR"
+    ],
+    "practice": [
+      "Hoàn thiện capstone",
+      "Thu video demo 5 phút",
+      "Luyện 20 câu interview"
+    ],
     "deliverable": "Capstone Supply Chain AI / Demand Planning",
     "portfolio": "Project 3 - End-to-end capstone public-safe version",
     "sourceRefs": [
-      {"sourceId": "problem-solving", "chapter": "Chapter 7 và 10", "pages": "Theo mục lục", "note": "Synthesis, story và becoming a problem solver"},
-      {"sourceId": "storytelling-practice", "chapter": "Chapter 7-9", "pages": "tr. 285-402", "note": "Comprehensive practice"},
-      {"sourceId": "scm-dummies", "chapter": "Chapter 19-20", "pages": "Theo mục lục", "note": "Career và education"}
-    ]
+      {
+        "sourceId": "problem-solving",
+        "chapter": "Chapter 7 và 10",
+        "pages": "Theo mục lục",
+        "note": "Synthesis, story và becoming a problem solver"
+      },
+      {
+        "sourceId": "storytelling-practice",
+        "chapter": "Chapter 7-9",
+        "pages": "tr. 285-402",
+        "note": "Comprehensive practice"
+      },
+      {
+        "sourceId": "scm-dummies",
+        "chapter": "Chapter 19-20",
+        "pages": "Theo mục lục",
+        "note": "Career và education"
+      }
+    ],
+    "lesson": {
+      "coreIdea": "Capstone chứng minh mày có thể đi từ câu hỏi kinh doanh tới dữ liệu, model, insight và recommendation. Portfolio cần thể hiện cả cách suy nghĩ, không chỉ ảnh dashboard: problem, data, assumptions, approach, result, limitation và next step. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "sections": [
+        {
+          "heading": "Bối cảnh và câu hỏi kinh doanh",
+          "body": "Capstone chứng minh mày có thể đi từ câu hỏi kinh doanh tới dữ liệu, model, insight và recommendation. Portfolio cần thể hiện cả cách suy nghĩ, không chỉ ảnh dashboard: problem, data, assumptions, approach, result, limitation và next step. Hãy bắt đầu bằng câu hỏi: quyết định nào trong AI, Systems & Career đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+        },
+        {
+          "heading": "Khung kiến thức cốt lõi",
+          "body": "Tuần này tập trung vào Portfolio narrative, Model card, Business impact, Limitations, Interview STAR. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+        },
+        {
+          "heading": "Cách kiểm chứng",
+          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Capstone Supply Chain AI / Demand Planning. Ghi lại giới hạn của phân tích."
+        }
+      ],
+      "workedExample": {
+        "title": "FMCG case: Capstone, portfolio và mock interview",
+        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán capstone, portfolio và mock interview trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "steps": [
+          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Capstone, portfolio và mock interview.",
+          "Xác định input, grain, assumption và KPI trước khi thao tác.",
+          "Thực hiện task đầu tiên: Hoàn thiện capstone."
+        ],
+        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+      },
+      "selfCheck": [
+        {
+          "question": "Mục tiêu chính của tuần 24 là gì?",
+          "answer": "Đóng gói một project end-to-end"
+        },
+        {
+          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
+          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+        },
+        {
+          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
+          "answer": "Nó hỗ trợ hoàn thiện Capstone Supply Chain AI / Demand Planning và lựa chọn action cho bài toán Capstone, portfolio và mock interview trong bối cảnh FMCG."
+        },
+        {
+          "question": "Một giới hạn thường gặp của phân tích là gì?",
+          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+        }
+      ]
+    }
   }
 ]

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getQuizForModule, getSource, getWeek } from "../../../lib/content";
+import { getQuizForModule, getSource, getSourceExcerptsForWeek, getWeek } from "../../../lib/content";
 import { chatGPTSignOutPath, requireChatGPTUser } from "../../chatgpt-auth";
 import SiteNavigation from "../../site-navigation";
 import WeekLesson, { type LessonQuiz } from "./week-lesson";
@@ -43,7 +43,7 @@ export default async function WeekPage({ params }: { params: Promise<{ week: str
         user={{ displayName: user.displayName, email: user.email }}
         signOutPath={chatGPTSignOutPath(`/week/${week.week}`)}
       />
-      <WeekLesson week={week} quiz={quiz} sourceMap={sourceMap} lessonBlocks={getLessonBlocks(week)} learningAssets={getLearningAssets(week)} rubric={getRubric()} />
+      <WeekLesson week={week} quiz={quiz} sourceMap={sourceMap} sourceExcerpts={getSourceExcerptsForWeek(week.week)} lessonBlocks={getLessonBlocks(week)} learningAssets={getLearningAssets(week)} rubric={getRubric()} />
     </>
   );
 }

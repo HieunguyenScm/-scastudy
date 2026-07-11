@@ -21,7 +21,9 @@ export function buildTutorRequest(message: string, week?: Week): {
         `Tuần ${week.week}: ${week.title} (${week.titleEn})`,
         `Module: ${week.moduleName}`,
         `Mục tiêu: ${week.objectives.join("; ")}`,
-        `Tóm tắt: ${week.summary}`,
+        `Ý tưởng cốt lõi: ${week.lesson.coreIdea}`,
+        `Nội dung bài giảng:\n${week.lesson.sections.map((section) => `- ${section.heading}: ${section.body}`).join("\n")}`,
+        `Ví dụ minh họa (${week.lesson.workedExample.title}): ${week.lesson.workedExample.narrative} ${week.lesson.workedExample.takeaway}`,
         `Khái niệm: ${week.concepts.join(", ")}`,
         `Bài thực hành: ${week.practice.join("; ")}`,
         `Deliverable: ${week.deliverable}`,
@@ -65,12 +67,16 @@ export function buildCurriculumFallback(message: string, week?: Week): string {
         .map((source) => `${source.title} — ${source.chapter}, ${source.pages}: ${source.note}`)
         .join("\n- ")
     : "Nguồn chi tiết chưa được gắn cho tuần này.";
+  const relevantSection =
+    week.lesson.sections.find((section) =>
+      message.toLowerCase().includes(section.heading.toLowerCase().split(" ")[0] ?? ""),
+    ) ?? week.lesson.sections[0];
   return [
-    "AI Tutor đang tạm thời chuyển sang chế độ curriculum, nên dưới đây là hướng dẫn bám sát tài liệu đã tuyển chọn.",
-    `Ý chính — Tuần ${week.week}, ${week.title}: ${week.summary}`,
-    `Liên hệ câu hỏi “${shorten(message, 180)}”: tập trung vào ${week.concepts.slice(0, 4).join(", ")}.`,
-    `Ví dụ/bài tập: ${week.practice[0] ?? week.deliverable}`,
-    `Bước thực hành tiếp theo: ${week.practice[1] ?? week.deliverable}`,
+    "AI Tutor đang tạm thời chuyển sang chế độ curriculum, nên dưới đây là bài giảng đã biên soạn sẵn cho tuần này thay vì câu trả lời tức thời.",
+    `Ý chính — Tuần ${week.week}, ${week.title}: ${week.lesson.coreIdea}`,
+    relevantSection ? `${relevantSection.heading}: ${relevantSection.body}` : week.summary,
+    `Ví dụ minh họa — ${week.lesson.workedExample.title}: ${week.lesson.workedExample.narrative} ${week.lesson.workedExample.takeaway}`,
+    `Liên hệ câu hỏi “${shorten(message, 180)}”: đối chiếu với ${week.concepts.slice(0, 4).join(", ")} ở trên rồi thử lại bài thực hành: ${week.practice[0] ?? week.deliverable}.`,
     `Nguồn nên mở:\n- ${sourceLine}`,
   ].join("\n\n");
 }

@@ -3,12 +3,37 @@ import curriculumData from "../content/curriculum.json";
 import glossaryData from "../content/glossary.json";
 import quizzesData from "../content/quizzes.json";
 import sourcesData from "../content/sources.json";
+import sourceExcerptsData from "../content/source-excerpts.json";
 
 export type SourceRef = {
   sourceId: string;
   chapter: string;
   pages: string;
   note: string;
+};
+
+export type LessonSection = {
+  heading: string;
+  body: string;
+};
+
+export type LessonExample = {
+  title: string;
+  narrative: string;
+  steps: string[];
+  takeaway: string;
+};
+
+export type SelfCheckItem = {
+  question: string;
+  answer: string;
+};
+
+export type WeekLesson = {
+  coreIdea: string;
+  sections: LessonSection[];
+  workedExample: LessonExample;
+  selfCheck: SelfCheckItem[];
 };
 
 export type Week = {
@@ -28,6 +53,7 @@ export type Week = {
   deliverable: string;
   portfolio: string;
   sourceRefs: SourceRef[];
+  lesson: WeekLesson;
 };
 
 export type QuizQuestion = {
@@ -57,6 +83,17 @@ export type Source = {
   usedFor: number[];
   note: string;
 };
+export type SourceExcerpt = {
+  week: number;
+  sourceId: string;
+  title: string;
+  author: string;
+  chapter: string;
+  pages: string;
+  note: string;
+  pdfPageStart: number;
+  excerpt: string;
+};
 
 export type Assignment = {
   module: number;
@@ -69,6 +106,7 @@ export type Assignment = {
 
 export const curriculum = curriculumData as Week[];
 export const sources = sourcesData as Source[];
+export const sourceExcerpts = sourceExcerptsData as SourceExcerpt[];
 export const glossary = glossaryData;
 export const quizzes = quizzesData as ModuleQuiz[];
 export const assignments = assignmentsData as Assignment[];
@@ -83,6 +121,10 @@ export function getQuizForModule(module: number) {
 
 export function getSource(sourceId: string) {
   return sources.find((source) => source.id === sourceId);
+}
+
+export function getSourceExcerptsForWeek(week: number) {
+  return sourceExcerpts.filter((item) => item.week === week);
 }
 
 export const modules = Array.from(
