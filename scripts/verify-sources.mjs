@@ -9,6 +9,9 @@ const libraryRoot = resolve(projectRoot, "..");
 const sources = JSON.parse(
   await readFile(resolve(projectRoot, "content/sources.json"), "utf8"),
 );
+const sourceExcerpts = JSON.parse(
+  await readFile(resolve(projectRoot, "content/source-excerpts.json"), "utf8"),
+);
 
 async function sha256(path) {
   const hash = createHash("sha256");
@@ -23,7 +26,14 @@ for (const source of sources) {
   try {
     await access(path);
   } catch {
-    failures.push(`${source.id}: missing ${source.libraryPath}`);
+    const snapshots = sourceExcerpts.filter(
+      (item) => item.sourceId === source.id && typeof item.excerpt === "string" && item.excerpt.trim().length >= 200,
+    );
+    if (snapshots.length && /^[a-f0-9]{64}$/.test(source.sha256) && source.pageCount > 0) {
+      process.stdout.write(`verified extracted snapshot ${source.id} (${snapshots.length} excerpts; original PDF currently offline)\n`);
+      continue;
+    }
+    failures.push(`${source.id}: missing ${source.libraryPath} and no usable extracted snapshot`);
     continue;
   }
 

@@ -1,8 +1,9 @@
-import { and, asc, eq, sql } from "drizzle-orm";
-import { deriveProgressState, isModuleEndWeek, nextReviewDate } from "../../../db/mastery";
+import { and, asc, eq } from "drizzle-orm";
+import { deriveProgressState } from "../../../db/mastery";
 import { getDb } from "../../../db";
 import { ensureDatabase } from "../../../db/ensure";
-import { progress, type MasteryStatus } from "../../../db/schema";
+import { progress } from "../../../db/schema";
+import { recomputeLearningState } from "../../../db/learning-state";
 import {
   ApiRequestError,
   createRequestId,
@@ -24,13 +25,15 @@ export async function GET() {
     }
 
     await ensureDatabase();
-    const rows = await getDb()
+    const db = getDb();
+    const rows = await db
       .select()
       .from(progress)
       .where(eq(progress.userEmail, user.email))
       .orderBy(asc(progress.week));
 
-    return jsonResponse({ progress: rows, requestId }, { requestId });
+    const truthfulRows = await Promise.all(rows.map((row) => recomputeLearningState(db, user.email, row.week)));
+    return jsonResponse({ progress: truthfulRows.filter(Boolean), requestId }, { requestId });
   } catch (error) {
     if (isLocalDatabaseUnavailable(error)) {
       return jsonResponse({ progress: [], degraded: true, requestId }, { requestId });
@@ -102,129 +105,64 @@ export async function POST(request: Request) {
       }
     }
 
-    if (hasOwn(body, "action") && body.action !== "review") {
+    if (hasOwn(body, "action")) {
       throw new ApiRequestError(
         "INVALID_ACTION",
         400,
-        'action must be "review" when provided.',
+        "Review cannot be recorded by a click. Submit a retrieval-practice response instead.",
       );
     }
-    const isReview = body.action === "review";
-
-    const initialConfidence = confidence ?? 0;
-    const initialPracticeMask = practiceMask ?? 0;
-    const initialReflection = reflection ?? "";
-    const initialReviewCount = isReview ? 1 : 0;
-    const initialState = deriveProgressState({
-      week,
-      confidence: initialConfidence,
-      practiceMask: initialPracticeMask,
-      reflection: initialReflection,
-      quizScore: null,
-      reviewCount: initialReviewCount,
-    });
-    const now = new Date();
-
-    const nextConfidence =
-      confidence === undefined
-        ? sql<number>`${progress.confidence}`
-        : sql<number>`${confidence}`;
-    const nextPracticeMask =
-      practiceMask === undefined
-        ? sql<number>`${progress.practiceMask}`
-        : sql<number>`${practiceMask}`;
-    const nextReflection =
-      reflection === undefined
-        ? sql<string>`${progress.reflection}`
-        : sql<string>`${reflection}`;
-    const nextReviewCount = isReview
-      ? sql<number>`${progress.reviewCount} + 1`
-      : sql<number>`${progress.reviewCount}`;
-    const moduleQuizRequirement = isModuleEndWeek(week)
-      ? sql`COALESCE(${progress.quizScore}, -1) >= 80`
-      : sql`1 = 1`;
-    const completionCondition = sql`
-      ${nextPracticeMask} = 7
-      AND ${nextConfidence} >= 3
-      AND length(trim(${nextReflection})) >= 20
-      AND ${moduleQuizRequirement}
-    `;
-    const activityCondition = sql`
-      ${nextPracticeMask} > 0
-      OR ${nextConfidence} > 0
-      OR length(trim(${nextReflection})) > 0
-      OR ${progress.quizScore} IS NOT NULL
-      OR ${nextReviewCount} > 0
-    `;
-    const completedUpdate = sql<boolean>`CASE WHEN ${completionCondition} THEN 1 ELSE 0 END`;
-    const masteryUpdate = sql<MasteryStatus>`CASE
-      WHEN ${completionCondition} AND ${nextReviewCount} >= 1 AND ${nextConfidence} >= 4
-        THEN 'mastered'
-      WHEN ${completionCondition} THEN 'completed'
-      WHEN ${activityCondition} THEN 'in-progress'
-      ELSE 'not-started'
-    END`;
-
     await ensureDatabase();
     const db = getDb();
-    if (isReview) {
-      const [existing] = await db
-        .select({ completed: progress.completed })
-        .from(progress)
-        .where(and(eq(progress.userEmail, user.email), eq(progress.week, week)))
-        .limit(1);
-      if (!existing?.completed) {
-        throw new ApiRequestError(
-          "REVIEW_REQUIRES_COMPLETION",
-          409,
-          "A review can only be recorded after the week is completed.",
-        );
-      }
-    }
+    const [existing] = await db
+      .select()
+      .from(progress)
+      .where(and(eq(progress.userEmail, user.email), eq(progress.week, week)))
+      .limit(1);
+    const nextConfidence = confidence ?? existing?.confidence ?? 0;
+    const nextPracticeMask = practiceMask ?? existing?.practiceMask ?? 0;
+    const nextReflection = reflection ?? existing?.reflection ?? "";
+    const quizScore = existing?.quizScore ?? null;
+    const initialState = deriveProgressState({
+      week,
+      confidence: nextConfidence,
+      practiceMask: nextPracticeMask,
+      reflection: nextReflection,
+      quizScore,
+      reviewCount: existing?.reviewCount ?? 0,
+      evidencePassed: false,
+    });
+    const updatedAt = new Date().toISOString();
+
     const [saved] = await db
       .insert(progress)
       .values({
         userEmail: user.email,
         week,
         completed: initialState.completed,
-        confidence: initialConfidence,
-        quizScore: null,
-        practiceMask: initialPracticeMask,
-        reflection: initialReflection,
+        confidence: nextConfidence,
+        quizScore,
+        practiceMask: nextPracticeMask,
+        reflection: nextReflection,
         masteryStatus: initialState.masteryStatus,
-        reviewCount: initialReviewCount,
-        lastReviewedAt: isReview ? now.toISOString() : null,
-        nextReviewAt: isReview ? nextReviewDate(1, now) : null,
+        reviewCount: existing?.reviewCount ?? 0,
+        lastReviewedAt: existing?.lastReviewedAt ?? null,
+        nextReviewAt: existing?.nextReviewAt ?? null,
+        updatedAt,
       })
       .onConflictDoUpdate({
         target: [progress.userEmail, progress.week],
         set: {
-          completed: completedUpdate,
-          confidence:
-            confidence === undefined ? sql`${progress.confidence}` : confidence,
-          practiceMask:
-            practiceMask === undefined ? sql`${progress.practiceMask}` : practiceMask,
-          reflection:
-            reflection === undefined ? sql`${progress.reflection}` : reflection,
-          masteryStatus: masteryUpdate,
-          reviewCount: nextReviewCount,
-          lastReviewedAt: isReview
-            ? sql`strftime('%Y-%m-%dT%H:%M:%fZ', 'now')`
-            : sql`${progress.lastReviewedAt}`,
-          nextReviewAt: isReview
-            ? sql`strftime('%Y-%m-%dT%H:%M:%fZ', 'now', CASE
-                WHEN ${progress.reviewCount} = 0 THEN '+1 day'
-                WHEN ${progress.reviewCount} = 1 THEN '+7 days'
-                WHEN ${progress.reviewCount} = 2 THEN '+21 days'
-                ELSE '+45 days'
-              END)`
-            : sql`${progress.nextReviewAt}`,
-          updatedAt: sql`CURRENT_TIMESTAMP`,
+          confidence: nextConfidence,
+          practiceMask: nextPracticeMask,
+          reflection: nextReflection,
+          updatedAt,
         },
       })
       .returning();
 
-    return jsonResponse({ progress: saved, requestId }, { requestId });
+    const truthful = await recomputeLearningState(db, user.email, week);
+    return jsonResponse({ progress: truthful ?? saved, requestId }, { requestId });
   } catch (error) {
     return handleApiError(error, requestId);
   }

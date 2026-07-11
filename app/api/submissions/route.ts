@@ -35,7 +35,11 @@ export async function POST(request: Request) {
     const assumptions = requireText(body.assumptions, "assumptions", 5000);
     const reflection = requireText(body.reflection, "reflection", 5000);
     const fileUrl = body.fileUrl == null ? null : requireText(body.fileUrl, "fileUrl", 500);
-    const action = body.action === "submit" ? "submitted" : "in-progress";
+    const submitting = body.action === "submit";
+    if (submitting && (evidence.length < 120 || assumptions.length < 20 || reflection.length < 40)) {
+      throw new ApiRequestError("SUBMISSION_NOT_READY", 400, "Submit requires evidence ≥120 characters, assumptions ≥20 and reflection ≥40.");
+    }
+    const action = submitting ? "submitted" : "in-progress";
     await ensureDatabase();
     const db = getDb();
     const existing = await db.select().from(submissions).where(and(eq(submissions.userEmail, user.email), eq(submissions.week, week))).limit(1);

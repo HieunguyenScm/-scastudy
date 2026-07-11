@@ -19,8 +19,8 @@ type ProgressRow = {
   nextReviewAt: string | null;
 };
 type SubmissionRow = { week: number; status: string; latestVersion: number };
+type LearningStats = { encountered: number; applied: number; retained: number; retrievalPasses: number; revisions: number; confidenceGap: number | null; activeDays: number };
 
-const MODULE_END_WEEKS = [4, 8, 12, 16, 20, 24];
 const moduleMeta = [
   { code: "FOUNDATION", icon: "01", accent: "cyan" },
   { code: "DATA & BI", icon: "02", accent: "blue" },
@@ -57,11 +57,12 @@ function isMastered(status: string) {
 
 function masteryLabel(status: string) {
   const normalized = status.toLowerCase().replaceAll("-", "_");
-  if (normalized.includes("mastered")) return "Mastered";
+  if (normalized.includes("mastered")) return "Retained";
+  if (normalized.includes("completed")) return "Applied";
   if (normalized.includes("due")) return "Cần ôn";
   if (normalized.includes("review")) return "Đang ôn";
-  if (normalized.includes("learning") || normalized.includes("progress")) return "Đang học";
-  return "Chưa mastery";
+  if (normalized.includes("learning") || normalized.includes("progress")) return "Encountered";
+  return "Chưa bắt đầu";
 }
 
 function dueLabel(value: string, now: number) {
@@ -92,6 +93,7 @@ export default function DashboardClient({
   const [tutorError, setTutorError] = useState("");
   const [asking, setAsking] = useState(false);
   const [submissions, setSubmissions] = useState<SubmissionRow[]>([]);
+  const [learningStats, setLearningStats] = useState<LearningStats>({ encountered: 0, applied: 0, retained: 0, retrievalPasses: 0, revisions: 0, confidenceGap: null, activeDays: 0 });
 
   const loadProgress = useCallback(async (signal?: AbortSignal) => {
     setLoadingProgress(true);
@@ -130,6 +132,7 @@ export default function DashboardClient({
       }
       void loadProgress(controller.signal);
       void fetch("/api/submissions").then((response) => response.json() as Promise<{ submissions?: SubmissionRow[] }>).then((data) => setSubmissions(Array.isArray(data.submissions) ? data.submissions : [])).catch(() => setSubmissions([]));
+      void fetch("/api/learning-stats").then((response) => response.json() as Promise<{ stats?: LearningStats }>).then((data) => data.stats && setLearningStats(data.stats)).catch(() => undefined);
     }, 0);
     return () => {
       window.clearTimeout(timer);
@@ -144,13 +147,7 @@ export default function DashboardClient({
   const completedCount = progress.filter((item) => item.completed).length;
   const masteredCount = progress.filter((item) => isMastered(item.masteryStatus)).length;
   const completionRate = Math.round((completedCount / 24) * 100);
-  const quizScores = MODULE_END_WEEKS.flatMap((weekNumber) => {
-    const score = progressMap.get(weekNumber)?.quizScore;
-    return score == null ? [] : [score];
-  });
-  const averageQuiz = quizScores.length
-    ? Math.round(quizScores.reduce((sum, score) => sum + score, 0) / quizScores.length)
-    : null;
+  const encounteredRate = Math.round((learningStats.encountered / 24) * 100);
   const dueReviews = useMemo(() => progress
     .filter((row) => {
       if (!row.completed || !row.nextReviewAt) return false;
@@ -160,6 +157,16 @@ export default function DashboardClient({
     .sort((a, b) => new Date(a.nextReviewAt ?? 0).getTime() - new Date(b.nextReviewAt ?? 0).getTime()), [progress, reviewClock]);
   const currentWeek = curriculum.find((week) => !progressMap.get(week.week)?.completed) ?? curriculum[23];
   const currentSubmission = submissions.find((item) => item.week === currentWeek.week);
+  const currentProgress = progressMap.get(currentWeek.week);
+  const nextAction = dueReviews[0]
+    ? { href: `/week/${dueReviews[0].week}#retrieval-practice`, label: `Ôn retrieval tuần ${String(dueReviews[0].week).padStart(2, "0")}` }
+    : currentSubmission?.status === "submitted"
+      ? { href: `/week/${currentWeek.week}#submission-workspace`, label: "Request mentor review" }
+      : currentSubmission?.status === "needs-revision"
+        ? { href: `/week/${currentWeek.week}#submission-workspace`, label: "Sửa bài theo feedback" }
+        : currentProgress
+          ? { href: `/week/${currentWeek.week}`, label: `Tiếp tục tuần ${String(currentWeek.week).padStart(2, "0")}` }
+          : { href: `/week/${currentWeek.week}`, label: `Bắt đầu tuần ${String(currentWeek.week).padStart(2, "0")}` };
 
   const filteredWeeks = curriculum.filter((week) => {
     if (moduleFilter && week.module !== moduleFilter) return false;
@@ -227,8 +234,8 @@ export default function DashboardClient({
               )}
             </p>
             <div className="hero-buttons">
-              <Link className="primary-action" href={`/week/${currentWeek.week}`}>
-                Tiếp tục tuần {String(currentWeek.week).padStart(2, "0")} <span>→</span>
+              <Link className="primary-action" href={nextAction.href}>
+                {nextAction.label} <span>→</span>
               </Link>
               <Link className="secondary-action" href="#roadmap">Xem roadmap</Link>
             </div>
@@ -243,30 +250,30 @@ export default function DashboardClient({
               <div className="tower-node node-three">AI</div>
               <div className="tower-center"><strong>{completionRate}%</strong><small>COMPLETE</small></div>
             </div>
-            <div className="tower-bottom"><span>{masteredCount} mastered</span><span>{dueReviews.length} review due</span></div>
+            <div className="tower-bottom"><span>{masteredCount} retained</span><span>{dueReviews.length} review due</span></div>
           </div>
         </section>
 
         <section className="metric-grid" aria-label="Chỉ số tiến độ">
           <article>
-            <span className="metric-label">ĐÃ HOÀN THÀNH</span>
-            <strong>{String(completedCount).padStart(2, "0")}<small>/24 tuần</small></strong>
-            <div className="meter" aria-hidden="true"><i style={{ width: `${completionRate}%` }} /></div>
+            <span className="metric-label">ENCOUNTERED · ĐÃ HỌC</span>
+            <strong>{String(learningStats.encountered).padStart(2, "0")}<small>/24 tuần</small></strong>
+            <div className="meter" aria-hidden="true"><i style={{ width: `${encounteredRate}%` }} /></div>
           </article>
           <article>
-            <span className="metric-label">ĐÃ MASTERY</span>
-            <strong>{String(masteredCount).padStart(2, "0")}<small>/24 tuần</small></strong>
-            <p>Đã hoàn thành và củng cố qua review</p>
+            <span className="metric-label">APPLIED · EVIDENCE ĐẠT</span>
+            <strong>{String(learningStats.applied).padStart(2, "0")}<small>/24 tuần</small></strong>
+            <p>{learningStats.revisions} bài đã có revision</p>
           </article>
           <article>
-            <span className="metric-label">ĐIỂM MODULE · TRUNG BÌNH</span>
-            <strong>{averageQuiz ?? "--"}<small>{averageQuiz == null ? "chưa có" : "%"}</small></strong>
-            <p>{quizScores.length}/6 bài assessment đã nộp</p>
+            <span className="metric-label">RETAINED · NHỚ VÀ TRANSFER</span>
+            <strong>{String(learningStats.retained).padStart(2, "0")}<small>/24 tuần</small></strong>
+            <p>{learningStats.retrievalPasses} retrieval pass · calibration gap {learningStats.confidenceGap ?? "--"}</p>
           </article>
           <article className={dueReviews.length ? "metric-urgent" : ""}>
-            <span className="metric-label">SPACED REVIEW</span>
-            <strong>{String(dueReviews.length).padStart(2, "0")}<small>đến hạn</small></strong>
-            <p>{dueReviews.length ? "Ưu tiên ôn trước khi học bài mới" : "Không có bài ôn quá hạn"}</p>
+            <span className="metric-label">LEARNING RHYTHM</span>
+            <strong>{learningStats.activeDays}<small>/3 ngày tuần này</small></strong>
+            <p>{dueReviews.length ? `${dueReviews.length} retrieval đang đến hạn` : "Nhịp học không bị phạt nếu nghỉ"}</p>
           </article>
         </section>
 
@@ -276,7 +283,7 @@ export default function DashboardClient({
             <h2 id="review-queue-title">{dueReviews.length ? "Ôn trước khi quên." : "Review queue đang sạch."}</h2>
             <p>
               {dueReviews.length
-                ? `${dueReviews.length} tuần đã tới lịch củng cố. Mở bài, tự gọi lại kiến thức rồi đánh dấu review complete.`
+                ? `${dueReviews.length} tuần đã tới lịch củng cố. Mở bài, tự trả lời retrieval prompt rồi xem feedback.`
                 : "Khi một tuần tới hạn, nó sẽ xuất hiện ở đây theo thứ tự ưu tiên."}
             </p>
           </div>
@@ -320,8 +327,8 @@ export default function DashboardClient({
               <p className="kicker">WEEKLY OUTPUT</p>
               <h3>{currentWeek.deliverable}</h3>
               <p>{currentWeek.portfolio}</p>
-              <Link className="complete-button" href={`/week/${currentWeek.week}#submission-workspace`}>
-                {currentSubmission?.status === "needs-revision" ? "Sửa bài đang yêu cầu revision →" : currentSubmission?.status === "submitted" ? "Request mentor review →" : "Mở lesson + lab →"}
+                  <Link className="complete-button" href={nextAction.href}>
+                {nextAction.label} →
               </Link>
             </article>
           </div>
@@ -330,7 +337,7 @@ export default function DashboardClient({
         <section className="section-block" id="roadmap">
           <div className="section-title-row roadmap-title">
             <div><p className="kicker">THE ROADMAP</p><h2>24 tuần, 6 năng lực</h2></div>
-            <p>Completed là làm xong. Mastered là đã review và giữ được kiến thức.</p>
+            <p>Encountered là đã học; Applied là evidence đã đạt; Retained là retrieval và transfer thành công.</p>
           </div>
 
           <div className="module-grid">
@@ -341,11 +348,12 @@ export default function DashboardClient({
               const assignment = assignments.find((item) => item.module === module.id);
               return (
                 <article className={`module-card ${moduleMeta[index].accent}`} key={module.id}>
-                  <div className="module-card-head"><span>{moduleMeta[index].icon}</span><b>{moduleMeta[index].code}</b><small>{moduleCompleted}/4 done</small></div>
+                  <div className="module-card-head"><span>{moduleMeta[index].icon}</span><b>{moduleMeta[index].code}</b><small>{moduleCompleted}/4 applied</small></div>
                   <h3>{module.name}</h3>
                   <p>Tuần {String(moduleWeeks[0].week).padStart(2, "0")}—{String(moduleWeeks[3].week).padStart(2, "0")}</p>
                   <div className="module-progress" aria-label={`${moduleCompleted} trên 4 tuần hoàn thành`}><i style={{ width: `${moduleCompleted * 25}%` }} /></div>
-                  <strong>{moduleMastered}/4 mastered · {assignment?.title}</strong>
+                  <strong>{moduleMastered}/4 retained · {assignment?.title}</strong>
+                  <Link className="module-boss-link" href={`/boss/${module.id}`}>Mở Boss Challenge →</Link>
                 </article>
               );
             })}
@@ -387,7 +395,7 @@ export default function DashboardClient({
                       </div>
                       <div className="week-tools">{week.tools.slice(0, 3).map((tool) => <span key={tool}>{tool}</span>)}<span>{week.hours}</span></div>
                       <div className="week-status-stack">
-                        <span className={row?.completed ? "completion-chip done" : "completion-chip"}>{row?.completed ? "Completed" : "Not complete"}</span>
+                        <span className={row?.completed ? "completion-chip done" : "completion-chip"}>{row?.completed ? "Applied" : row ? "Encountered" : "Not started"}</span>
                         <span className={mastered ? "mastery-chip mastered" : "mastery-chip"}>{masteryLabel(row?.masteryStatus ?? "")}</span>
                       </div>
                       <Link className="week-open" href={`/week/${week.week}`}>Mở →</Link>

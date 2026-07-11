@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFile } from "node:fs/promises";
+import { readFile, stat } from "node:fs/promises";
 import test from "node:test";
 
 const read = (path) => readFile(new URL(path, import.meta.url), "utf8");
@@ -25,6 +25,14 @@ test("curriculum is complete and traceable", async () => {
   assert.ok(quizzes.every((quiz) => quiz.questions.every((question) => question.options.length >= 2 && Number.isInteger(question.answerIndex))));
   assert.equal(assignments.length, 6);
   assert.ok(glossary.length >= 50);
+
+  assert.ok(curriculum.every((week) => week.lesson), "every week needs authored lesson content, not just a summary");
+  assert.ok(curriculum.every((week) => week.lesson.coreIdea.length >= 20));
+  assert.ok(curriculum.every((week) => week.lesson.sections.length >= 2));
+  assert.ok(curriculum.every((week) => week.lesson.sections.every((section) => section.heading && section.body.length >= 80)));
+  assert.ok(curriculum.every((week) => week.lesson.workedExample.steps.length >= 2));
+  assert.ok(curriculum.every((week) => week.lesson.selfCheck.length >= 4));
+  assert.ok(curriculum.every((week) => week.lesson.selfCheck.every((item) => item.question && item.answer.length >= 20)));
 });
 
 test("private learning surfaces and persistence are wired", async () => {
@@ -57,4 +65,46 @@ test("private learning surfaces and persistence are wired", async () => {
   assert.match(masteryMigration, /case_studies_snapshot_after_revision/);
   assert.match(layout, /robots: \{ index: false, follow: false \}/);
   assert.doesNotMatch(dashboard + layout, /codex-preview|SkeletonPreview|react-loading-skeleton/);
+});
+
+test("learning progression requires evidence and retrieval, not clicks", async () => {
+  const [mastery, learningState, retrievalRoute, mentorRoute, weekLesson, teachingNotes, migration, bosses, dashboard, lessonReader, lessonProgressRoute, uploadsRoute, submissionRoute, learning, hosting, workbookStat] = await Promise.all([
+    read("../db/mastery.ts"),
+    read("../db/learning-state.ts"),
+    read("../app/api/retrieval/route.ts"),
+    read("../app/api/mentor-review/route.ts"),
+    read("../app/week/[week]/week-lesson.tsx"),
+    read("../content/teaching-notes.ts"),
+    read("../drizzle/0003_truthful_mastery.sql"),
+    read("../content/boss-challenges.ts"),
+    read("../app/dashboard-client.tsx"),
+    read("../app/week/[week]/lesson-reader.tsx"),
+    read("../app/api/lesson-progress/route.ts"),
+    read("../app/api/uploads/route.ts"),
+    read("../app/api/submissions/route.ts"),
+    read("../lib/learning.ts"),
+    read("../.openai/hosting.json"),
+    stat(new URL("../public/assets/CTNASCM_FMCG_Learning_Pack.xlsx", import.meta.url)),
+  ]);
+  assert.match(mastery, /evidencePassed === true/);
+  assert.match(mastery, /passedRetrievals/);
+  assert.match(learningState, /submission.*status|evidencePassed/s);
+  assert.match(learningState, /itemType === "transfer"/);
+  assert.match(learningState, /lessonComplete && row\.practiceMask === 7/);
+  assert.match(retrievalRoute, /scoreRetrievalResponse/);
+  assert.match(mentorRoute, /cannot issue a pass|không cấp Passed/);
+  assert.match(weekLesson, /Bài giảng tiếng Việt từ tài liệu đã upload/);
+  assert.match(teachingNotes, /24:/);
+  assert.match(migration, /CREATE TABLE IF NOT EXISTS `retrieval_attempts`/);
+  assert.match(bosses, /module: 6/);
+  assert.match(dashboard, /Boss Challenge/);
+  assert.match(lessonReader, /Học bài theo từng block/);
+  assert.match(lessonProgressRoute, /recomputeLearningState/);
+  assert.match(migration, /lesson_block_progress/);
+  assert.match(uploadsRoute, /Private file storage|private, no-store/);
+  assert.match(submissionRoute, /SUBMISSION_NOT_READY/);
+  assert.match(learning, /Independent challenge/);
+  assert.match(learning, /CTNASCM_FMCG_Learning_Pack\.xlsx/);
+  assert.match(hosting, /"r2": "FILES"/);
+  assert.ok(workbookStat.size > 100_000, "learning pack must be a substantive workbook, not a placeholder");
 });

@@ -74,6 +74,23 @@ export const progress = sqliteTable(
   ],
 );
 
+export const lessonBlockProgress = sqliteTable(
+  "lesson_block_progress",
+  {
+    userEmail: text("user_email").notNull(),
+    week: integer("week").notNull(),
+    blockId: text("block_id").notNull(),
+    completed: integer("completed", { mode: "boolean" }).notNull().default(false),
+    updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [
+    primaryKey({ columns: [table.userEmail, table.week, table.blockId] }),
+    index("lesson_block_progress_user_week_idx").on(table.userEmail, table.week),
+    check("lesson_block_progress_week_check", sql`${table.week} BETWEEN 1 AND 24`),
+    check("lesson_block_progress_block_id_check", sql`length(${table.blockId}) BETWEEN 1 AND 100`),
+  ],
+);
+
 export const caseStudies = sqliteTable(
   "case_studies",
   {
@@ -289,5 +306,30 @@ export const mentorReviews = sqliteTable(
     index("mentor_reviews_submission_created_idx").on(table.submissionId, table.createdAt),
     check("mentor_reviews_decision_check", sql`${table.decision} IN ('passed','needs-revision')`),
     check("mentor_reviews_scores_json_check", sql`json_valid(${table.scores})`),
+  ],
+);
+
+export const retrievalAttempts = sqliteTable(
+  "retrieval_attempts",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    userEmail: text("user_email").notNull(),
+    week: integer("week").notNull(),
+    promptId: text("prompt_id").notNull(),
+    itemType: text("item_type").notNull(),
+    response: text("response").notNull(),
+    confidence: integer("confidence").notNull(),
+    assisted: integer("assisted", { mode: "boolean" }).notNull().default(false),
+    score: integer("score").notNull(),
+    passed: integer("passed", { mode: "boolean" }).notNull().default(false),
+    createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [
+    index("retrieval_attempts_user_week_created_idx").on(table.userEmail, table.week, table.createdAt),
+    check("retrieval_attempts_week_check", sql`${table.week} BETWEEN 1 AND 24`),
+    check("retrieval_attempts_type_check", sql`${table.itemType} IN ('recall','application','transfer')`),
+    check("retrieval_attempts_confidence_check", sql`${table.confidence} BETWEEN 1 AND 5`),
+    check("retrieval_attempts_score_check", sql`${table.score} BETWEEN 0 AND 100`),
+    check("retrieval_attempts_response_length_check", sql`length(${table.response}) BETWEEN 40 AND 5000`),
   ],
 );

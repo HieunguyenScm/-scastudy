@@ -44,3 +44,6 @@ next-env.d.ts
 /work/
 /tmp/
 *.tsbuildinfo
+
+# local reference library (source PDFs, not part of the deployed site)
+/SC marterial/

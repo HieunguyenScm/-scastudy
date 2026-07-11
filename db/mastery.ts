@@ -9,6 +9,9 @@ export type MasteryInputs = {
   reflection: string;
   quizScore: number | null;
   reviewCount: number;
+  evidencePassed?: boolean;
+  passedRetrievals?: number;
+  transferPassed?: boolean;
 };
 
 export function isModuleEndWeek(week: number): boolean {
@@ -21,11 +24,11 @@ export function deriveProgressState(inputs: MasteryInputs): {
 } {
   const completed =
     inputs.practiceMask === 7 &&
-    inputs.confidence >= 3 &&
     inputs.reflection.trim().length >= 20 &&
+    inputs.evidencePassed === true &&
     (!isModuleEndWeek(inputs.week) || (inputs.quizScore ?? -1) >= 80);
 
-  if (completed && inputs.reviewCount >= 1 && inputs.confidence >= 4) {
+  if (completed && (inputs.passedRetrievals ?? 0) >= 2 && inputs.transferPassed === true) {
     return { completed: true, masteryStatus: "mastered" };
   }
   if (completed) return { completed: true, masteryStatus: "completed" };

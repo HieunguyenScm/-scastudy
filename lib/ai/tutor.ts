@@ -1,4 +1,4 @@
-import { curriculum, getSource, type Week } from "../content";
+import { curriculum, getSource, getSourceExcerptsForWeek, type Week } from "../content";
 
 export type TutorSource = {
   label: string;
@@ -16,6 +16,7 @@ export function buildTutorRequest(message: string, week?: Week): {
   sources: TutorSource[];
 } {
   const sources = week ? sourcesForWeek(week) : [];
+  const excerpts = week ? getSourceExcerptsForWeek(week.week).slice(0, 3) : [];
   const learningContext = week
     ? [
         `Tuần ${week.week}: ${week.title} (${week.titleEn})`,
@@ -28,6 +29,10 @@ export function buildTutorRequest(message: string, week?: Week): {
         `Bài thực hành: ${week.practice.join("; ")}`,
         `Deliverable: ${week.deliverable}`,
         `Nguồn học đã tuyển chọn:\n${sources.map(formatSourceForPrompt).join("\n")}`,
+        `Đoạn tài liệu tham chiếu để kiểm chứng (không chép dài trong câu trả lời):\n${excerpts.map((item) => {
+          const sourceIndex = Math.max(0, sources.findIndex((source) => source.sourceId === item.sourceId));
+          return `[S${sourceIndex + 1}] ${item.excerpt.slice(0, 1200)}`;
+        }).join("\n")}`,
       ].join("\n")
     : `Lộ trình gồm 6 module: ${Array.from(
         new Set(curriculum.map((item) => item.moduleName)),
@@ -39,6 +44,7 @@ export function buildTutorRequest(message: string, week?: Week): {
       "Luôn trả lời bằng tiếng Việt; chỉ giữ tiếng Anh cho thuật ngữ chuyên ngành và giải nghĩa ngay lần đầu.",
       "Ưu tiên ví dụ FMCG, tư duy end-to-end, demand planning và Supply Chain AI.",
       "Bám sát bối cảnh và nguồn học đã cung cấp. Chỉ nêu tên nguồn, chương hoặc số trang có trong bối cảnh; không bịa trích dẫn.",
+      "Khi trả lời nội dung chuyên môn, gắn [S1], [S2] gần ý được nguồn hỗ trợ; không chép nguyên văn dài.",
       "Nếu câu hỏi vượt nội dung được cung cấp, nói rõ đó là kiến thức bổ sung.",
       "Cấu trúc trả lời ngắn: Ý chính, Ví dụ, Bước thực hành tiếp theo.",
     ].join(" "),

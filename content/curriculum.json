@@ -851,47 +851,55 @@
       }
     ],
     "lesson": {
-      "coreIdea": "Forecast là một ước lượng có sai số, không phải lời hứa chắc chắn. Baseline đơn giản tạo chuẩn so sánh để biết mô hình phức tạp có thực sự tăng giá trị. Forecast phải gắn với horizon, aggregation level và quyết định cần hỗ trợ. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "coreIdea": "Một bản forecast luôn là một ước lượng có sai số, không phải một lời hứa chắc chắn; trước khi xây bất kỳ model phức tạp nào, demand planner cần tạo các baseline đơn giản như naive forecast và moving average để có chuẩn so sánh, đồng thời chọn đúng forecast horizon và mức độ tổng hợp (aggregation) phù hợp với quyết định cần hỗ trợ.",
       "sections": [
         {
-          "heading": "Bối cảnh và câu hỏi kinh doanh",
-          "body": "Forecast là một ước lượng có sai số, không phải lời hứa chắc chắn. Baseline đơn giản tạo chuẩn so sánh để biết mô hình phức tạp có thực sự tăng giá trị. Forecast phải gắn với horizon, aggregation level và quyết định cần hỗ trợ. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Demand Planning & Forecasting đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+          "heading": "Forecast horizon và mức độ tổng hợp (aggregation)",
+          "body": "Forecast horizon (khoảng thời gian mà một bản dự báo cần bao phủ) quyết định cả dữ liệu cần dùng lẫn phương pháp phù hợp. Horizon ngắn hạn (short-term, vài ngày đến vài tuần) phục vụ các quyết định vận hành như đặt hàng bổ sung hay lên lịch sản xuất; horizon trung hạn (một tháng đến một năm) phục vụ Sales and Operations Planning và kế hoạch nhân lực; horizon dài hạn (trên một năm) phục vụ quyết định đầu tư nhà máy hay mở kho mới. Aggregation (mức độ tổng hợp) là chiều thứ hai cần chọn cùng lúc: forecast có thể làm ở cấp SKU-cửa hàng-tuần, hoặc cấp ngành hàng-vùng-tháng, hoặc cấp công ty-năm. Khi cộng dồn nhiều SKU và nhiều kỳ lại với nhau, các sai số ngẫu nhiên của từng SKU, từng tuần có xu hướng triệt tiêu lẫn nhau, nên sai số tương đối (theo phần trăm) ở cấp tổng hợp cao thường nhỏ hơn hẳn so với sai số ở cấp chi tiết, dù sai số tuyệt đối (số đơn vị) có thể lớn hơn. Một forecast rất chính xác ở cấp công ty không đảm bảo forecast từng SKU cũng chính xác, và ngược lại — hai loại quyết định cần hai loại forecast khác nhau."
         },
         {
-          "heading": "Khung kiến thức cốt lõi",
-          "body": "Tuần này tập trung vào Forecast horizon, Naive forecast, Moving average, Signal vs noise, Aggregation. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+          "heading": "Forecast là ước lượng có sai số, không phải sự thật",
+          "body": "Forecasting bắt đầu từ một vài nguyên tắc nền tảng: forecast hầu như luôn sai ở một mức độ nào đó, nên mỗi con số dự báo cần đi kèm một ước lượng sai số thay vì được trình bày như một sự thật; forecast thường chính xác hơn khi tổng hợp theo nhóm sản phẩm (family) so với từng sản phẩm riêng lẻ, và chính xác hơn ở kỳ gần so với kỳ xa. Các kỹ thuật forecasting được chia thành hai nhóm: qualitative (định tính, dựa trên kinh nghiệm, ý kiến chuyên gia, khảo sát thị trường) và quantitative (định lượng, dựa trên dữ liệu lịch sử hoặc biến số có liên hệ thống kê với nhu cầu). Trong nhóm định lượng, có phương pháp intrinsic (nội tại, chỉ dùng lịch sử của chính chuỗi dữ liệu cần dự báo) và extrinsic (ngoại lai, dùng các biến số bên ngoài có tương quan, ví dụ dự báo doanh số máy điều hòa dựa trên dự báo nhiệt độ). Việc chọn nhóm kỹ thuật phụ thuộc vào dữ liệu sẵn có, độ ổn định của nhu cầu và chi phí thu thập thông tin."
         },
         {
-          "heading": "Cách kiểm chứng",
-          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Baseline forecast workbook. Ghi lại giới hạn của phân tích."
+          "heading": "Naive forecast và moving average: hai baseline cơ bản",
+          "body": "Naive forecast (dự báo ngây thơ) là baseline đơn giản nhất: dự báo cho kỳ tới bằng đúng giá trị thực tế của kỳ gần nhất, viết là Ft+1 = Yt. Naive forecast không cần tính toán phức tạp và là chuẩn tối thiểu bắt buộc phải vượt qua — nếu một mô hình cầu kỳ hơn không cho sai số thấp hơn naive forecast trên cùng một giai đoạn, mô hình đó chưa tạo thêm giá trị tương xứng với chi phí xây dựng và duy trì. Moving average (trung bình trượt) cải thiện naive forecast bằng cách lấy trung bình n kỳ gần nhất làm dự báo cho kỳ tiếp theo: Ft+1 = (Yt + Yt-1 + ... + Yt-n+1)/n. Weighted moving average (trung bình trượt có trọng số) đi xa hơn bằng cách gán trọng số lớn hơn cho các kỳ gần, giúp phản ứng nhanh hơn với thay đổi gần nhất. Cả hai phương pháp đều có hai nhược điểm quan trọng: tăng số kỳ n giúp làm mượt nhiễu tốt hơn nhưng làm mô hình phản ứng chậm hơn với thay đổi thật của nhu cầu, và vì bản chất là một phép trung bình của quá khứ, moving average luôn nằm trong khoảng giá trị đã quan sát và không thể dự đoán trước một xu hướng (trend) tăng hoặc giảm liên tục."
+        },
+        {
+          "heading": "Tách signal khỏi noise trước khi chọn baseline",
+          "body": "Một chuỗi nhu cầu (demand) thường là tổng hợp của bốn thành phần: trend (xu hướng tăng/giảm dài hạn), seasonality (tính mùa vụ, lặp lại theo chu kỳ cố định như tháng hay quý), cyclical (chu kỳ kinh doanh nhiều năm) và random variation hay noise (biến động ngẫu nhiên không có quy luật). Signal là phần thông tin có thể dự đoán được (trend, seasonality, cyclical); noise là phần không thể dự đoán và không nên cố mô phỏng theo. Việc đầu tiên một demand planner cần làm trước khi chọn baseline là quan sát dữ liệu — ví dụ vẽ biểu đồ phân tán (scatter diagram) theo thời gian — để nhận ra chuỗi có phải chỉ dao động ngẫu nhiên quanh một mức ổn định hay không. Nếu đúng như vậy, một phép trung bình đơn giản (moving average, weighted moving average) là đủ. Nếu có trend hoặc seasonality rõ ràng, cần một phương pháp khác có khả năng theo kịp các thành phần này, nếu không sai số sẽ mang tính hệ thống (bias) chứ không còn ngẫu nhiên nữa. Chọn sai baseline không chỉ làm sai số lớn hơn mà còn khiến người đọc báo cáo hiểu sai bản chất vấn đề của demand."
         }
       ],
       "workedExample": {
-        "title": "FMCG case: Forecasting mindset và baseline",
-        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán forecasting mindset và baseline trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "title": "So sánh naive forecast và moving average cho nước giải khát đóng lon",
+        "narrative": "Một nhà máy nước giải khát theo dõi sản lượng giao hàng tháng (nghìn thùng) cho một nhà phân phối khu vực trong 8 tháng: Tháng 1 đến Tháng 8 lần lượt là 200, 210, 205, 220, 230, 225, 240, 235. Trước khi xây bất kỳ mô hình phức tạp nào, demand planner muốn kiểm tra xem một baseline moving average 3 tháng có thực sự chính xác hơn naive forecast hay không.",
         "steps": [
-          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Forecasting mindset và baseline.",
-          "Xác định input, grain, assumption và KPI trước khi thao tác.",
-          "Thực hiện task đầu tiên: Tạo 3 baseline."
+          "Naive forecast: dự báo mỗi tháng bằng thực tế tháng liền trước. Từ Tháng 2 đến Tháng 8, sai số (thực tế trừ dự báo) lần lượt là 10, -5, 15, 10, -5, 15, -5 (nghìn thùng). MAD (mean absolute deviation, trung bình trị tuyệt đối sai số) trên 7 tháng này = (10+5+15+10+5+15+5)/7 = 65/7 ≈ 9,3 nghìn thùng.",
+          "Moving average 3 tháng: dự báo Tháng 4 = (200+210+205)/3 = 205; Tháng 5 = (210+205+220)/3 ≈ 211,7; Tháng 6 = (205+220+230)/3 ≈ 218,3; Tháng 7 = (220+230+225)/3 = 225; Tháng 8 = (230+225+240)/3 ≈ 231,7. Sai số tương ứng là 15; 18,3; 6,7; 15; 3,3, cho MAD (Tháng 4-8) = 58,3/5 ≈ 11,7 nghìn thùng.",
+          "Để so sánh công bằng, tính lại MAD của naive forecast trên cùng giai đoạn Tháng 4-8: sai số là 15, 10, -5, 15, -5, MAD = 50/5 = 10,0 nghìn thùng — vẫn thấp hơn MAD 11,7 của moving average."
         ],
-        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+        "takeaway": "Vì dữ liệu có một xu hướng tăng nhẹ, moving average luôn tính trung bình các tháng cũ hơn nên có xu hướng dự báo thấp hơn thực tế (lag theo trend), khiến sai số của nó không nhỏ hơn — thậm chí lớn hơn — naive forecast trên chuỗi ngắn này. Đây chính là lý do một demand planner luôn phải so sánh mọi phương pháp mới với baseline trước khi kết luận nó tốt hơn."
       },
       "selfCheck": [
         {
-          "question": "Mục tiêu chính của tuần 9 là gì?",
-          "answer": "Tách signal và noise"
+          "question": "Vì sao một demand planner nên luôn tính naive forecast trước khi xây dựng một mô hình phức tạp hơn?",
+          "answer": "Naive forecast là chuẩn tối thiểu để so sánh: nếu một mô hình phức tạp hơn không cho sai số thấp hơn naive forecast trên cùng dữ liệu, mô hình đó chưa tạo thêm giá trị tương xứng với chi phí xây dựng và duy trì."
         },
         {
-          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
-          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+          "question": "Forecast ở mức tổng hợp cao (ví dụ toàn ngành hàng theo tháng) thường chính xác hơn forecast ở mức SKU theo tuần. Vì sao?",
+          "answer": "Khi gộp nhiều SKU và nhiều kỳ lại, sai số ngẫu nhiên của từng SKU và từng kỳ có xu hướng triệt tiêu lẫn nhau, nên sai số tính theo phần trăm ở cấp tổng hợp thường nhỏ hơn hẳn so với ở cấp chi tiết."
         },
         {
-          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
-          "answer": "Nó hỗ trợ hoàn thiện Baseline forecast workbook và lựa chọn action cho bài toán Forecasting mindset và baseline trong bối cảnh FMCG."
+          "question": "Moving average có nhược điểm gì khi demand có xu hướng (trend) tăng liên tục?",
+          "answer": "Vì luôn tính trung bình các kỳ đã qua, moving average phản ứng chậm hơn xu hướng thật và có xu hướng dự báo thấp hơn thực tế trong một chuỗi đang tăng; tăng số kỳ lấy trung bình càng làm độ trễ này lớn hơn."
         },
         {
-          "question": "Một giới hạn thường gặp của phân tích là gì?",
-          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+          "question": "Vì sao chọn forecast horizon phù hợp lại quan trọng hơn việc chọn công thức forecast phức tạp?",
+          "answer": "Horizon xác định quyết định mà forecast phải phục vụ và mức dữ liệu, độ chính xác có thể đạt được; một forecast tính toán tinh vi nhưng sai horizon (ví dụ dự báo năm cho một quyết định cần theo tuần) vẫn không giúp ích cho quyết định thực tế."
+        },
+        {
+          "question": "Một chuỗi demand chỉ có biến động ngẫu nhiên quanh một mức trung bình ổn định, không có trend hay seasonality. Nên chọn baseline nào và vì sao?",
+          "answer": "Một moving average hoặc weighted moving average là phù hợp, vì việc lấy trung bình nhiều kỳ gần nhất giúp triệt tiêu phần biến động ngẫu nhiên và ước lượng đúng mức nền ổn định; naive forecast sẽ phản ứng theo từng biến động ngẫu nhiên một cách không cần thiết."
         }
       ]
     }
@@ -952,47 +960,55 @@
       }
     ],
     "lesson": {
-      "coreIdea": "Sai số phải được đánh giá theo thời gian và theo mức độ quan trọng của SKU. MAPE dễ hiểu nhưng có vấn đề khi actual gần zero; WAPE phù hợp để nhìn aggregate; bias cho biết mô hình liên tục over-forecast hay under-forecast. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "coreIdea": "Đo sai số forecast không chỉ là tính một con số duy nhất: trend và seasonality cần được nhận diện trước, dữ liệu phải được tách train-test theo đúng thứ tự thời gian, và các thước đo như MAE, MAPE, WAPE, bias mỗi loại trả lời một câu hỏi khác nhau về forecast — chọn sai thước đo có thể khiến một forecast tệ trông có vẻ tốt, hoặc ngược lại.",
       "sections": [
         {
-          "heading": "Bối cảnh và câu hỏi kinh doanh",
-          "body": "Sai số phải được đánh giá theo thời gian và theo mức độ quan trọng của SKU. MAPE dễ hiểu nhưng có vấn đề khi actual gần zero; WAPE phù hợp để nhìn aggregate; bias cho biết mô hình liên tục over-forecast hay under-forecast. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Demand Planning & Forecasting đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+          "heading": "Trend và seasonality: nhận diện trước khi đo sai số",
+          "body": "Trend (xu hướng) là chuyển động tăng hoặc giảm dần của mức nhu cầu trung bình qua nhiều kỳ liên tiếp, còn seasonality (tính mùa vụ) là một khuôn mẫu dao động lặp lại ở các thời điểm cố định trong năm, ví dụ nhu cầu nước giải khát luôn cao vào mùa hè và Tết. Hai thành phần này khác cyclical (chu kỳ kinh doanh nhiều năm, thường gắn với điều kiện kinh tế) và khác random variation hay noise (biến động không có quy luật). Một cách thực hành phổ biến để đo tính mùa vụ là seasonal index: lấy nhu cầu trung bình của một kỳ (ví dụ tháng 1 qua nhiều năm) chia cho nhu cầu trung bình chung của toàn bộ dữ liệu; chỉ số bằng 1 nghĩa là kỳ đó ở mức trung bình, lớn hơn 1 nghĩa là cao hơn trung bình, nhỏ hơn 1 nghĩa là thấp hơn trung bình. Nhận diện đúng trend và seasonality quan trọng vì nếu bỏ sót, sai số dự báo sẽ không còn ngẫu nhiên mà mang tính hệ thống — dự báo liên tục thấp hơn thực tế vào mùa cao điểm và cao hơn thực tế vào mùa thấp điểm."
         },
         {
-          "heading": "Khung kiến thức cốt lõi",
-          "body": "Tuần này tập trung vào Trend, Seasonality, Train-test split, MAE, MAPE, WAPE, Bias. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+          "heading": "Train-test split đúng cách cho time series",
+          "body": "Với dữ liệu chuỗi thời gian, việc chia tập huấn luyện (train) và tập kiểm tra (test) không thể làm ngẫu nhiên như với dữ liệu cross-sectional thông thường, vì một forecast tại một thời điểm chỉ được phép sử dụng thông tin đã có tính đến thời điểm đó. Cách làm đúng là chọn một mốc thời gian làm điểm cắt: toàn bộ dữ liệu trước mốc dùng để huấn luyện mô hình, dữ liệu sau mốc được giữ lại làm tương lai giả định để kiểm tra. Nếu chia ngẫu nhiên, mô hình có thể vô tình học được thông tin của các kỳ tương lai (ví dụ một đỉnh mùa vụ nằm trong tập train dù kỳ tương ứng của năm sau nằm trong test), khiến sai số đo được trên tập test thấp hơn nhiều so với thực tế khi mô hình chạy sản xuất. Quy trình tổng quát để xây một mô hình time series thường bắt đầu bằng vẽ dữ liệu để nhận diện mẫu hình, sau đó kiểm tra tính dừng (stationary), rồi mới huấn luyện và đánh giá mô hình trên dữ liệu ngoài mẫu (out-of-sample)."
         },
         {
-          "heading": "Cách kiểm chứng",
-          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Forecast accuracy dashboard. Ghi lại giới hạn của phân tích."
+          "heading": "MAE, MAPE, WAPE: ba cách đo sai số",
+          "body": "Ba thước đo phổ biến đo độ lớn của sai số theo cách khác nhau. MAE (mean absolute error, cũng chính là MAD - mean absolute deviation) là trung bình của trị tuyệt đối sai số: MAE = trung bình(|thực tế − dự báo|), tính theo đơn vị gốc. MAPE (mean absolute percent error) chuẩn hóa sai số theo phần trăm của thực tế: MAPE = trung bình(|thực tế − dự báo| / thực tế) × 100%, giúp so sánh giữa các SKU có quy mô khác nhau, nhưng có một điểm yếu quan trọng: khi thực tế của một kỳ hoặc một SKU rất nhỏ, phép chia cho một số gần zero làm MAPE của kỳ đó tăng vọt và có thể kéo lệch cả trung bình. WAPE (weighted absolute percent error) khắc phục điểm yếu này bằng cách cộng dồn tất cả sai số tuyệt đối và tất cả giá trị thực tế trước khi chia: WAPE = tổng(|thực tế − dự báo|) / tổng(thực tế) × 100%, nên các SKU khối lượng lớn đóng góp đúng theo tỷ trọng của chúng, còn SKU khối lượng nhỏ với phần trăm sai số bất thường không làm méo kết quả tổng thể."
+        },
+        {
+          "heading": "Bias: dấu hiệu sai số có hệ thống",
+          "body": "Khác với MAE, MAPE, WAPE vốn lấy trị tuyệt đối nên luôn dương, bias (độ lệch hệ thống) giữ nguyên dấu của sai số: bias = trung bình(dự báo − thực tế). Bias dương kéo dài nghĩa là forecast có xu hướng cao hơn thực tế (over-forecast), bias âm kéo dài nghĩa là forecast có xu hướng thấp hơn thực tế (under-forecast). Vì các sai số dương và âm có thể triệt tiêu lẫn nhau khi lấy trung bình, một forecast có bias gần 0 không có nghĩa là forecast chính xác — nó chỉ có nghĩa là không có xu hướng lệch một chiều rõ rệt; MAE hoặc WAPE trên cùng dữ liệu vẫn có thể lớn nếu từng kỳ sai lệch nhiều theo cả hai hướng. Ngược lại, một bias lớn và ổn định qua nhiều kỳ là dấu hiệu rõ ràng cho thấy mô hình hoặc quy trình forecast có vấn đề mang tính cấu trúc, cần được điều chỉnh thay vì chỉ chờ sai số ngẫu nhiên tự cân bằng."
         }
       ],
       "workedExample": {
-        "title": "FMCG case: Time series và forecast accuracy",
-        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán time series và forecast accuracy trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "title": "Đo sai số forecast dầu gội đầu qua 6 tháng",
+        "narrative": "Một công ty hàng tiêu dùng theo dõi forecast và thực tế bán ra (nghìn chai) của một dòng dầu gội trong 6 tháng để chọn thước đo báo cáo phù hợp cho cấp quản lý.",
         "steps": [
-          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Time series và forecast accuracy.",
-          "Xác định input, grain, assumption và KPI trước khi thao tác.",
-          "Thực hiện task đầu tiên: Tạo time-based holdout."
+          "Dữ liệu 6 tháng: thực tế lần lượt là 100, 120, 90, 150, 40, 200; dự báo tương ứng là 110, 100, 95, 140, 60, 180. Sai số (thực tế − dự báo) là -10, 20, -5, 10, -20, 20. MAE = (10+20+5+10+20+20)/6 = 85/6 ≈ 14,2 nghìn chai.",
+          "MAPE tính theo từng tháng: 10/100=10%; 20/120≈16,7%; 5/90≈5,6%; 10/150≈6,7%; 20/40=50%; 20/200=10%. MAPE = (10+16,7+5,6+6,7+50+10)/6 ≈ 16,5%. Tháng thứ 5 có thực tế rất thấp (40 nghìn chai) nên sai số phần trăm của riêng tháng đó lên tới 50%, kéo MAPE trung bình lên cao dù sai số tuyệt đối của tháng đó chỉ là 20 nghìn chai — bằng với tháng 2 và tháng 6.",
+          "WAPE = tổng|sai số| / tổng thực tế × 100% = 85 / (100+120+90+150+40+200) × 100% = 85/700 × 100% ≈ 12,1% — thấp hơn và ổn định hơn MAPE vì không bị một tháng thực tế thấp làm méo. Bias = trung bình(dự báo − thực tế) = (10−20+5−10+20−20)/6 = −15/6 = −2,5 nghìn chai, cho thấy trung bình forecast thấp hơn thực tế một chút, dù mỗi tháng riêng lẻ có thể lệch khá nhiều."
         ],
-        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+        "takeaway": "MAPE 16,5% trông có vẻ tệ hơn thực tế vì bị chi phối bởi một tháng có thực tế thấp; WAPE 12,1% phản ánh đúng hơn mức sai số theo tỷ trọng khối lượng; bias gần 0 (−2,5 nghìn chai) cho thấy forecast không lệch một chiều rõ rệt, nhưng điều đó không mâu thuẫn với MAE khá lớn (14,2 nghìn chai) — các thước đo trả lời những câu hỏi khác nhau và nên được đọc cùng nhau."
       },
       "selfCheck": [
         {
-          "question": "Mục tiêu chính của tuần 10 là gì?",
-          "answer": "Nhận diện trend và seasonality"
+          "question": "Một SKU có thực tế rất thấp trong một tháng cụ thể. Vì sao MAPE của tháng đó có thể gây hiểu lầm về mức độ chính xác chung của forecast?",
+          "answer": "Vì MAPE chia sai số tuyệt đối cho giá trị thực tế, một mẫu số nhỏ làm sai số phần trăm của tháng đó tăng vọt dù sai số tuyệt đối không lớn, khiến tháng hoặc SKU đó đóng góp quá mức khi lấy trung bình chung."
         },
         {
-          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
-          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+          "question": "WAPE khác MAPE ở cách tính nào, và vì sao WAPE phù hợp hơn khi báo cáo độ chính xác cho cả danh mục sản phẩm?",
+          "answer": "WAPE cộng dồn tổng sai số tuyệt đối và tổng thực tế trước khi chia, thay vì lấy trung bình các phần trăm sai số riêng lẻ; nhờ vậy SKU khối lượng lớn đóng góp đúng theo tỷ trọng, còn SKU khối lượng nhỏ với phần trăm sai số bất thường không làm méo kết quả tổng."
         },
         {
-          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
-          "answer": "Nó hỗ trợ hoàn thiện Forecast accuracy dashboard và lựa chọn action cho bài toán Time series và forecast accuracy trong bối cảnh FMCG."
+          "question": "Nếu bias gần bằng 0 nhưng MAE lại lớn, điều đó nói gì về forecast?",
+          "answer": "Điều đó cho thấy sai số dương và âm gần như triệt tiêu nhau qua nhiều kỳ, tức không có xu hướng lệch một chiều rõ rệt, nhưng từng kỳ riêng lẻ vẫn có thể sai lệch đáng kể theo cả hai hướng, nên độ chính xác tại từng thời điểm cụ thể vẫn kém."
         },
         {
-          "question": "Một giới hạn thường gặp của phân tích là gì?",
-          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+          "question": "Vì sao train-test split của time series phải giữ đúng thứ tự thời gian thay vì chia ngẫu nhiên như các bài toán machine learning thông thường?",
+          "answer": "Vì một forecast chỉ được phép dùng thông tin có sẵn tính đến thời điểm dự báo; chia ngẫu nhiên có thể để mô hình học được các mẫu hình của dữ liệu tương lai, khiến sai số đo trên tập test thấp hơn nhiều so với khi mô hình vận hành thực tế."
+        },
+        {
+          "question": "Nếu một chuỗi demand có seasonality rõ ràng nhưng mô hình chỉ ước lượng trend, sai số dự báo theo từng tháng trong năm sẽ có đặc điểm gì?",
+          "answer": "Sai số sẽ lặp lại theo một khuôn mẫu mùa vụ — dự báo thấp hơn thực tế một cách hệ thống vào các tháng cao điểm và cao hơn thực tế vào các tháng thấp điểm — dù bias tính trung bình cả năm có thể trông gần bằng 0."
         }
       ]
     }
@@ -1046,47 +1062,55 @@
       }
     ],
     "lesson": {
-      "coreIdea": "Forecasting ở quy mô nhiều SKU đòi hỏi pipeline, không phải một model đơn lẻ. Quy trình cần baseline, backtest, ranking error và exception list. Chỉ những SKU có impact lớn hoặc pattern bất thường mới cần human review sâu. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "coreIdea": "Dự báo cho hàng chục hay hàng trăm SKU là một bài toán pipeline gồm rolling backtest, feature engineering, model per segment và exception management, chứ không phải bài toán chọn một thuật toán máy học (machine learning) mạnh nhất; giá trị thật nằm ở việc pipeline có thể lặp lại được (reproducible) và tự động chỉ ra số ít SKU thật sự cần con người xem xét.",
       "sections": [
         {
-          "heading": "Bối cảnh và câu hỏi kinh doanh",
-          "body": "Forecasting ở quy mô nhiều SKU đòi hỏi pipeline, không phải một model đơn lẻ. Quy trình cần baseline, backtest, ranking error và exception list. Chỉ những SKU có impact lớn hoặc pattern bất thường mới cần human review sâu. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Demand Planning & Forecasting đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+          "heading": "Rolling backtest: kiểm tra mô hình như đang đứng ở nhiều thời điểm quá khứ",
+          "body": "Rolling backtest (kiểm định cuốn chiếu theo thời gian) lặp lại chu trình huấn luyện-dự báo-so sánh tại nhiều mốc thời gian khác nhau thay vì chỉ một lần: mô hình được huấn luyện với dữ liệu tính đến một mốc, dùng để dự báo kỳ kế tiếp, so với thực tế, sau đó mốc được dịch chuyển tới và toàn bộ quy trình lặp lại. Kết quả là một tập hợp sai số đo được qua nhiều điều kiện nhu cầu khác nhau (mùa cao điểm, mùa thấp điểm, có khuyến mãi, không khuyến mãi) thay vì phụ thuộc vào việc chọn một lần chia train-test may rủi. Cách đánh giá phổ biến khi huấn luyện các mô hình như Random Forest hay XGBoost là tách một phần dữ liệu thành tập validation, huấn luyện trên phần còn lại, dự báo trên validation rồi tính một chỉ số sai số như RMSPE (root mean square percentage error); lặp lại việc này ở nhiều cửa sổ thời gian khác nhau, rồi lấy trung bình các chỉ số sai số, cho một ước lượng đáng tin cậy hơn nhiều so với chỉ đánh giá một lần."
         },
         {
-          "heading": "Khung kiến thức cốt lõi",
-          "body": "Tuần này tập trung vào Rolling backtest, Feature engineering, Model per segment, Exception management, Reproducible pipeline. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+          "heading": "Feature engineering cho forecast nhiều SKU",
+          "body": "Feature engineering (xây dựng biến đầu vào) là bước biến lịch sử bán hàng thô thành một bảng dữ liệu có các biến mà một mô hình dạng cây quyết định (decision tree) như Random Forest hay XGBoost có thể học được quy luật. Các biến thường dùng gồm biến lịch (ngày trong tuần, tuần trong năm, tháng), biến khuyến mãi (đang chạy promotion hay không, loại chương trình), biến cạnh tranh (khoảng cách tới đối thủ gần nhất, đối thủ đã hoạt động bao lâu), và biến thuộc tính cửa hàng hoặc kênh bán (loại cửa hàng, mức độ đa dạng ngành hàng được bày bán). Một mô hình, dù mạnh đến đâu, chỉ có thể học được các mẫu hình đã được thể hiện trong các biến đầu vào; nếu không có biến khuyến mãi, mô hình sẽ không thể giải thích được vì sao doanh số tăng đột biến ở một số tuần nhất định, dù thuật toán có phức tạp thế nào. Vì vậy trong thực hành, việc chọn và tạo biến đầu vào tốt thường quan trọng hơn việc chọn thuật toán."
         },
         {
-          "heading": "Cách kiểm chứng",
-          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Multi-SKU forecasting notebook. Ghi lại giới hạn của phân tích."
+          "heading": "Model per segment: một mô hình cho mọi SKU hay nhiều mô hình theo nhóm?",
+          "body": "Model per segment (một mô hình theo từng phân khúc) là cách tiếp cận trung gian giữa hai thái cực: một mô hình chung duy nhất cho toàn bộ danh mục, và một mô hình riêng cho từng SKU. Một mô hình chung có nguy cơ trung bình hóa mất các khác biệt quan trọng — ví dụ khuyến mãi có thể làm tăng doanh số ở nhóm cửa hàng loại này mạnh hơn hẳn nhóm loại khác, và nếu gộp chung, mô hình sẽ học một hiệu ứng khuyến mãi trung bình không đúng với SKU nào cả. Ngược lại, một mô hình riêng cho từng SKU đòi hỏi rất nhiều dữ liệu và công sức bảo trì. Giải pháp thực tế là nhóm các SKU có đặc điểm tương đồng (theo loại cửa hàng, mức độ đa dạng ngành hàng, hoặc theo mẫu hình nhu cầu như ổn định, có xu hướng, có mùa vụ hay gián đoạn) thành các phân khúc, rồi huấn luyện một mô hình cho mỗi phân khúc — giữ được sự khác biệt quan trọng giữa các nhóm mà không cần hàng nghìn mô hình riêng lẻ."
+        },
+        {
+          "heading": "Exception management và pipeline có thể lặp lại",
+          "body": "Với vài chục hay vài trăm SKU, không planner nào có thể xem lại forecast của từng SKU mỗi kỳ. Exception management (quản trị theo ngoại lệ) giải quyết vấn đề này bằng cách xếp hạng tất cả SKU theo sai số (ví dụ WAPE), theo bias, hoặc theo mức độ ảnh hưởng kinh doanh (doanh thu, sản lượng), rồi chỉ đưa lên cho con người xem xét những SKU vượt một ngưỡng đã định — phần còn lại được chấp nhận tự động. Reproducible pipeline (pipeline có thể lặp lại) là điều kiện để việc xếp hạng này đáng tin cậy: mọi bước — lấy dữ liệu, làm sạch, tạo biến, chia train-validation, huấn luyện mô hình, tạo dự báo, tính sai số — đều được viết thành script chạy được nhiều lần với cùng một kết quả, thay vì làm thủ công trên từng file Excel riêng lẻ cho từng SKU. Nhờ vậy, khi có SKU mới hoặc dữ liệu mới, toàn bộ quy trình có thể chạy lại một cách nhất quán, và kết quả xếp hạng ngoại lệ có thể được kiểm tra lại bất cứ lúc nào."
         }
       ],
       "workedExample": {
-        "title": "FMCG case: Forecasting multi-SKU bằng Python",
-        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán forecasting multi-sku bằng python trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "title": "Xếp hạng ngoại lệ từ rolling backtest cho một nhóm snack",
+        "narrative": "Một công ty snack đóng gói dự báo demand hàng tháng cho 5 SKU trong cùng phân khúc vị snack ăn vặt, dùng baseline moving average 3 tháng trong pipeline, và kiểm định bằng rolling backtest qua 4 tháng gần nhất trước khi đưa forecast vào demand review.",
         "steps": [
-          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Forecasting multi-SKU bằng Python.",
-          "Xác định input, grain, assumption và KPI trước khi thao tác.",
-          "Thực hiện task đầu tiên: Forecast ít nhất 30 SKU."
+          "Với SKU 'vị phô mai', lịch sử demand (nghìn gói) từ tháng 4 đến tháng 10 là 90, 95, 100, 100, 90, 130, 110. Backtest cuốn chiếu tính dự báo tháng 7 = trung bình(tháng 4,5,6) = (90+95+100)/3 = 95, sai số = 100−95 = 5; dự báo tháng 8 = trung bình(5,6,7) = (95+100+100)/3 ≈ 98,3, sai số = 90−98,3 ≈ −8,3; dự báo tháng 9 = trung bình(6,7,8) = (100+100+90)/3 ≈ 96,7, sai số = 130−96,7 ≈ 33,3; dự báo tháng 10 = trung bình(7,8,9) = (100+90+130)/3 ≈ 106,7, sai số = 110−106,7 ≈ 3,3.",
+          "WAPE của SKU 'vị phô mai' qua 4 kỳ backtest = tổng|sai số| / tổng thực tế = (5+8,3+33,3+3,3) / (100+90+130+110) = 50/430 ≈ 11,6%.",
+          "Áp dụng cùng logic cho 4 SKU còn lại trong phân khúc, pipeline tính được WAPE lần lượt là: 'vị BBQ' 15%, 'vị hành' 48%, 'vị tự nhiên' 9%, 'vị cay' 22%. Với ngưỡng ngoại lệ đặt ở WAPE trên 25%, chỉ có 'vị hành' (48%, do một đợt khuyến mãi không được đưa vào biến đầu vào) bị gắn cờ để planner xem xét thủ công — 1 trên 5 SKU, tương đương 20% danh mục."
         ],
-        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+        "takeaway": "Một pipeline rolling backtest áp dụng cùng một công thức WAPE cho mọi SKU có thể tự động chỉ ra rằng chỉ 1 trong 5 SKU cần con người can thiệp; khi mở rộng lên vài chục hay vài trăm SKU, cùng nguyên tắc này giúp planner tập trung thời gian vào đúng những SKU có vấn đề thay vì rà soát toàn bộ danh mục mỗi kỳ."
       },
       "selfCheck": [
         {
-          "question": "Mục tiêu chính của tuần 11 là gì?",
-          "answer": "Xây pipeline forecast theo SKU"
+          "question": "Rolling backtest khác gì so với việc chỉ tách dữ liệu thành một tập train và một tập test duy nhất?",
+          "answer": "Rolling backtest lặp lại chu trình huấn luyện-dự báo-so sánh tại nhiều mốc thời gian khác nhau thay vì chỉ một lần, nên chỉ số sai số phản ánh hiệu năng qua nhiều điều kiện nhu cầu khác nhau thay vì phụ thuộc vào một lần chia dữ liệu may rủi."
         },
         {
-          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
-          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+          "question": "Vì sao feature engineering, ví dụ thêm biến khuyến mãi, ngày trong tuần hay khoảng cách tới đối thủ, lại quan trọng hơn việc chọn thuật toán machine learning phức tạp nhất?",
+          "answer": "Vì một mô hình chỉ có thể học được các mẫu hình đã được thể hiện trong biến đầu vào; thiếu các biến quan trọng như khuyến mãi hay yếu tố lịch, dù thuật toán mạnh đến đâu cũng không thể giải thích được biến động thực tế của demand."
         },
         {
-          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
-          "answer": "Nó hỗ trợ hoàn thiện Multi-SKU forecasting notebook và lựa chọn action cho bài toán Forecasting multi-SKU bằng Python trong bối cảnh FMCG."
+          "question": "Vì sao một công ty FMCG có thể chọn xây một mô hình riêng cho từng nhóm SKU thay vì một mô hình chung cho toàn bộ danh mục?",
+          "answer": "Vì các nhóm SKU khác nhau (theo loại cửa hàng, mức đa dạng ngành hàng, hay mẫu hình nhu cầu) có thể có quan hệ khác nhau giữa demand và các yếu tố tác động; một mô hình chung sẽ trung bình hóa và làm mất đi những khác biệt quan trọng đó, làm giảm độ chính xác cho mọi nhóm."
         },
         {
-          "question": "Một giới hạn thường gặp của phân tích là gì?",
-          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+          "question": "Trong một pipeline exception management, tiêu chí nào có thể dùng để quyết định SKU nào cần con người xem lại?",
+          "answer": "Có thể xếp hạng SKU theo độ lớn sai số như WAPE, theo bias có hệ thống, hoặc theo giá trị kinh doanh như doanh thu hay sản lượng, rồi chỉ đưa lên xem xét thủ công những SKU vượt một ngưỡng đã định hoặc vừa có sai số lớn vừa có giá trị cao."
+        },
+        {
+          "question": "Điều gì làm một forecasting pipeline được xem là có thể lặp lại, và vì sao điều này quan trọng khi làm việc với hàng chục SKU?",
+          "answer": "Một pipeline có thể lặp lại khi mọi bước từ lấy dữ liệu, làm sạch, tạo biến, huấn luyện đến đánh giá đều được viết thành script chạy nhiều lần cho cùng kết quả; điều này quan trọng vì với hàng chục SKU, tính toán thủ công vừa quá chậm vừa dễ cho kết quả không nhất quán giữa các SKU."
         }
       ]
     }
@@ -1145,47 +1169,55 @@
       }
     ],
     "lesson": {
-      "coreIdea": "Demand Planning là quy trình phối hợp giữa statistical forecast, market intelligence và business decisions. Mọi override phải có owner, reason code và đo Forecast Value Added. Consensus không có nghĩa là lấy trung bình ý kiến; đó là quyết định có trách nhiệm và traceability. Năng lực này là một bước trong lộ trình trở thành Supply Chain Analyst và Demand Planner có tư duy AI.",
+      "coreIdea": "Demand Planning là một quy trình có quản trị, không chỉ là một phép tính thống kê: forecast thống kê được kết hợp với thông tin thị trường qua một chu kỳ demand review hằng tháng, mỗi override phải có chủ sở hữu và lý do rõ ràng, và consensus forecast là một quyết định có trách nhiệm, không phải một phép trung bình cộng ý kiến.",
       "sections": [
         {
-          "heading": "Bối cảnh và câu hỏi kinh doanh",
-          "body": "Demand Planning là quy trình phối hợp giữa statistical forecast, market intelligence và business decisions. Mọi override phải có owner, reason code và đo Forecast Value Added. Consensus không có nghĩa là lấy trung bình ý kiến; đó là quyết định có trách nhiệm và traceability. Hãy bắt đầu bằng câu hỏi: quyết định nào trong Demand Planning & Forecasting đang cần dữ liệu hoặc lập luận rõ hơn? Gắn câu hỏi với một sản phẩm FMCG, một channel và một khoảng thời gian cụ thể."
+          "heading": "Chu trình demand review hằng tháng",
+          "body": "Một chu trình Sales and Operations Planning (S&OP) điển hình gồm năm bước lặp lại mỗi tháng: chạy báo cáo forecast thống kê ngay sau khi tháng kết thúc; demand planning phase, khi sales và marketing xem lại forecast thống kê, cân nhắc các yếu tố như giá, khuyến mãi, hoạt động của đối thủ, rồi quyết định có cần override hay không; supply/capacity planning phase, so forecast mới với năng lực sản xuất và tồn kho hiện có để phát hiện mất cân đối; pre-SOP meeting, nơi đại diện các bộ phận thống nhất khuyến nghị và nêu các điểm còn bất đồng; và executive S&OP meeting, nơi cấp quản lý cao nhất ra quyết định cuối cùng, phê duyệt thay đổi và giải quyết bất đồng. Ở quy mô lớn hơn, demand review có thể mở rộng ra ngoài công ty qua CPFR (Collaborative Planning, Forecasting, and Replenishment), một quy trình hợp tác với đối tác bán lẻ hoặc phân phối; các case thực tế cho thấy CPFR có thể giảm tồn kho tại cửa hàng và tăng fill rate đáng kể cho cả hai bên khi được thực hiện đúng cách."
         },
         {
-          "heading": "Khung kiến thức cốt lõi",
-          "body": "Tuần này tập trung vào Consensus forecast, Override, Forecast Value Added, Demand review, Exception review. Với mỗi khái niệm, hãy viết định nghĩa bằng tiếng Việt, giữ thuật ngữ English, nêu một ví dụ và chỉ ra nó ảnh hưởng tới service, cost hoặc cash như thế nào."
+          "heading": "Override: điều chỉnh có chủ đích, có ghi nhận",
+          "body": "Override là một điều chỉnh có chủ đích của con người lên forecast thống kê, dựa trên thông tin mà mô hình không có, ví dụ một chương trình khuyến mãi sắp diễn ra, một đối thủ tạm hết hàng, hoặc một khách hàng lớn sắp thay đổi đơn hàng. Trong demand planning phase, nhiệm vụ của sales và marketing chính là xem xét và, khi cần, override forecast thống kê trước khi con số được đưa lên cấp cao hơn xem xét. Khác với một điều chỉnh tùy tiện, một override có chất lượng cần được ghi lại với owner (người đề xuất và chịu trách nhiệm) và reason code (lý do cụ thể, được phân loại), không phải chỉ một con số mới không rõ nguồn gốc. Việc ghi nhận này quan trọng vì forecast sau cùng, một khi được thống nhất, sẽ trở thành operations plan mà sản xuất cam kết thực hiện; nếu override sai mà không ai biết ai đã đề xuất và vì sao, tổ chức không thể học được override loại nào đáng tin và loại nào nên bị chất vấn ở chu kỳ sau."
         },
         {
-          "heading": "Cách kiểm chứng",
-          "body": "Không kết luận chỉ từ một con số. Hãy kiểm tra grain, assumption, dữ liệu đầu vào và baseline trước khi đưa ra recommendation cho deliverable Monthly demand review pack. Ghi lại giới hạn của phân tích."
+          "heading": "Forecast Value Added: đo xem override có thực sự cải thiện forecast",
+          "body": "Forecast Value Added (FVA, giá trị gia tăng của forecast) là cách đo liệu một bước trong quy trình, ví dụ một override của sales hoặc một buổi họp consensus, có thực sự làm forecast chính xác hơn hay không. Cách tính đơn giản nhất là so sánh sai số (ví dụ dùng MAD hoặc WAPE) của forecast sau cùng với sai số của forecast baseline, thống kê và chưa override, trên cùng giai đoạn: FVA = sai số của baseline trừ sai số của forecast sau cùng. FVA dương nghĩa là bước điều chỉnh đó giúp giảm sai số, có giá trị; FVA âm nghĩa là bước điều chỉnh đó làm sai số tệ hơn, không có giá trị, dù người đề xuất có thể có lý do nghe hợp lý tại thời điểm đó. FVA cần được theo dõi lặp lại qua nhiều chu kỳ và gắn với owner, reason code cụ thể, vì một override có thể đúng ở một tháng nhưng sai ở tháng khác; chỉ khi nhìn xu hướng qua thời gian, tổ chức mới biết loại override nào nên tiếp tục được tin tưởng."
+        },
+        {
+          "heading": "Consensus forecast và exception review",
+          "body": "Consensus forecast không phải là lấy trung bình cộng con số của sales, marketing, tài chính và chuỗi cung ứng, vì cách làm đó chỉ che giấu bất đồng thay vì giải quyết nó, do mỗi bộ phận có thể có thiên lệch khác nhau, sales thường lạc quan còn tài chính thường thận trọng. Một consensus thật sự là một con số duy nhất mà tổ chức cam kết thực hiện, đạt được qua thảo luận có trách nhiệm ở pre-SOP và executive S&OP meeting, nơi bằng chứng đằng sau mỗi quan điểm được cân nhắc và người có thẩm quyền ra quyết định cuối cùng. Vì một chu kỳ demand review không thể bàn từng SKU riêng lẻ khi danh mục có hàng trăm sản phẩm, exception review (rà soát ngoại lệ) tập trung thời gian họp vào một số nhóm sản phẩm quản lý được, thường 6 đến 12 nhóm, và vào những trường hợp có thay đổi lớn về forecast, sai số hoặc bias vượt ngưỡng, hoặc có sự kiện kinh doanh quan trọng, thay vì rà soát toàn bộ danh mục mỗi tháng."
         }
       ],
       "workedExample": {
-        "title": "FMCG case: Demand Planning process và consensus",
-        "narrative": "Một doanh nghiệp FMCG cần xử lý bài toán demand planning process và consensus trong bối cảnh demand, lead time và nguồn lực thay đổi. Analyst phải biến vấn đề thành output có thể kiểm chứng thay vì chỉ trình bày ý kiến.",
+        "title": "Đo Forecast Value Added cho dòng sữa chua uống qua hai kỳ demand review",
+        "narrative": "Một công ty sữa tổ chức demand review hằng tháng cho dòng sữa chua uống. Mỗi tháng, forecast thống kê (baseline) được tạo trước; sales có thể đề xuất override kèm owner và reason code trước khi con số được chốt thành consensus forecast đưa vào operations plan.",
         "steps": [
-          "Chọn một sản phẩm hoặc channel FMCG phù hợp với bài: Demand Planning process và consensus.",
-          "Xác định input, grain, assumption và KPI trước khi thao tác.",
-          "Thực hiện task đầu tiên: Thiết kế demand review agenda."
+          "Tháng t+1: baseline = 50.000 thùng; Giám đốc Kinh doanh (owner) override lên 58.000 thùng với lý do 'đối thủ tạm hết hàng và có chương trình khuyến mãi tuần 3' (reason code). Thực tế = 56.000 thùng. Sai số baseline = |56.000−50.000| = 6.000 thùng (≈10,7% thực tế); sai số forecast sau override = |56.000−58.000| = 2.000 thùng (≈3,6%). FVA tháng này = 6.000 − 2.000 = +4.000 thùng, override giúp giảm sai số.",
+          "Tháng t+2: baseline = 45.000 thùng; Quản lý Kinh doanh Vùng override lên 52.000 thùng với lý do 'kỳ vọng một khách hàng lớn đặt lại hàng'. Thực tế = 44.500 thùng. Sai số baseline = |44.500−45.000| = 500 thùng (≈1,1%); sai số sau override = |44.500−52.000| = 7.500 thùng (≈16,9%). FVA tháng này = 500 − 7.500 = −7.000 thùng, override làm sai số tệ hơn nhiều.",
+          "Gộp hai tháng: tổng sai số baseline = 6.000 + 500 = 6.500 thùng; tổng sai số sau override = 2.000 + 7.500 = 9.500 thùng. FVA gộp = 6.500 − 9.500 = −3.000 thùng, dù tháng đầu override có vẻ rất thành công, tính chung cả hai tháng override đã làm tổng sai số tăng thêm 3.000 thùng so với việc không điều chỉnh gì cả."
         ],
-        "takeaway": "Kết luận tốt luôn chỉ rõ bằng chứng, trade-off và hành động tiếp theo."
+        "takeaway": "FVA không nên đánh giá từ một tháng đơn lẻ: cùng một cơ chế override có thể đúng một lần và sai một lần khác nếu dựa trên các loại lý do khác nhau. Demand review cần theo dõi FVA theo owner và reason code qua nhiều chu kỳ để biết loại override nào đáng tin hơn loại khác, trước khi quyết định nên tiếp tục tin tưởng loại override nào trong tương lai."
       },
       "selfCheck": [
         {
-          "question": "Mục tiêu chính của tuần 12 là gì?",
-          "answer": "Thiết kế monthly demand review"
+          "question": "Forecast Value Added âm trong một chu kỳ demand review có ý nghĩa gì, và công ty nên phản ứng thế nào?",
+          "answer": "FVA âm nghĩa là forecast sau điều chỉnh kém chính xác hơn baseline trong kỳ đó, tức override làm mọi thứ tệ hơn; thay vì lập tức cấm mọi override, công ty nên xem xét mẫu hình theo owner và reason code qua nhiều chu kỳ để biết loại override đó có thường xuyên không đáng tin trước khi thay đổi quy trình phê duyệt."
         },
         {
-          "question": "Bạn cần kiểm tra điều gì trước khi tin vào kết quả?",
-          "answer": "Kiểm tra grain, dữ liệu đầu vào, assumption, baseline và cách tính KPI."
+          "question": "Vì sao consensus forecast không nên được hiểu là lấy trung bình cộng dự báo của sales, marketing và tài chính?",
+          "answer": "Vì các bộ phận có thể có thiên lệch hệ thống khác nhau, ví dụ sales lạc quan còn tài chính thận trọng, nên lấy trung bình chỉ che giấu bất đồng thay vì giải quyết nó; một consensus thật sự là quyết định có trách nhiệm sau khi cân nhắc bằng chứng, không phải một phép tính cơ học."
         },
         {
-          "question": "Kết quả này hỗ trợ quyết định Supply Chain nào?",
-          "answer": "Nó hỗ trợ hoàn thiện Monthly demand review pack và lựa chọn action cho bài toán Demand Planning process và consensus trong bối cảnh FMCG."
+          "question": "Trong một demand review hằng tháng có hàng trăm SKU, vì sao cấp quản lý cao chỉ nên thảo luận một số ít nhóm sản phẩm hoặc ngoại lệ thay vì từng SKU?",
+          "answer": "Rà soát từng SKU không khả thi ở mức quyết định aggregate mà quản lý cấp cao chịu trách nhiệm, và phần lớn SKU vẫn bám sát forecast; nhóm chúng thành một số nhóm quản lý được và chỉ đưa lên các trường hợp sai số, bias vượt ngưỡng hoặc có thay đổi kinh doanh lớn giúp tập trung đúng thời gian họp."
         },
         {
-          "question": "Một giới hạn thường gặp của phân tích là gì?",
-          "answer": "Dữ liệu có thể thiếu, sai grain hoặc không phản ánh promotion, lead time và constraint thực tế; cần ghi rõ giới hạn trước khi triển khai."
+          "question": "CPFR mở rộng demand review nội bộ theo hướng nào?",
+          "answer": "CPFR đưa quy trình lập kế hoạch, dự báo và bổ sung hàng ra ngoài phạm vi nội bộ, để công ty và một đối tác bán lẻ hoặc phân phối cùng làm việc trên một forecast và danh sách ngoại lệ chung, thay vì mỗi bên tự đoán kế hoạch của bên kia; các case thực tế cho thấy cách này có thể giảm tồn kho gộp và cải thiện fill rate cho cả hai phía."
+        },
+        {
+          "question": "Một override được chấp nhận vào forecast nhưng không có owner hay reason code ghi lại. Điều này gây khó khăn gì về sau?",
+          "answer": "Không ghi owner và lý do khiến không ai có thể đánh giá lại sau này liệu override đó đã giúp ích hay gây hại, tức không tính được FVA cho nó, và tổ chức không thể học được người hoặc loại lý do nào thường tạo ra điều chỉnh đáng tin để cải thiện quy trình ở các chu kỳ sau."
         }
       ]
     }

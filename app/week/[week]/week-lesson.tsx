@@ -6,6 +6,9 @@ import type { SourceExcerpt, Week } from "../../../lib/content";
 import TutorAnswer, { type TutorPayload } from "../../tutor-answer";
 import SubmissionWorkspace from "./submission-workspace";
 import type { LearningAsset, LessonBlock } from "../../../lib/learning";
+import type { TeachingNote } from "../../../content/teaching-notes";
+import RetrievalPractice from "./retrieval-practice";
+import LessonReader from "./lesson-reader";
 
 export type LessonQuiz = {
   module: number;
@@ -24,6 +27,9 @@ type ProgressRow = {
   reviewCount: number;
   lastReviewedAt: string | null;
   nextReviewAt: string | null;
+  lessonComplete?: boolean;
+  completedLessonBlocks?: number;
+  requiredLessonBlocks?: number;
 };
 type ProgressPatch = Partial<Pick<ProgressRow, "confidence" | "practiceMask" | "reflection">>;
 type SourceItem = {
@@ -76,16 +82,20 @@ function normalizeProgress(item: Partial<ProgressRow> | undefined, week: number)
     reviewCount: Number(item?.reviewCount ?? 0),
     lastReviewedAt: item?.lastReviewedAt ?? null,
     nextReviewAt: item?.nextReviewAt ?? null,
+    lessonComplete: Boolean(item?.lessonComplete),
+    completedLessonBlocks: Number(item?.completedLessonBlocks ?? 0),
+    requiredLessonBlocks: Number(item?.requiredLessonBlocks ?? 0),
   };
 }
 
 function masteryCopy(status: string) {
   const normalized = status.toLowerCase().replaceAll("-", "_");
-  if (normalized.includes("mastered")) return { label: "Mastered", className: "mastered" };
+  if (normalized.includes("mastered")) return { label: "Retained · Đã nhớ và transfer", className: "mastered" };
+  if (normalized.includes("completed")) return { label: "Applied · Bài nộp đã đạt", className: "reviewing" };
   if (normalized.includes("due")) return { label: "Review due", className: "due" };
   if (normalized.includes("review")) return { label: "Đang củng cố", className: "reviewing" };
-  if (normalized.includes("learning") || normalized.includes("progress")) return { label: "Đang học", className: "learning" };
-  return { label: "Chưa mastery", className: "not-started" };
+  if (normalized.includes("learning") || normalized.includes("progress")) return { label: "Encountered · Đang học", className: "learning" };
+  return { label: "Chưa bắt đầu", className: "not-started" };
 }
 
 function formatDate(value: string | null) {
@@ -100,6 +110,7 @@ export default function WeekLesson({
   quiz,
   sourceMap,
   sourceExcerpts,
+  teachingNote,
   lessonBlocks,
   learningAssets,
   rubric,
@@ -108,6 +119,7 @@ export default function WeekLesson({
   quiz: LessonQuiz | null;
   sourceMap: SourceItem[];
   sourceExcerpts: SourceExcerpt[];
+  teachingNote: TeachingNote;
   lessonBlocks: LessonBlock[];
   learningAssets: LearningAsset[];
   rubric: Array<{ id: string; label: string; weight: number }>;
@@ -123,9 +135,8 @@ export default function WeekLesson({
   const [tutorResponse, setTutorResponse] = useState<TutorPayload | null>(null);
   const [tutorError, setTutorError] = useState("");
   const [asking, setAsking] = useState(false);
-  const [reviewing, setReviewing] = useState(false);
-  const [reviewStatus, setReviewStatus] = useState("");
-  const [reviewError, setReviewError] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState("not-started");
+  const [lessonRead, setLessonRead] = useState({ completed: 0, total: 0 });
   const [reviewClock, setReviewClock] = useState(0);
 
   const pendingPatchRef = useRef<ProgressPatch>({});
@@ -239,9 +250,10 @@ export default function WeekLesson({
   const practiceComplete = (progress.practiceMask & 0b111) === 0b111;
   const reflectionLength = progress.reflection.trim().length;
   const gateItems = [
+    { met: lessonRead.total > 0 && lessonRead.completed >= lessonRead.total, label: `Đọc và xác nhận toàn bộ lesson blocks (${lessonRead.completed}/${lessonRead.total || "…"})` },
     { met: practiceComplete, label: "Hoàn thành đủ 3/3 task thực hành" },
-    { met: progress.confidence >= 3, label: `Confidence tối thiểu 3/5 (${progress.confidence}/5)` },
     { met: reflectionLength >= 20, label: `Reflection tối thiểu 20 ký tự (${reflectionLength}/20)` },
+    { met: submissionStatus === "passed" || submissionStatus === "portfolio-ready", label: `Evidence đã qua mentor review (${submissionStatus})` },
     ...(quiz ? [{ met: (progress.quizScore ?? 0) >= 80, label: `Module assessment đạt ≥80% (${progress.quizScore ?? 0}%)` }] : []),
   ];
   const gateReady = gateItems.every((item) => item.met);
@@ -309,35 +321,7 @@ export default function WeekLesson({
     setQuizStatus("Đã mở lượt làm mới. Chọn lại đáp án rồi nộp bài.");
   };
 
-  const markReviewComplete = async () => {
-    if (!progress.completed || reviewing) return;
-    setReviewing(true);
-    setReviewError(false);
-    setReviewStatus("Đang ghi nhận lượt review...");
-    try {
-      const response = await fetch("/api/progress", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ week: week.week, action: "review" }),
-      });
-      const data = (await response.json().catch(() => ({}))) as {
-        progress?: Partial<ProgressRow>;
-        error?: string;
-      };
-      if (!response.ok || !data.progress) {
-        throw new Error(data.error ?? "Không thể ghi nhận review.");
-      }
-      const saved = normalizeProgress(data.progress, week.week);
-      setProgress({ ...saved, ...pendingPatchRef.current });
-      setReviewClock(Date.now());
-      setReviewStatus(`Đã ghi nhận review #${saved.reviewCount}. Lịch ôn tiếp theo đã được cập nhật.`);
-    } catch (error) {
-      setReviewError(true);
-      setReviewStatus(error instanceof Error ? error.message : "Review chưa được ghi nhận. Hãy thử lại.");
-    } finally {
-      setReviewing(false);
-    }
-  };
+  const openRetrievalPractice = () => document.getElementById("retrieval-practice")?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   const askTutor = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -431,14 +415,12 @@ export default function WeekLesson({
               <button
                 type="button"
                 className="review-complete-button"
-                disabled={!progress.completed || reviewing || syncState !== "saved"}
-                onClick={() => void markReviewComplete()}
+                disabled={syncState !== "saved"}
+                onClick={openRetrievalPractice}
               >
-                {reviewing ? "Đang ghi nhận..." : reviewError ? "Thử đánh dấu review lại" : "Đánh dấu đã ôn"}
+                Làm retrieval practice
               </button>
-              {!progress.completed ? <small>Hoàn thành tuần trước khi ghi nhận review.</small> : null}
-              {progress.completed && progress.confidence < 4 ? <small>Để đạt Mastered: review ít nhất 1 lần và nâng confidence lên ≥4.</small> : null}
-              {reviewStatus ? <p className={reviewError ? "error" : ""} role="status" aria-live="polite">{reviewStatus}</p> : null}
+              {!progress.completed ? <small>Applied cần evidence qua mentor review; Retained cần retrieval không mở ghi chú và một transfer case.</small> : null}
             </div>
           </aside>
         </div>
@@ -458,8 +440,30 @@ export default function WeekLesson({
 
           <section className="content-panel reading-panel">
             <div className="panel-index">03</div>
-            <div><p className="kicker">READ FROM YOUR UPLOADED PDFS</p><h2>Đọc trực tiếp từ tài liệu gốc</h2><p className="panel-intro">Các đoạn dưới đây được trích từ PDF đã upload, gắn với chương và trang để mày học có nguồn. Đọc phần này trước khi làm lab.</p><div className="source-reading-list">{sourceExcerpts.filter((item) => item.excerpt.trim()).slice(0, 4).map((item) => <article key={`${item.sourceId}-${item.chapter}`}><div className="source-reading-meta"><strong>{item.title}</strong><span>{item.chapter} · {item.pages}</span></div><p>{item.excerpt}</p><small>{item.note}</small></article>)}{!sourceExcerpts.some((item) => item.excerpt.trim()) ? <p className="empty-state">PDF này cần OCR để đọc tự động. Hãy dùng source map để mở đúng chương trong bản gốc.</p> : null}</div></div>
+            <div>
+              <p className="kicker">VIETNAMESE TEACHING · SOURCE-GROUNDED</p>
+              <h2>Bài giảng tiếng Việt từ tài liệu đã upload</h2>
+              <p className="panel-intro">Tao đã tổng hợp và giảng lại nội dung bằng tiếng Việt. Thuật ngữ English được giữ lại để mày dùng trong công việc; đoạn gốc chỉ nằm trong phần đối chiếu nguồn.</p>
+              <div className="teacher-note-grid">
+                <article><span>01 · GIẢI THÍCH</span><p>{teachingNote.explain}</p></article>
+                <article><span>02 · VÍ DỤ FMCG</span><p>{teachingNote.example}</p></article>
+                <article className="warning"><span>03 · SAI LẦM THƯỜNG GẶP</span><p>{teachingNote.mistake}</p></article>
+                <article className="decision"><span>04 · QUYẾT ĐỊNH PHẢI LÀM ĐƯỢC</span><p>{teachingNote.decision}</p></article>
+              </div>
+              <div className="source-reading-list">
+                <h3>Nguồn dùng để biên soạn bài này</h3>
+                {sourceExcerpts.slice(0, 4).map((item) => <article key={`${item.sourceId}-${item.chapter}`}>
+                  <div className="source-reading-meta"><strong>{item.title}</strong><span>{item.chapter} · {item.pages}</span></div>
+                  <p className="source-purpose"><strong>Được dùng để dạy:</strong> {item.note}</p>
+                  {item.excerpt.trim() ? <details><summary>Đối chiếu đoạn gốc English</summary><p lang="en">{item.excerpt}</p></details> : <small>PDF này cần OCR; source map vẫn giữ đúng chương để đối chiếu thủ công.</small>}
+                </article>)}
+              </div>
+            </div>
           </section>
+
+          <LessonReader week={week.week} blocks={lessonBlocks} onProgress={setLessonRead} />
+
+          <RetrievalPractice week={week.week} onProgress={(saved) => setProgress((current) => normalizeProgress({ ...current, ...saved }, week.week))} />
 
           <section className="content-panel practice-panel">
             <div className="panel-index">03</div>
@@ -583,17 +587,20 @@ export default function WeekLesson({
               </div>
             </section>
           ) : null}
-          <SubmissionWorkspace week={week.week} blocks={lessonBlocks} assets={learningAssets} rubric={rubric} deliverable={week.deliverable} />
+          <SubmissionWorkspace week={week.week} blocks={lessonBlocks} assets={learningAssets} rubric={rubric} deliverable={week.deliverable} onStatusChange={setSubmissionStatus} />
         </div>
 
         <aside className="lesson-side-column">
           <div className="sticky-card">
-            <p className="kicker">AI TUTOR · WEEK {String(week.week).padStart(2, "0")}</p>
-            <h3>Hỏi ngay trong bài</h3>
+            <p className="kicker">AI MENTOR · WEEK {String(week.week).padStart(2, "0")}</p>
+            <h3>Chọn chế độ hỗ trợ</h3>
             <div className="quick-questions">
               <button type="button" onClick={() => setMessage("Giải thích các khái niệm tuần này bằng ví dụ FMCG đơn giản.")}>Giải thích đơn giản</button>
-              <button type="button" onClick={() => setMessage("Kiểm tra hiểu biết của tao bằng 3 câu hỏi Socratic.")}>Kiểm tra tao</button>
-              <button type="button" onClick={() => setMessage("Cho tao checklist hoàn thành deliverable tuần này.")}>Tạo checklist</button>
+              <button type="button" onClick={() => setMessage("Guide: hướng dẫn guided lab từng bước nhưng không làm thay; dừng sau bước đầu để tao tự làm.")}>Guide lab</button>
+              <button type="button" onClick={() => setMessage("Hint cấp 1: cho tao một gợi ý nhỏ để tự giải bài, chưa đưa đáp án.")}>Hint cấp 1</button>
+              <button type="button" onClick={() => setMessage("Challenge: kiểm tra hiểu biết của tao bằng 3 câu Socratic, hỏi từng câu một.")}>Challenge tao</button>
+              <button type="button" onClick={() => setMessage("Plan: dựa vào output tuần này, cho tao checklist ngắn và thứ tự làm tiếp theo.")}>Plan tiếp theo</button>
+              <button type="button" onClick={() => setMessage("Interview: mô phỏng một câu phỏng vấn Supply Chain liên quan tuần này, chờ tao trả lời rồi phản biện.")}>Mock interview</button>
             </div>
             <div className="side-answer" role="status" aria-live="polite" aria-busy={asking}>
               {tutorResponse ? <TutorAnswer response={tutorResponse} /> : tutorError ? <div className="inline-error"><strong>Chưa gửi được.</strong><p>{tutorError}</p></div> : <p className="tutor-placeholder">Tutor sẽ trả lời kèm nguồn tham chiếu ở đây.</p>}
