@@ -1,0 +1,11 @@
+field,table,meaning,example
+sku,product_master,Unique product code,SKU-001
+channel,customer,Sales channel,Modern Trade
+week,sales_history,ISO week number,12
+units,sales_history,Units sold,1280
+order_units,orders,Customer order quantity,1350
+shipped_units,shipments,Units shipped,1310
+on_hand,inventory_snapshots,Ending inventory,420
+forecast_units,forecast,Baseline forecast,1260
+promo_flag,promotions,Promotion active flag,1
+lead_time_days,supplier,Planned replenishment lead time,7

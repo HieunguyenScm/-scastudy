@@ -4,6 +4,8 @@ import Link from "next/link";
 import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Week } from "../../../lib/content";
 import TutorAnswer, { type TutorPayload } from "../../tutor-answer";
+import SubmissionWorkspace from "./submission-workspace";
+import type { LearningAsset, LessonBlock } from "../../../lib/learning";
 
 export type LessonQuiz = {
   module: number;
@@ -97,10 +99,16 @@ export default function WeekLesson({
   week,
   quiz,
   sourceMap,
+  lessonBlocks,
+  learningAssets,
+  rubric,
 }: {
   week: Week;
   quiz: LessonQuiz | null;
   sourceMap: SourceItem[];
+  lessonBlocks: LessonBlock[];
+  learningAssets: LearningAsset[];
+  rubric: Array<{ id: string; label: string; weight: number }>;
 }) {
   const [progress, setProgress] = useState<ProgressRow>(() => emptyProgress(week.week));
   const [syncState, setSyncState] = useState<SyncState>("loading");
@@ -568,6 +576,7 @@ export default function WeekLesson({
               </div>
             </section>
           ) : null}
+          <SubmissionWorkspace week={week.week} blocks={lessonBlocks} assets={learningAssets} rubric={rubric} deliverable={week.deliverable} />
         </div>
 
         <aside className="lesson-side-column">

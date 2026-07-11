@@ -90,6 +90,45 @@ function initializeDevelopmentDatabase(): Promise<void> {
           output_tokens INTEGER,
           created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
         )`),
+        env.DB.prepare(`CREATE TABLE IF NOT EXISTS submissions (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          user_email TEXT NOT NULL,
+          week INTEGER NOT NULL CHECK (week BETWEEN 1 AND 24),
+          status TEXT NOT NULL DEFAULT 'in-progress' CHECK (status IN ('not-started','in-progress','submitted','needs-revision','passed','portfolio-ready')),
+          title TEXT NOT NULL,
+          evidence TEXT NOT NULL DEFAULT '' CHECK (length(evidence) <= 12000),
+          file_url TEXT,
+          assumptions TEXT NOT NULL DEFAULT '' CHECK (length(assumptions) <= 5000),
+          reflection TEXT NOT NULL DEFAULT '' CHECK (length(reflection) <= 5000),
+          latest_version INTEGER NOT NULL DEFAULT 0,
+          updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          UNIQUE(user_email, week)
+        )`),
+        env.DB.prepare(`CREATE TABLE IF NOT EXISTS submission_versions (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          submission_id INTEGER NOT NULL REFERENCES submissions(id),
+          user_email TEXT NOT NULL,
+          version INTEGER NOT NULL,
+          evidence TEXT NOT NULL,
+          file_url TEXT,
+          assumptions TEXT NOT NULL,
+          reflection TEXT NOT NULL,
+          created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          UNIQUE(submission_id, version)
+        )`),
+        env.DB.prepare(`CREATE TABLE IF NOT EXISTS mentor_reviews (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          submission_id INTEGER NOT NULL REFERENCES submissions(id),
+          version INTEGER NOT NULL,
+          user_email TEXT NOT NULL,
+          decision TEXT NOT NULL CHECK (decision IN ('passed','needs-revision')),
+          scores TEXT NOT NULL DEFAULT '{}' CHECK (json_valid(scores)),
+          strengths TEXT NOT NULL DEFAULT '',
+          gaps TEXT NOT NULL DEFAULT '',
+          feedback TEXT NOT NULL DEFAULT '',
+          sources TEXT NOT NULL DEFAULT '[]' CHECK (json_valid(sources)),
+          created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )`),
         env.DB.prepare(
           "CREATE INDEX IF NOT EXISTS progress_user_mastery_idx ON progress(user_email, mastery_status)",
         ),
@@ -117,6 +156,9 @@ function initializeDevelopmentDatabase(): Promise<void> {
         env.DB.prepare(
           "CREATE INDEX IF NOT EXISTS ai_executions_status_created_idx ON ai_executions(status, created_at)",
         ),
+        env.DB.prepare("CREATE INDEX IF NOT EXISTS submissions_user_status_idx ON submissions(user_email, status)"),
+        env.DB.prepare("CREATE INDEX IF NOT EXISTS submission_versions_user_created_idx ON submission_versions(user_email, created_at)"),
+        env.DB.prepare("CREATE INDEX IF NOT EXISTS mentor_reviews_submission_created_idx ON mentor_reviews(submission_id, created_at)"),
         env.DB.prepare(`CREATE TRIGGER IF NOT EXISTS case_studies_snapshot_after_insert
           AFTER INSERT ON case_studies
           BEGIN

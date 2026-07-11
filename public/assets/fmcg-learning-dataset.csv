@@ -1,0 +1,11 @@
+sku,product_name,channel,week,units,order_units,shipped_units,on_hand,forecast_units,promo_flag,lead_time_days
+SKU-001,Orange Drink 330ml,Modern Trade,1,1180,1200,1170,390,1150,0,7
+SKU-001,Orange Drink 330ml,Modern Trade,2,1320,1400,1280,510,1210,1,7
+SKU-001,Orange Drink 330ml,General Trade,1,860,900,850,260,880,0,9
+SKU-001,Orange Drink 330ml,General Trade,2,910,980,900,330,895,0,9
+SKU-002,Milk Tea 450ml,Modern Trade,1,740,760,735,220,760,0,6
+SKU-002,Milk Tea 450ml,Modern Trade,2,820,880,810,290,790,1,6
+SKU-002,Milk Tea 450ml,General Trade,1,560,580,550,180,570,0,8
+SKU-002,Milk Tea 450ml,General Trade,2,610,660,600,230,585,0,8
+SKU-003,Chips 60g,Convenience,1,420,450,410,140,430,0,5
+SKU-003,Chips 60g,Convenience,2,510,560,500,190,450,1,5

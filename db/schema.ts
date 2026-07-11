@@ -28,6 +28,15 @@ export const caseStages = [
 
 export type CaseStage = (typeof caseStages)[number];
 export type RubricScores = Record<string, number>;
+export const submissionStatuses = [
+  "not-started",
+  "in-progress",
+  "submitted",
+  "needs-revision",
+  "passed",
+  "portfolio-ready",
+] as const;
+export type SubmissionStatus = (typeof submissionStatuses)[number];
 
 export const progress = sqliteTable(
   "progress",
@@ -213,5 +222,72 @@ export const aiExecutions = sqliteTable(
     check("ai_executions_latency_check", sql`${table.latencyMs} >= 0`),
     check("ai_executions_input_chars_check", sql`${table.inputChars} >= 0`),
     check("ai_executions_output_chars_check", sql`${table.outputChars} >= 0`),
+  ],
+);
+
+export const submissions = sqliteTable(
+  "submissions",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    userEmail: text("user_email").notNull(),
+    week: integer("week").notNull(),
+    status: text("status").$type<SubmissionStatus>().notNull().default("in-progress"),
+    title: text("title").notNull(),
+    evidence: text("evidence").notNull().default(""),
+    fileUrl: text("file_url"),
+    assumptions: text("assumptions").notNull().default(""),
+    reflection: text("reflection").notNull().default(""),
+    latestVersion: integer("latest_version").notNull().default(0),
+    updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [
+    uniqueIndex("submissions_user_week_uidx").on(table.userEmail, table.week),
+    index("submissions_user_status_idx").on(table.userEmail, table.status),
+    check("submissions_week_check", sql`${table.week} BETWEEN 1 AND 24`),
+    check("submissions_status_check", sql`${table.status} IN ('not-started','in-progress','submitted','needs-revision','passed','portfolio-ready')`),
+    check("submissions_evidence_length_check", sql`length(${table.evidence}) <= 12000`),
+    check("submissions_assumptions_length_check", sql`length(${table.assumptions}) <= 5000`),
+    check("submissions_reflection_length_check", sql`length(${table.reflection}) <= 5000`),
+  ],
+);
+
+export const submissionVersions = sqliteTable(
+  "submission_versions",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    submissionId: integer("submission_id").notNull().references(() => submissions.id),
+    userEmail: text("user_email").notNull(),
+    version: integer("version").notNull(),
+    evidence: text("evidence").notNull(),
+    fileUrl: text("file_url"),
+    assumptions: text("assumptions").notNull(),
+    reflection: text("reflection").notNull(),
+    createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [
+    uniqueIndex("submission_versions_submission_version_uidx").on(table.submissionId, table.version),
+    index("submission_versions_user_created_idx").on(table.userEmail, table.createdAt),
+  ],
+);
+
+export const mentorReviews = sqliteTable(
+  "mentor_reviews",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    submissionId: integer("submission_id").notNull().references(() => submissions.id),
+    version: integer("version").notNull(),
+    userEmail: text("user_email").notNull(),
+    decision: text("decision").notNull(),
+    scores: text("scores", { mode: "json" }).$type<RubricScores>().notNull().default(sql`'{}'`),
+    strengths: text("strengths").notNull().default(""),
+    gaps: text("gaps").notNull().default(""),
+    feedback: text("feedback").notNull().default(""),
+    sources: text("sources", { mode: "json" }).$type<string[]>().notNull().default(sql`'[]'`),
+    createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [
+    index("mentor_reviews_submission_created_idx").on(table.submissionId, table.createdAt),
+    check("mentor_reviews_decision_check", sql`${table.decision} IN ('passed','needs-revision')`),
+    check("mentor_reviews_scores_json_check", sql`json_valid(${table.scores})`),
   ],
 );

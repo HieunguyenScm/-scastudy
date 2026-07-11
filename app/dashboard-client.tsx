@@ -18,6 +18,7 @@ type ProgressRow = {
   lastReviewedAt: string | null;
   nextReviewAt: string | null;
 };
+type SubmissionRow = { week: number; status: string; latestVersion: number };
 
 const MODULE_END_WEEKS = [4, 8, 12, 16, 20, 24];
 const moduleMeta = [
@@ -90,6 +91,7 @@ export default function DashboardClient({
   const [tutorResponse, setTutorResponse] = useState<TutorPayload | null>(null);
   const [tutorError, setTutorError] = useState("");
   const [asking, setAsking] = useState(false);
+  const [submissions, setSubmissions] = useState<SubmissionRow[]>([]);
 
   const loadProgress = useCallback(async (signal?: AbortSignal) => {
     setLoadingProgress(true);
@@ -127,6 +129,7 @@ export default function DashboardClient({
         setLanguage(savedLanguage);
       }
       void loadProgress(controller.signal);
+      void fetch("/api/submissions").then((response) => response.json() as Promise<{ submissions?: SubmissionRow[] }>).then((data) => setSubmissions(Array.isArray(data.submissions) ? data.submissions : [])).catch(() => setSubmissions([]));
     }, 0);
     return () => {
       window.clearTimeout(timer);
@@ -156,6 +159,7 @@ export default function DashboardClient({
     })
     .sort((a, b) => new Date(a.nextReviewAt ?? 0).getTime() - new Date(b.nextReviewAt ?? 0).getTime()), [progress, reviewClock]);
   const currentWeek = curriculum.find((week) => !progressMap.get(week.week)?.completed) ?? curriculum[23];
+  const currentSubmission = submissions.find((item) => item.week === currentWeek.week);
 
   const filteredWeeks = curriculum.filter((week) => {
     if (moduleFilter && week.module !== moduleFilter) return false;
@@ -316,8 +320,8 @@ export default function DashboardClient({
               <p className="kicker">WEEKLY OUTPUT</p>
               <h3>{currentWeek.deliverable}</h3>
               <p>{currentWeek.portfolio}</p>
-              <Link className="complete-button" href={`/week/${currentWeek.week}#completion-gate`}>
-                Mở completion gate →
+              <Link className="complete-button" href={`/week/${currentWeek.week}#submission-workspace`}>
+                {currentSubmission?.status === "needs-revision" ? "Sửa bài đang yêu cầu revision →" : currentSubmission?.status === "submitted" ? "Request mentor review →" : "Mở lesson + lab →"}
               </Link>
             </article>
           </div>

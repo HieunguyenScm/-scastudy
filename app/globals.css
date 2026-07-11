@@ -669,3 +669,33 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select { m
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .orbit-one { animation: none; }
 }
+
+.lesson-block-list { display: grid; gap: 1rem; margin-top: 1.25rem; }
+.lesson-block { display: grid; grid-template-columns: 3rem 1fr; gap: 1rem; padding: 1.1rem; border: 1px solid var(--line, #d9e2ef); border-radius: 1rem; background: #fff; }
+.lesson-block > span { color: var(--navy, #0b1f3a); font-weight: 800; font-size: 1.1rem; }
+.lesson-block h3 { margin: .2rem 0 .45rem; }
+.lesson-block p { margin: 0; line-height: 1.7; }
+.lesson-block ol { margin: .8rem 0 0; padding-left: 1.2rem; line-height: 1.8; }
+.lesson-block-lab { background: #f2f8ff; border-color: #b8d4ef; }
+.lesson-block-challenge { background: #fffaf0; border-color: #f1d397; }
+.asset-strip { display: flex; flex-wrap: wrap; gap: .65rem; align-items: center; margin: 1.25rem 0; padding: .9rem; border-radius: .8rem; background: #eef4fb; }
+.asset-strip a { color: #0b4f8a; font-weight: 700; text-decoration: underline; }
+.submission-form, .rubric-card { margin-top: 1.25rem; padding: 1.25rem; border: 1px solid var(--line, #d9e2ef); border-radius: 1rem; background: #fff; }
+.submission-heading { display: flex; justify-content: space-between; gap: 1rem; align-items: start; }
+.submission-heading h3 { margin: .2rem 0 0; }
+.submission-status { padding: .3rem .6rem; border-radius: 999px; font-size: .72rem; font-weight: 800; background: #eef4fb; }
+.submission-form label { display: grid; gap: .35rem; margin-top: 1rem; font-weight: 700; }
+.submission-form label small { color: #607087; font-weight: 400; }
+.submission-form textarea, .submission-form input { width: 100%; border: 1px solid #b9c7d8; border-radius: .65rem; padding: .75rem; font: inherit; }
+.submission-form textarea { min-height: 100px; resize: vertical; }
+.submission-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1rem; }
+.rubric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .7rem; }
+.rubric-grid div { display: flex; justify-content: space-between; gap: .5rem; padding: .7rem; border-radius: .6rem; background: #f4f7fb; }
+.rubric-grid span { font-weight: 800; color: #0b4f8a; }
+.mentor-review { margin-top: 1rem; padding: 1rem; border-radius: .8rem; background: #eef9f1; border: 1px solid #a8d8b1; }
+.mentor-review.review-needs-revision { background: #fff8ed; border-color: #f0ca8b; }
+.mentor-review dl { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; }
+.mentor-review dl div { padding: .5rem; background: #fff; border-radius: .5rem; }
+.mentor-review dt { color: #607087; font-size: .78rem; }
+.mentor-review dd { margin: .15rem 0 0; font-weight: 800; }
+@media (max-width: 720px) { .rubric-grid, .mentor-review dl { grid-template-columns: 1fr 1fr; } .submission-heading { flex-direction: column; } .lesson-block { grid-template-columns: 2rem 1fr; } }
