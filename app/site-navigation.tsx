@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-export type NavigationSection = "dashboard" | "lesson" | "glossary" | "case";
+export type NavigationSection = "dashboard" | "lesson" | "glossary" | "case" | "portfolio";
 export type LanguageMode = "vi" | "en" | "bi";
 
 type SiteNavigationProps = {
@@ -18,6 +18,7 @@ const navigationItems = [
   { key: "lesson", href: "/#roadmap", label: "Lộ trình 24 tuần", shortLabel: "Học tập", icon: "24" },
   { key: "glossary", href: "/glossary", label: "Glossary", shortLabel: "Glossary", icon: "AZ" },
   { key: "case", href: "/case-study", label: "Case workspace", shortLabel: "Case", icon: "CS" },
+  { key: "portfolio", href: "/portfolio", label: "Portfolio", shortLabel: "Portfolio", icon: "PF" },
 ] as const;
 
 export default function SiteNavigation({

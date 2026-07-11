@@ -1,0 +1,16 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
+type Artifact = { week: number; title: string; status: string; evidence: string; latestVersion: number };
+type CaseItem = { id: number; title: string; stage: string; assignmentModule: number | null; updatedAt: string };
+
+export default function PortfolioClient() {
+  const [weekly, setWeekly] = useState<Artifact[]>([]);
+  const [cases, setCases] = useState<CaseItem[]>([]);
+  const [status, setStatus] = useState("Đang tải portfolio...");
+  useEffect(() => { void fetch("/api/portfolio").then((r) => r.json() as Promise<{ weekly?: Artifact[]; cases?: CaseItem[]; error?: string }>).then((data) => { setWeekly(data.weekly ?? []); setCases(data.cases ?? []); setStatus(data.error ?? "Portfolio đã đồng bộ"); }).catch(() => setStatus("Chưa tải được portfolio.")); }, []);
+  const passed = weekly.filter((item) => item.status === "passed" || item.status === "portfolio-ready").length;
+  return <main className="app-shell portfolio-shell" id="main-content"><section className="hero-dashboard portfolio-hero"><div className="hero-main"><p className="kicker">PORTFOLIO OS · EVIDENCE LIBRARY</p><h1>Từ bài học<br /><em>đến bằng chứng nghề nghiệp.</em></h1><p className="hero-description">Mỗi output đã review sẽ trở thành một artifact có thể đưa vào CV, interview hoặc capstone.</p><div className="hero-buttons"><Link className="primary-action" href="/week/1#submission-workspace">Tạo artifact đầu tiên →</Link><Link className="secondary-action" href="/case-study">Mở capstone workspace</Link></div></div><div className="control-tower"><div className="tower-top"><span>PORTFOLIO PROGRESS</span><b>LIVE</b></div><div className="tower-core"><div className="tower-center"><strong>{passed}</strong><small>PASSED</small></div></div><div className="tower-bottom"><span>{weekly.length}/24 tuần có evidence</span><span>{cases.length} case project</span></div></div></section><section className="section-block portfolio-section"><div className="section-title-row"><div><p className="kicker">WEEKLY ARTIFACTS</p><h2>Evidence library</h2></div><span className="sync-inline">{status}</span></div><div className="portfolio-grid">{weekly.length ? weekly.map((item) => <article className="portfolio-card" key={item.week}><span>W{String(item.week).padStart(2, "0")}</span><h3>{item.title}</h3><p>{item.evidence.slice(0, 180)}{item.evidence.length > 180 ? "…" : ""}</p><div><b>{item.status}</b><Link href={`/week/${item.week}#submission-workspace`}>Mở và sửa →</Link></div></article>) : <p className="empty-state">Chưa có artifact. Hãy hoàn thành lesson và submit evidence đầu tiên.</p>}</div></section><section className="section-block portfolio-section"><div className="section-title-row"><div><p className="kicker">PROJECTS</p><h2>Case & capstone projects</h2></div><Link className="secondary-action" href="/case-study">Tạo case →</Link></div><div className="portfolio-grid">{cases.length ? cases.map((item) => <article className="portfolio-card" key={item.id}><span>MODULE {item.assignmentModule ?? "—"}</span><h3>{item.title}</h3><p>Stage hiện tại: {item.stage}</p><Link href="/case-study">Mở case workspace →</Link></article>) : <p className="empty-state">Chưa có case project. Bắt đầu từ FMCG Supply Chain Diagnostic.</p>}</div></section></main>;
+}

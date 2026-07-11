@@ -699,3 +699,14 @@ input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select { m
 .mentor-review dt { color: #607087; font-size: .78rem; }
 .mentor-review dd { margin: .15rem 0 0; font-weight: 800; }
 @media (max-width: 720px) { .rubric-grid, .mentor-review dl { grid-template-columns: 1fr 1fr; } .submission-heading { flex-direction: column; } .lesson-block { grid-template-columns: 2rem 1fr; } }
+.portfolio-shell { padding-bottom: 5rem; }
+.portfolio-hero { margin-bottom: 2rem; }
+.portfolio-section { margin-top: 2rem; }
+.portfolio-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.portfolio-card { padding: 1.1rem; border: 1px solid var(--line, #d9e2ef); border-radius: 1rem; background: #fff; }
+.portfolio-card > span { color: #0b4f8a; font-size: .75rem; font-weight: 800; }
+.portfolio-card h3 { margin: .4rem 0; }
+.portfolio-card p { min-height: 3rem; color: #607087; line-height: 1.6; }
+.portfolio-card div { display: flex; justify-content: space-between; gap: .5rem; align-items: center; }
+.portfolio-card a { color: #0b4f8a; font-weight: 700; }
+@media (max-width: 800px) { .portfolio-grid { grid-template-columns: 1fr; } }
