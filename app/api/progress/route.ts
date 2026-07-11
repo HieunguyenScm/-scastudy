@@ -9,6 +9,7 @@ import {
   errorResponse,
   handleApiError,
   hasOwn,
+  isLocalDatabaseUnavailable,
   jsonResponse,
   readJsonObject,
 } from "../../../lib/http";
@@ -31,6 +32,9 @@ export async function GET() {
 
     return jsonResponse({ progress: rows, requestId }, { requestId });
   } catch (error) {
+    if (isLocalDatabaseUnavailable(error)) {
+      return jsonResponse({ progress: [], degraded: true, requestId }, { requestId });
+    }
     return handleApiError(error, requestId);
   }
 }

@@ -14,6 +14,7 @@ import {
   errorResponse,
   handleApiError,
   hasOwn,
+  isLocalDatabaseUnavailable,
   jsonResponse,
   readJsonObject,
   type JsonObject,
@@ -50,6 +51,9 @@ export async function GET() {
       { requestId },
     );
   } catch (error) {
+    if (isLocalDatabaseUnavailable(error)) {
+      return jsonResponse({ cases: [], degraded: true, requestId }, { requestId });
+    }
     return handleApiError(error, requestId);
   }
 }

@@ -94,6 +94,14 @@ export function handleApiError(error: unknown, requestId?: string): Response {
   );
 }
 
+export function isLocalDatabaseUnavailable(error: unknown): boolean {
+  return (
+    process.env.NODE_ENV !== "production" &&
+    error instanceof Error &&
+    error.message.includes("Cloudflare D1 binding `DB` is unavailable")
+  );
+}
+
 export function hasOwn(object: JsonObject, key: string): boolean {
   return Object.prototype.hasOwnProperty.call(object, key);
 }
