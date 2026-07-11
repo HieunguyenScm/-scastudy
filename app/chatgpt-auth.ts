@@ -17,6 +17,11 @@ const SIGN_OUT_PATH = "/signout-with-chatgpt";
 const CALLBACK_PATH = "/callback";
 
 export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
+  const user = await getChatGPTIdentity();
+  return user && isAuthorizedEmail(user.email) ? user : null;
+}
+
+async function getChatGPTIdentity(): Promise<ChatGPTUser | null> {
   const requestHeaders = await headers();
   const email = requestHeaders.get(USER_EMAIL_HEADER);
   if (!email) {
@@ -47,10 +52,21 @@ export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
 export async function requireChatGPTUser(
   returnTo: string,
 ): Promise<ChatGPTUser> {
-  const user = await getChatGPTUser();
-  if (user) return user;
+  const user = await getChatGPTIdentity();
+  if (user && isAuthorizedEmail(user.email)) return user;
+  if (user) redirect("/access-denied");
 
   redirect(chatGPTSignInPath(returnTo));
+}
+
+function isAuthorizedEmail(email: string): boolean {
+  const configured = process.env.AUTHORIZED_EMAILS?.trim();
+  if (!configured) return true;
+  const allowed = configured
+    .split(",")
+    .map((item) => item.trim().toLowerCase())
+    .filter(Boolean);
+  return allowed.includes(email.toLowerCase());
 }
 
 export function chatGPTSignInPath(returnTo: string): string {

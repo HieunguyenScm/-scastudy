@@ -1,8 +1,8 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getQuizForModule, getSource, getWeek } from "../../../lib/content";
 import { chatGPTSignOutPath, requireChatGPTUser } from "../../chatgpt-auth";
-import WeekLesson from "./week-lesson";
+import SiteNavigation from "../../site-navigation";
+import WeekLesson, { type LessonQuiz } from "./week-lesson";
 
 export const dynamic = "force-dynamic";
 
@@ -11,8 +11,20 @@ export default async function WeekPage({ params }: { params: Promise<{ week: str
   const week = getWeek(Number(weekParam));
   if (!week) notFound();
   const user = await requireChatGPTUser(`/week/${week.week}`);
-  const quiz = getQuizForModule(week.module);
-  if (!quiz) notFound();
+  let quiz: LessonQuiz | null = null;
+  if (week.week % 4 === 0) {
+    const moduleQuiz = getQuizForModule(week.module);
+    if (!moduleQuiz) notFound();
+    quiz = {
+      module: moduleQuiz.module,
+      title: moduleQuiz.title,
+      questions: moduleQuiz.questions.map((question) => ({
+        id: question.id,
+        question: question.question,
+        options: question.options,
+      })),
+    };
+  }
   const sourceMap = week.sourceRefs.map((reference) => {
     const source = getSource(reference.sourceId);
     return {
@@ -25,11 +37,11 @@ export default async function WeekPage({ params }: { params: Promise<{ week: str
 
   return (
     <>
-      <header className="site-header lesson-header">
-        <Link className="brand-lockup" href="/"><span className="brand-symbol">CT</span><span><strong>ctnascm</strong><small>Chàng trai năm ấy</small></span></Link>
-        <nav className="lesson-nav"><Link href="/">Dashboard</Link><Link href="/glossary">Glossary</Link><Link href="/case-study">Case workspace</Link></nav>
-        <div className="user-chip"><span>{user.displayName.slice(0, 1).toUpperCase()}</span><div><strong>{user.displayName}</strong><a href={chatGPTSignOutPath(`/week/${week.week}`)}>Đăng xuất</a></div></div>
-      </header>
+      <SiteNavigation
+        current="lesson"
+        user={{ displayName: user.displayName, email: user.email }}
+        signOutPath={chatGPTSignOutPath(`/week/${week.week}`)}
+      />
       <WeekLesson week={week} quiz={quiz} sourceMap={sourceMap} />
     </>
   );

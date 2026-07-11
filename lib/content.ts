@@ -41,7 +41,21 @@ export type QuizQuestion = {
 export type ModuleQuiz = {
   module: number;
   title: string;
+  sourceIds: string[];
   questions: QuizQuestion[];
+};
+
+export type Source = {
+  id: string;
+  title: string;
+  author: string;
+  file: string;
+  libraryPath: string;
+  sha256: string;
+  group: string;
+  pageCount: number;
+  usedFor: number[];
+  note: string;
 };
 
 export type Assignment = {
@@ -54,7 +68,7 @@ export type Assignment = {
 };
 
 export const curriculum = curriculumData as Week[];
-export const sources = sourcesData;
+export const sources = sourcesData as Source[];
 export const glossary = glossaryData;
 export const quizzes = quizzesData as ModuleQuiz[];
 export const assignments = assignmentsData as Assignment[];

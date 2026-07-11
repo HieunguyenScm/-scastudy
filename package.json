@@ -11,6 +11,9 @@
     "start": "WRANGLER_LOG_PATH=.wrangler/wrangler.log vinext start",
     "test": "npm run build && node --test tests/rendered-html.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+    "typecheck": "tsc --noEmit",
+    "verify:sources": "node scripts/verify-sources.mjs",
+    "check": "npm run lint && npm run typecheck && npm test && npm run verify:sources && npm --prefix chatgpt-app test",
     "db:generate": "drizzle-kit generate"
   },
   "dependencies": {
@@ -21,6 +24,7 @@
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.37.1",
+    "@cloudflare/workers-types": "^4.20260515.1",
     "@tailwindcss/postcss": "4.2.1",
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",
