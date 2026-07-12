@@ -13,6 +13,9 @@ export default function LessonReader({ week, blocks, onProgress }: { week: numbe
   const [completedIds, setCompletedIds] = useState<Set<string>>(new Set());
   const [status, setStatus] = useState("Đang tải tiến độ bài đọc...");
   const [busyId, setBusyId] = useState("");
+  const [openId, setOpenId] = useState<string | null>(null);
+  const activeOpen = openId ?? lessonBlocks[0]?.id ?? "";
+  const preview = (text: string) => { const s = text.trim().split(/(?<=[.!?])\s/)[0] ?? text; return s.length > 160 ? s.slice(0, 157) + "…" : s; };
 
   useEffect(() => {
     const controller = new AbortController();
@@ -89,17 +92,27 @@ export default function LessonReader({ week, blocks, onProgress }: { week: numbe
         <div className="lesson-reader-list">
           {lessonBlocks.map((block, index) => {
             const completed = completedIds.has(block.id);
+            const open = activeOpen === block.id;
             return (
-              <article id={`lesson-block-${block.id}`} key={block.id} className={`lesson-reader-block ${completed ? "completed" : ""}`}>
-                <div className="lesson-reader-index"><span>{String(index + 1).padStart(2, "0")}</span><small>{block.type === "example" ? "FMCG CASE" : "LESSON"}</small></div>
-                <div className="lesson-reader-body">
-                  <h3>{block.title}</h3>
-                  <p>{block.body}</p>
-                  {block.steps?.length ? <ol>{block.steps.map((step) => <li key={step}>{step}</li>)}</ol> : null}
-                  <button type="button" disabled={busyId === block.id} onClick={() => void toggle(block.id)}>
-                    {completed ? "✓ Đã học · mở lại" : "Đã hiểu block này →"}
-                  </button>
-                </div>
+              <article id={`lesson-block-${block.id}`} key={block.id} className={`lesson-reader-block ${completed ? "completed" : ""} ${open ? "open" : "collapsed"}`}>
+                <button type="button" className="lesson-reader-head" aria-expanded={open} onClick={() => setOpenId(open ? "" : block.id)}>
+                  <span className="lesson-reader-index">{completed ? "✓" : String(index + 1).padStart(2, "0")}</span>
+                  <span className="lesson-reader-head-text">
+                    <small>{block.type === "example" ? "FMCG CASE" : "LESSON"}</small>
+                    <strong>{block.title}</strong>
+                    {!open ? <span className="lesson-reader-preview">{preview(block.body)}</span> : null}
+                  </span>
+                  <span className="lesson-reader-caret" aria-hidden="true">{open ? "▾" : "▸"}</span>
+                </button>
+                {open ? (
+                  <div className="lesson-reader-body">
+                    <p>{block.body}</p>
+                    {block.steps?.length ? <ol>{block.steps.map((step) => <li key={step}>{step}</li>)}</ol> : null}
+                    <button type="button" className="lesson-reader-done" disabled={busyId === block.id} onClick={() => { void toggle(block.id); const nxt = lessonBlocks[index + 1]; if (!completed && nxt) setOpenId(nxt.id); }}>
+                      {completed ? "✓ Đã học · đánh dấu lại" : "Đã hiểu, sang phần sau →"}
+                    </button>
+                  </div>
+                ) : null}
               </article>
             );
           })}

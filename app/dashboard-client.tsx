@@ -304,7 +304,7 @@ export default function DashboardClient({
 
         <section className="section-block current-focus">
           <div className="section-title-row">
-            <div><p className="kicker">CURRENT FOCUS</p><h2>Tuần tiếp theo của mày</h2></div>
+            <div><p className="kicker">CURRENT FOCUS</p><h2>Tuần tiếp theo của bạn</h2></div>
             <div className={`sync-inline ${progressError ? "error" : ""}`} role="status" aria-live="polite">
               <span>{progressMessage}</span>
               {progressError ? <button type="button" onClick={() => void loadProgress()}>Thử lại</button> : null}
@@ -434,8 +434,8 @@ export default function DashboardClient({
             <p>AI hiểu roadmap hiện tại, giải thích bằng tiếng Việt và chỉ rõ nguồn đã dùng.</p>
             <div className="tutor-prompt-list">
               <button type="button" onClick={() => setMessage("Giải thích bài tuần này bằng ví dụ FMCG thật đơn giản.")}>Giải thích bằng ví dụ FMCG</button>
-              <button type="button" onClick={() => setMessage("Cho tao một bài tập 20 phút và tiêu chí tự chấm.")}>Tạo bài tập 20 phút</button>
-              <button type="button" onClick={() => setMessage("Hỏi tao 5 câu phỏng vấn liên quan tới tuần này.")}>Mock interview</button>
+              <button type="button" onClick={() => setMessage("Cho tôi một bài tập 20 phút và tiêu chí tự chấm.")}>Tạo bài tập 20 phút</button>
+              <button type="button" onClick={() => setMessage("Hỏi tôi 5 câu phỏng vấn liên quan tới tuần này.")}>Mock interview</button>
             </div>
           </div>
           <div className="tutor-console">
@@ -444,7 +444,7 @@ export default function DashboardClient({
               {tutorResponse ? <TutorAnswer response={tutorResponse} /> : tutorError ? (
                 <div className="inline-error"><strong>Chưa gửi được câu hỏi.</strong><p>{tutorError}</p></div>
               ) : (
-                <div className="tutor-empty"><b>W{String(currentWeek.week).padStart(2, "0")}</b><p>Tao đang có context của tuần <strong>{currentWeek.title}</strong>. Hỏi bất cứ điều gì mày chưa rõ.</p></div>
+                <div className="tutor-empty"><b>W{String(currentWeek.week).padStart(2, "0")}</b><p>Trợ lý đang có context của tuần <strong>{currentWeek.title}</strong>. Hỏi bất cứ điều gì bạn chưa rõ.</p></div>
               )}
             </div>
             <form onSubmit={askTutor} className="tutor-form">

@@ -428,49 +428,45 @@ export default function WeekLesson({
 
       <section className="lesson-content-layout">
         <div className="lesson-main-column">
-          <section className="content-panel">
+          <section className="content-panel week-overview">
             <div className="panel-index">01</div>
-            <div><p className="kicker">LEARNING OBJECTIVES</p><h2>Sau tuần này, mày làm được gì?</h2><ul className="objective-list">{week.objectives.map((item) => <li key={item}>{item}</li>)}</ul></div>
-          </section>
-
-          <section className="content-panel">
-            <div className="panel-index">02</div>
-            <div><p className="kicker">CORE CONCEPTS</p><h2>Khái niệm cần nắm</h2><div className="concept-grid">{week.concepts.map((concept, index) => <article key={concept}><span>{String(index + 1).padStart(2, "0")}</span><strong>{concept}</strong></article>)}</div><div className="english-summary"><span>ENGLISH SUMMARY</span><p>{week.summaryEn}</p></div></div>
-          </section>
-
-          <section className="content-panel reading-panel">
-            <div className="panel-index">03</div>
             <div>
-              <p className="kicker">VIETNAMESE TEACHING · SOURCE-GROUNDED</p>
-              <h2>Bài giảng tiếng Việt từ tài liệu đã upload</h2>
-              <p className="panel-intro">Tao đã tổng hợp và giảng lại nội dung bằng tiếng Việt. Thuật ngữ English được giữ lại để mày dùng trong công việc; đoạn gốc chỉ nằm trong phần đối chiếu nguồn.</p>
-              <div className="teacher-note-grid">
-                <article><span>01 · GIẢI THÍCH</span><p>{teachingNote.explain}</p></article>
-                <article><span>02 · VÍ DỤ FMCG</span><p>{teachingNote.example}</p></article>
-                <article className="warning"><span>03 · SAI LẦM THƯỜNG GẶP</span><p>{teachingNote.mistake}</p></article>
-                <article className="decision"><span>04 · QUYẾT ĐỊNH PHẢI LÀM ĐƯỢC</span><p>{teachingNote.decision}</p></article>
-              </div>
-              <div className="source-reading-list">
-                <h3>Nguồn dùng để biên soạn bài này</h3>
-                {sourceExcerpts.slice(0, 4).map((item) => <article key={`${item.sourceId}-${item.chapter}`}>
-                  <div className="source-reading-meta"><strong>{item.title}</strong><span>{item.chapter} · {item.pages}</span></div>
-                  <p className="source-purpose"><strong>Được dùng để dạy:</strong> {item.note}</p>
-                  {item.excerpt.trim() ? <details><summary>Đối chiếu đoạn gốc English</summary><p lang="en">{item.excerpt}</p></details> : <small>PDF này cần OCR; source map vẫn giữ đúng chương để đối chiếu thủ công.</small>}
-                </article>)}
-              </div>
+              <p className="kicker">MỤC TIÊU TUẦN {String(week.week).padStart(2, "0")}</p>
+              <h2>Sau tuần này, bạn làm được gì?</h2>
+              <ul className="objective-list">{week.objectives.map((item) => <li key={item}>{item}</li>)}</ul>
+              <div className="concept-chips" aria-label="Khái niệm cốt lõi tuần này">{week.concepts.map((concept) => <span key={concept}>{concept}</span>)}</div>
             </div>
           </section>
 
+          <div className="step-marker" id="buoc-1">
+            <span>BƯỚC 1</span>
+            <div><h2>Học bài</h2><p>Đọc từng thẻ, tự diễn giải lại bằng lời của mình, rồi đánh dấu đã hiểu. Khoảng 20 phút.</p></div>
+          </div>
+          {teachingNote.mistake || teachingNote.decision ? (
+            <div className="lesson-callouts">
+              <div className="callout warning"><span>Sai lầm thường gặp</span><p>{teachingNote.mistake}</p></div>
+              <div className="callout decision"><span>Quyết định phải làm được</span><p>{teachingNote.decision}</p></div>
+            </div>
+          ) : null}
+
           <LessonReader week={week.week} blocks={lessonBlocks} onProgress={setLessonRead} />
 
+          <div className="step-marker" id="buoc-2">
+            <span>BƯỚC 2</span>
+            <div><h2>Tự kiểm tra</h2><p>Nhớ lại và áp dụng trước khi mở ghi chú — đây là bước tạo mastery thật, không phải click.</p></div>
+          </div>
           <RetrievalPractice week={week.week} onProgress={(saved) => setProgress((current) => normalizeProgress({ ...current, ...saved }, week.week))} />
 
+          <div className="step-marker" id="buoc-3">
+            <span>BƯỚC 3</span>
+            <div><h2>Làm lab và nộp sản phẩm</h2><p>Học bằng output: hoàn thành các task, viết reflection, rồi nộp bằng chứng để mentor chấm.</p></div>
+          </div>
           <section className="content-panel practice-panel">
-            <div className="panel-index">03</div>
+            <div className="panel-index">3a</div>
             <div>
               <p className="kicker">PRACTICE PLAN</p>
               <h2>Học bằng output</h2>
-              <p className="panel-intro">Tick từng task sau khi mày thực sự tạo được output. Mỗi thay đổi được tự động lưu.</p>
+              <p className="panel-intro">Đánh dấu từng task sau khi thực sự tạo được output. Mỗi thay đổi được tự động lưu.</p>
               <ol className="practice-list">
                 {week.practice.map((item, index) => {
                   const bit = 1 << index;
@@ -496,7 +492,7 @@ export default function WeekLesson({
 
               <div className="reflection-block">
                 <label htmlFor={`reflection-${week.week}`}>Reflection sau khi thực hành</label>
-                <p>Viết điều mày hiểu rõ hơn, điểm còn vướng, hoặc cách áp dụng vào FMCG.</p>
+                <p>Viết điều bạn hiểu rõ hơn, điểm còn vướng, hoặc cách áp dụng vào FMCG.</p>
                 <textarea
                   id={`reflection-${week.week}`}
                   value={progress.reflection}
@@ -504,7 +500,7 @@ export default function WeekLesson({
                   maxLength={2000}
                   disabled={syncState === "loading"}
                   onChange={(event) => queueProgress({ reflection: event.target.value }, true)}
-                  placeholder="Ví dụ: Sau khi tự tính safety stock, tao hiểu service level tăng sẽ đổi trade-off tồn kho như thế nào..."
+                  placeholder="Ví dụ: Sau khi tự tính safety stock, tôi hiểu tăng service level sẽ đổi trade-off tồn kho như thế nào..."
                 />
                 <div className={reflectionLength >= 20 ? "reflection-count complete" : "reflection-count"}>
                   <span>{reflectionLength >= 20 ? "✓ Đủ điều kiện" : "Cần ít nhất 20 ký tự"}</span>
@@ -516,29 +512,17 @@ export default function WeekLesson({
             </div>
           </section>
 
-          <section className="content-panel source-panel">
-            <div className="panel-index">04</div>
-            <div>
-              <p className="kicker">SOURCE MAP</p><h2>Đọc đúng chương, đúng trang</h2>
-              <p className="panel-intro">Số trang dưới đây là số trang in trong sách khi extract được; không phải số thứ tự của trình đọc PDF.</p>
-              <div className="source-list">
-                {sourceMap.length ? sourceMap.map((source) => (
-                  <article key={`${source.sourceId}-${source.chapter}`}>
-                    <div className="source-book"><span>{source.pageCount}P</span><div><strong>{source.title}</strong><small>{source.author}</small></div></div>
-                    <div><b>{source.chapter}</b><p>{source.pages}</p><small>{source.note}</small></div>
-                  </article>
-                )) : <p className="empty-state">Tuần này chưa có source map.</p>}
-              </div>
-            </div>
-          </section>
-
           {quiz ? (
+            <>
+            <div className="step-marker" id="buoc-4">
+              <span>BƯỚC 4</span>
+              <div><h2>Bài kiểm tra cuối module</h2><p>Chấm trên server; cần đạt ít nhất 80% để hoàn thành tuần.</p></div>
+            </div>
             <section className="content-panel quiz-panel">
-              <div className="panel-index">05</div>
+              <div className="panel-index">4a</div>
               <div>
                 <p className="kicker">MODULE ASSESSMENT</p>
                 <h2>{quiz.title}</h2>
-                <p className="panel-intro">Chỉ xuất hiện ở tuần cuối module. Đáp án được chấm trên server; cần đạt ít nhất 80% để hoàn thành tuần.</p>
                 <form onSubmit={submitQuiz}>
                   <div className="quiz-list">
                     {quiz.questions.map((question, index) => {
@@ -586,8 +570,36 @@ export default function WeekLesson({
                 </form>
               </div>
             </section>
+            </>
           ) : null}
           <SubmissionWorkspace week={week.week} blocks={lessonBlocks} assets={learningAssets} rubric={rubric} deliverable={week.deliverable} onStatusChange={setSubmissionStatus} />
+
+          <details className="content-panel refs-panel">
+            <summary><span className="kicker">NGUỒN & ĐỐI CHIẾU</span><h2>Đọc đúng chương, đúng trang</h2></summary>
+            <div className="refs-body">
+              <div className="english-summary"><span>ENGLISH SUMMARY</span><p>{week.summaryEn}</p></div>
+              <p className="panel-intro">Số trang là số trang in trong sách; không phải số thứ tự của trình đọc PDF.</p>
+              <div className="source-list">
+                {sourceMap.length ? sourceMap.map((source) => (
+                  <article key={`${source.sourceId}-${source.chapter}`}>
+                    <div className="source-book"><span>{source.pageCount}P</span><div><strong>{source.title}</strong><small>{source.author}</small></div></div>
+                    <div><b>{source.chapter}</b><p>{source.pages}</p><small>{source.note}</small></div>
+                  </article>
+                )) : <p className="empty-state">Tuần này chưa có source map.</p>}
+              </div>
+              {sourceExcerpts.some((item) => item.excerpt.trim()) ? (
+                <div className="source-reading-list">
+                  <h3>Đối chiếu đoạn gốc</h3>
+                  {sourceExcerpts.slice(0, 4).filter((item) => item.excerpt.trim()).map((item) => (
+                    <details key={`${item.sourceId}-${item.chapter}`}>
+                      <summary>{item.title} · {item.chapter}</summary>
+                      <p lang="en">{item.excerpt}</p>
+                    </details>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </details>
         </div>
 
         <aside className="lesson-side-column">
@@ -596,11 +608,11 @@ export default function WeekLesson({
             <h3>Chọn chế độ hỗ trợ</h3>
             <div className="quick-questions">
               <button type="button" onClick={() => setMessage("Giải thích các khái niệm tuần này bằng ví dụ FMCG đơn giản.")}>Giải thích đơn giản</button>
-              <button type="button" onClick={() => setMessage("Guide: hướng dẫn guided lab từng bước nhưng không làm thay; dừng sau bước đầu để tao tự làm.")}>Guide lab</button>
-              <button type="button" onClick={() => setMessage("Hint cấp 1: cho tao một gợi ý nhỏ để tự giải bài, chưa đưa đáp án.")}>Hint cấp 1</button>
-              <button type="button" onClick={() => setMessage("Challenge: kiểm tra hiểu biết của tao bằng 3 câu Socratic, hỏi từng câu một.")}>Challenge tao</button>
-              <button type="button" onClick={() => setMessage("Plan: dựa vào output tuần này, cho tao checklist ngắn và thứ tự làm tiếp theo.")}>Plan tiếp theo</button>
-              <button type="button" onClick={() => setMessage("Interview: mô phỏng một câu phỏng vấn Supply Chain liên quan tuần này, chờ tao trả lời rồi phản biện.")}>Mock interview</button>
+              <button type="button" onClick={() => setMessage("Guide: hướng dẫn guided lab từng bước nhưng không làm thay; dừng sau bước đầu để tôi tự làm.")}>Guide lab</button>
+              <button type="button" onClick={() => setMessage("Hint cấp 1: cho tôi một gợi ý nhỏ để tự giải bài, chưa đưa đáp án.")}>Hint cấp 1</button>
+              <button type="button" onClick={() => setMessage("Challenge: kiểm tra hiểu biết của tôi bằng 3 câu Socratic, hỏi từng câu một.")}>Kiểm tra tôi</button>
+              <button type="button" onClick={() => setMessage("Plan: dựa vào output tuần này, cho tôi checklist ngắn và thứ tự làm tiếp theo.")}>Plan tiếp theo</button>
+              <button type="button" onClick={() => setMessage("Interview: mô phỏng một câu phỏng vấn Supply Chain liên quan tuần này, chờ tôi trả lời rồi phản biện.")}>Mock interview</button>
             </div>
             <div className="side-answer" role="status" aria-live="polite" aria-busy={asking}>
               {tutorResponse ? <TutorAnswer response={tutorResponse} /> : tutorError ? <div className="inline-error"><strong>Chưa gửi được.</strong><p>{tutorError}</p></div> : <p className="tutor-placeholder">Tutor sẽ trả lời kèm nguồn tham chiếu ở đây.</p>}

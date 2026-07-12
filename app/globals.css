@@ -1015,3 +1015,54 @@ body {
     overflow-wrap: break-word;
   }
 }
+
+/* --- Week page: concise, step-based learning layout --- */
+.week-overview .concept-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+.week-overview .concept-chips span { padding: .3rem .7rem; border: 1px solid #cdd8e8; border-radius: 999px; background: #f2f7fc; color: #0b4f8a; font-size: .78rem; font-weight: 700; }
+
+.step-marker { display: flex; align-items: baseline; gap: 1rem; margin: 2.25rem 0 .25rem; padding-top: 1.5rem; border-top: 2px solid #e1e8ee; }
+.step-marker > span { flex: none; padding: .32rem .62rem; border-radius: .5rem; background: var(--navy-950, #04111f); color: #fff; font: 800 .7rem var(--font-geist-mono), monospace; letter-spacing: .08em; }
+.step-marker h2 { margin: 0; font-size: clamp(1.2rem, 2.6vw, 1.6rem); }
+.step-marker p { margin: .3rem 0 0; color: #607087; font-size: .85rem; line-height: 1.6; }
+
+.lesson-callouts { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0 1.25rem; }
+.callout { padding: 1rem 1.15rem; border-radius: .9rem; border: 1px solid #dbe4ed; }
+.callout span { display: block; font-size: .72rem; font-weight: 850; letter-spacing: .06em; margin-bottom: .4rem; }
+.callout p { margin: 0; line-height: 1.7; font-size: .9rem; color: #334b61; }
+.callout.warning { border-color: #efc77b; background: #fff9ed; }
+.callout.warning span { color: #a8710a; }
+.callout.decision { border-color: #70b6aa; background: #eefaf7; }
+.callout.decision span { color: #0e6c63; }
+
+/* progressive lesson reader (accordion) */
+.lesson-reader-list { gap: .7rem; }
+.lesson-reader-block { display: block; padding: 0; grid-template-columns: none; overflow: hidden; }
+.lesson-reader-head { width: 100%; display: flex; align-items: center; gap: 1rem; padding: 1rem 1.2rem; background: transparent; border: 0; cursor: pointer; text-align: left; }
+.lesson-reader-block.open .lesson-reader-head { border-bottom: 1px solid #e6edf4; }
+.lesson-reader-head .lesson-reader-index { flex: none; width: 2.2rem; height: 2.2rem; display: grid; place-items: center; border-radius: .6rem; background: #f2f7fc; color: #0b4f8a; font: 800 1rem var(--font-geist-mono), monospace; }
+.lesson-reader-block.completed .lesson-reader-head .lesson-reader-index { background: #e9f8f5; color: #0e6c63; }
+.lesson-reader-head-text { display: grid; gap: .15rem; min-width: 0; flex: 1; }
+.lesson-reader-head-text small { font: 750 .6rem var(--font-geist-mono), monospace; letter-spacing: .1em; color: #81a1ad; }
+.lesson-reader-head-text strong { font-size: 1.02rem; color: #10253c; }
+.lesson-reader-preview { color: #71869b; font-size: .82rem; line-height: 1.5; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; }
+.lesson-reader-caret { flex: none; color: #9eb5ca; font-size: .9rem; }
+.lesson-reader-body { padding: .5rem 1.2rem 1.2rem; }
+
+/* collapsed references panel */
+details.refs-panel { padding: 0; }
+details.refs-panel > summary { list-style: none; cursor: pointer; padding: clamp(1rem, 2vw, 1.4rem); display: flex; align-items: baseline; gap: 1rem; }
+details.refs-panel > summary::-webkit-details-marker { display: none; }
+details.refs-panel > summary .kicker { margin: 0; }
+details.refs-panel > summary h2 { margin: 0; font-size: 1.15rem; }
+details.refs-panel > summary::after { content: "▸"; margin-left: auto; color: #9eb5ca; }
+details.refs-panel[open] > summary::after { content: "▾"; }
+.refs-body { padding: 0 clamp(1rem, 2vw, 1.4rem) clamp(1rem, 2vw, 1.4rem); }
+.refs-body .source-reading-list { margin-top: 1.25rem; }
+.refs-body .source-reading-list details { margin-top: .5rem; border: 1px solid #e1e8ee; border-radius: .6rem; padding: .55rem .85rem; }
+.refs-body .source-reading-list summary { cursor: pointer; font-weight: 700; font-size: .85rem; }
+.refs-body .source-reading-list p[lang="en"] { margin: .6rem 0 0; font-size: .82rem; line-height: 1.7; color: #4a5f74; }
+
+@media (max-width: 720px) {
+  .lesson-callouts { grid-template-columns: 1fr; }
+  .step-marker { flex-direction: column; gap: .5rem; }
+}

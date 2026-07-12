@@ -313,13 +313,13 @@ export default function CaseWorkspace({ assignments }: { assignments: Assignment
 
           <label className="case-reflection" htmlFor="case-reflection">
             <span>REFLECTION AFTER FEEDBACK</span>
-            <small>Feedback nào làm mày đổi hypothesis, analysis hoặc recommendation?</small>
-            <textarea id="case-reflection" maxLength={5000} value={draft.reflection} onChange={(event) => updateDraft({ reflection: event.target.value })} placeholder="Sau feedback, tao nhận ra... Vì vậy ở revision này tao đã..." />
+            <small>Feedback nào làm bạn đổi hypothesis, analysis hoặc recommendation?</small>
+            <textarea id="case-reflection" maxLength={5000} value={draft.reflection} onChange={(event) => updateDraft({ reflection: event.target.value })} placeholder="Sau feedback, tôi nhận ra... Vì vậy ở revision này tôi đã..." />
             <output>{draft.reflection.trim().length} ký tự</output>
           </label>
 
           <div className="editor-footer">
-            <p>{dirty ? "Có thay đổi chưa lưu. Dữ liệu vẫn ở màn hình nếu save lỗi." : "Mọi thay đổi đã lưu theo tài khoản của mày."}</p>
+            <p>{dirty ? "Có thay đổi chưa lưu. Dữ liệu vẫn ở màn hình nếu save lỗi." : "Mọi thay đổi đã lưu theo tài khoản của bạn."}</p>
             <button className="primary-action" disabled={saving || !draft.title.trim()}>{saving ? "Đang lưu..." : saveError ? "Thử lưu lại →" : draft.id ? "Lưu revision →" : "Lưu case →"}</button>
           </div>
         </form>
