@@ -170,56 +170,56 @@
       }
     ],
     "lesson": {
-      "coreIdea": "Demand, order và forecast là ba tín hiệu khác nhau. Demand phản ánh nhu cầu tiêu dùng thật; order phản ánh quyết định bổ sung hàng dưới tác động của tồn kho, lead time và chính sách đặt hàng; forecast là ước lượng tương lai. Khi mỗi tầng chỉ nhìn order của tầng dưới, cộng thêm batch ordering, promotion, lead time dài và tâm lý phòng thiếu hàng, biến động nhỏ ở retail có thể bị khuếch đại lên distributor, factory và supplier — đó là bullwhip effect.",
+      "coreIdea": "Ba con số dễ bị nhầm là một: actual demand (nhu cầu tiêu dùng thật), order (đơn đặt hàng của mắt xích phía sau) và forecast (ước lượng tương lai) — order không phải demand, vì nó đã bị bóp méo bởi lead time, đặt hàng theo lô và hành vi phòng ngừa. Khi các méo mó đó cộng dồn qua từng tầng của chuỗi, một dao động nhỏ ở điểm bán bị khuếch đại lên phía nhà cung cấp, gọi là bullwhip effect.",
       "sections": [
         {
-          "heading": "Actual demand, order và forecast: đừng trộn ba tín hiệu",
-          "body": "Actual demand nên đại diện cho nhu cầu khách hàng cuối cùng, thường quan sát qua sell-out hoặc consumption. Order là lượng một khách hàng hoặc node yêu cầu bổ sung; nó còn chứa ảnh hưởng của tồn kho hiện tại, MOQ, case pack, lịch đặt hàng, promotion và tâm lý phòng ngừa. Forecast là dự báo có điều kiện dựa trên dữ liệu và assumption. Nếu cửa hàng bị stockout, sales quan sát được còn thấp hơn nhu cầu thật vì khách muốn mua nhưng không có hàng — đây là censored demand. Vì vậy lấy order hoặc sales bị stockout làm demand mà không điều chỉnh sẽ khiến planner học sai pattern và tiếp tục tạo kế hoạch sai ở kỳ sau."
+          "heading": "Actual demand, order và forecast: ba con số khác nhau",
+          "body": "Actual demand là lượng khách hàng cuối thực sự mua trong một khoảng thời gian, thường đo bằng dữ liệu sell-out tại điểm bán (POS). Order là tín hiệu đặt hàng mà một mắt xích gửi cho mắt xích phía trên nó — cửa hàng đặt cho nhà phân phối, nhà phân phối đặt cho nhà máy. Forecast là ước lượng demand trong tương lai để chuẩn bị nguồn lực trước. Sai lầm nền tảng của nhiều người mới là dùng order như thể nó bằng demand: nhưng order phản ánh cả nhu cầu lẫn hành vi và ràng buộc của người đặt — họ có thể đặt gộp nhiều tuần một lần để tiết kiệm chi phí vận chuyển, đặt dư để phòng thiếu hàng, hoặc đặt ít đi vì kho còn tồn. Vì vậy demand planner phải tách ba con số này ra: đo actual demand từ sell-out thật, hiểu order như một tín hiệu đã bị lọc qua quyết định vận hành, và coi forecast là một ước lượng có sai số cần được đo lại liên tục — chứ không lẫn lộn cả ba làm một."
         },
         {
-          "heading": "Lead time và variability quyết định khoảng thời gian phải bảo vệ",
-          "body": "Lead time không chỉ là thời gian vận chuyển. Nó có thể gồm order review, approval, production queue, processing, transport, receiving và put-away. Planner phải bảo vệ demand phát sinh trong toàn bộ replenishment lead time; lead time càng dài thì phải dự báo xa hơn và cơ hội để sai càng lớn. Nếu demand trung bình là 100 thùng mỗi tuần và lead time tăng từ 2 lên 4 tuần, baseline demand phải bảo vệ tăng từ 200 lên 400 thùng trước khi tính safety stock. Khi cả demand lẫn lead time biến động, chỉ dùng average sẽ che tail risk; cần theo dõi distribution, standard deviation, percentile và nguyên nhân của từng delay thay vì coi mọi tuần trễ là ngẫu nhiên giống nhau."
+          "heading": "Lead time và variability: hai nguồn gốc của bất định",
+          "body": "Lead time là khoảng thời gian từ khi phát sinh một yêu cầu đến khi yêu cầu đó được đáp ứng — ví dụ từ lúc đặt hàng đến lúc hàng về kho. Lead time càng dài, người ra quyết định càng phải dựa vào forecast xa hơn (thay vì dữ liệu thực tế gần), nên sai số càng lớn và rủi ro càng cao. Variability (độ biến động) là mức dao động của một đại lượng quanh giá trị trung bình của nó; cả demand lẫn lead time đều có variability. Điều quan trọng là hai loại bất định này cộng hưởng nhau: một SKU có demand ổn định nhưng lead time thất thường vẫn khó kiểm soát, và ngược lại. Chính vì lead time không bằng 0 mà doanh nghiệp buộc phải forecast và giữ tồn kho đệm; nếu hàng về ngay lập tức và chắc chắn, sẽ không cần dự báo hay safety stock. Do đó, đo và giảm variability của lead time (chọn nhà cung cấp ổn định, rút ngắn quy trình) thường có giá trị ngang với việc cải thiện độ chính xác forecast."
         },
         {
-          "heading": "Cơ chế tạo bullwhip effect",
-          "body": "Bullwhip xuất hiện khi variability của order tăng dần khi đi upstream. Bốn nguyên nhân kinh điển thường đi cùng nhau: forecast updating — mỗi tầng tự cập nhật forecast từ order của tầng dưới; order batching — gom nhiều nhu cầu nhỏ thành một đơn lớn vì MOQ hoặc chi phí đặt hàng; price fluctuation — promotion và chiết khấu khiến khách mua trước (forward buying), tách order khỏi consumption; rationing and shortage gaming — khi nguồn cung thiếu, khách đặt phóng đại vì nghĩ supplier sẽ phân bổ theo tỷ lệ. Lead time dài và thiếu chia sẻ POS data làm các phản ứng này mạnh hơn. Kết quả là upstream tăng capacity và inventory đúng lúc demand cuối đã quay về bình thường, sau đó phải xả hàng hoặc cắt kế hoạch đột ngột."
+          "heading": "Bullwhip effect: dao động nhỏ ở downstream bị khuếch đại lên upstream",
+          "body": "Bullwhip effect (hiệu ứng roi da) là hiện tượng biến động của order bị khuếch đại dần khi đi ngược từ khách hàng cuối lên phía nhà cung cấp: một thay đổi nhỏ ở doanh số bán lẻ có thể biến thành một thay đổi lớn hơn nhiều ở đơn đặt hàng gửi cho nhà máy. Có bốn nguyên nhân vận hành chính. Thứ nhất, demand signal processing: mỗi tầng nhìn order của tầng dưới (đã bị méo) làm căn cứ dự báo, thay vì nhìn demand thật của khách hàng cuối. Thứ hai, order batching: đặt hàng theo lô lớn để tiết kiệm chi phí khiến tín hiệu order giật cục thay vì mượt. Thứ ba, price fluctuation và forward buying: khuyến mãi khiến khách mua trước, tạo đỉnh giả rồi hụt sau đó. Thứ tư, rationing và shortage gaming: khi lo thiếu hàng, các bên đặt dư hơn nhu cầu thật để giành phần. Hệ quả là tồn kho dồn ứ ở mọi tầng sau khi đỉnh giả qua đi, cùng với vừa thừa vừa thiếu luân phiên."
         },
         {
-          "heading": "Chẩn đoán và giảm bullwhip bằng dữ liệu",
-          "body": "Bắt đầu bằng bảng SKU-node-week chứa sell-out, order, forecast, on-hand, stockout flag, promotion và lead time. So sánh mean, standard deviation và coefficient of variation của sales với order ở từng tầng; nếu order variability lớn hơn rõ rệt, drill-down theo promotion, MOQ, order calendar và exception. Biện pháp giảm bullwhip phải gắn đúng nguyên nhân: chia sẻ POS và inventory visibility cho information delay; giảm batch size hoặc tăng order frequency cho batching; ổn định pricing cho forward buying; allocation minh bạch theo sell-through cho shortage gaming; rút và ổn định lead time cho reaction delay. CPFR hoặc demand review chỉ có giá trị khi tạo một con số đồng thuận có owner, reason code và feedback loop."
+          "heading": "Demand signal: chia sẻ thông tin để làm phẳng roi da",
+          "body": "Demand signal là thông tin về nhu cầu thật được truyền trong chuỗi; chất lượng của tín hiệu này quyết định mức độ bullwhip. Cách giảm bullwhip hiệu quả nhất không phải là dự báo giỏi hơn ở từng tầng riêng lẻ, mà là làm cho tín hiệu demand thật (sell-out tại điểm bán) hiển thị cho các tầng phía trên, thay vì mỗi tầng chỉ nhìn order của tầng ngay dưới. Các cơ chế thực tế gồm: chia sẻ dữ liệu POS lên toàn chuỗi, đặt hàng thường xuyên hơn với lô nhỏ hơn để làm mượt tín hiệu, giảm biến động giá và khuyến mãi giật cục, và thiết lập quy tắc phân bổ công bằng khi khan hàng để triệt tiêu động cơ đặt dư. Với vai trò demand planner, bước đầu tiên luôn là tách order khỏi demand thật và đo độ biến động của tín hiệu ở từng tầng — vì không thể giảm một hiệu ứng mà mình chưa đo được."
         }
       ],
       "workedExample": {
-        "title": "Ví dụ FMCG: Nước tăng lực qua ba tầng phân phối",
-        "narrative": "Một SKU nước tăng lực bán ổn định khoảng 100 thùng mỗi tuần tại retail. Trong tuần 4 có promotion ngắn làm sell-out tăng lên 115, nhưng cửa hàng lo thiếu hàng nên đặt 150. Distributor nhìn order 150, cộng safety buffer và đặt nhà máy 190; nhà máy hiểu đây là tăng trưởng mới nên lên lịch 230. Promotion kết thúc ở tuần 5, sell-out trở về 102 nhưng hàng đã chạy vào pipeline ở cả ba tầng.",
+        "title": "Ví dụ FMCG: Bullwhip của một SKU mì ăn liền khi có khuyến mãi",
+        "narrative": "Một SKU mì ăn liền có sell-out thật tại điểm bán ổn định 10.000 thùng/tuần. Một chương trình khuyến mãi giảm giá làm nhu cầu thật tăng 20% trong hai tuần, lên 12.000 thùng/tuần. Chuỗi gồm ba tầng: cửa hàng bán lẻ → nhà phân phối → nhà máy, mỗi tầng lập kế hoạch đặt hàng dựa trên order nhận được từ tầng dưới chứ không nhìn sell-out thật, và mỗi tầng có lead time 1 tuần nên đều đặt thêm để bù cả nhu cầu tăng lẫn việc dựng lại tồn kho đệm.",
         "steps": [
-          "Tạo bảng 12 tuần với bốn series: retail sell-out, retail order, distributor order và factory production. Tính mean, standard deviation và CV cho từng series; nếu sell-out CV là 0,08 nhưng distributor order CV là 0,25, amplification ratio là 3,1 lần.",
-          "Đánh dấu promotion, stockout và order calendar. Tách spike do nhu cầu thật khỏi spike do forward buying; kiểm tra liệu order 150 có đi cùng sell-out 115 hay chỉ là hành vi tích hàng.",
-          "Đổi lead time giả định từ 2 lên 4 tuần trong Excel. Quan sát lượng demand phải bảo vệ tăng gấp đôi và phản ứng đặt hàng trở nên mạnh hơn dù sell-out pattern không đổi.",
-          "Thử ba policy: chia sẻ POS data, đặt hàng hàng tuần thay vì hai tuần một lần, và giới hạn promotion buy-in theo sell-through. So sánh order CV, peak inventory và stockout trước-sau policy."
+          "Tại điểm bán: sell-out thật tăng từ 10.000 lên 12.000 thùng (+20%). Nhưng cửa hàng vừa phải đáp ứng 12.000 vừa nâng safety stock lên tương ứng mức bán mới, nên đơn đặt cho nhà phân phối tăng lên khoảng 14.400 thùng (+44% so với baseline).",
+          "Nhà phân phối nhận order 14.400 (không nhìn thấy sell-out thật 12.000), coi đây là nhu cầu mới, đặt cho nhà máy đủ để đáp ứng 14.400 cộng safety stock của chính mình, thành khoảng 18.000 thùng (+80% so với baseline 10.000).",
+          "Nhà máy nhận tín hiệu order +80%, tưởng thị trường tăng trưởng dài hạn nên tăng công suất và kế hoạch nguyên liệu tương ứng. So sánh: nhu cầu thật chỉ tăng 20% nhưng order tới nhà máy tăng 80% — biên độ dao động bị khuếch đại gấp 4 lần khi đi từ điểm bán lên nhà máy.",
+          "Khi khuyến mãi kết thúc, sell-out thật trở về 10.000 thùng, nhưng cả ba tầng đều đang ôm tồn kho và đơn hàng dựa trên mức 14.400-18.000; kết quả là tồn kho dư thừa dồn ở mọi tầng trong nhiều tuần sau đó, cùng với các đơn hàng bị cắt đột ngột làm nhà máy vừa thừa nguyên liệu vừa phải giảm ca."
         ],
-        "takeaway": "Đừng chữa bullwhip bằng cách tăng forecast hoặc inventory chung chung. Hãy tách demand thật khỏi order behavior, tìm cơ chế khuếch đại và thay đúng policy đã tạo ra biến động."
+        "takeaway": "Cùng một sự kiện nhu cầu (+20%) tạo ra tín hiệu order rất khác nhau ở mỗi tầng (+44%, +80%) chỉ vì mỗi tầng nhìn order thay vì demand thật và ai cũng tự dựng thêm đệm; chia sẻ dữ liệu sell-out POS cho cả chuỗi sẽ cắt phần lớn phần khuếch đại này mà không cần bất kỳ tầng nào dự báo giỏi hơn."
       },
       "selfCheck": [
         {
-          "question": "Vì sao order của retailer không thể mặc định được coi là actual demand?",
-          "answer": "Order còn phản ánh tồn kho tại retailer, MOQ, lịch đặt hàng, promotion, forward buying và tâm lý phòng thiếu hàng. Actual demand gần với sell-out hoặc consumption của khách cuối hơn; khi stockout xảy ra, sell-out quan sát được thậm chí còn thấp hơn nhu cầu thật. Vì vậy analyst phải xem đồng thời sales, stockout flag, inventory và order policy trước khi chọn demand signal."
+          "question": "Vì sao một demand planner không nên dùng trực tiếp lịch sử đơn đặt hàng (order) làm đại diện cho nhu cầu thật khi lập forecast?",
+          "answer": "Vì order đã bị lọc qua các quyết định vận hành của người đặt: đặt gộp theo lô, đặt dư để phòng thiếu hàng, hoặc đặt ít vì còn tồn kho, nên nó phản ánh cả hành vi và ràng buộc chứ không chỉ nhu cầu. Dùng order làm demand sẽ khiến forecast học lại chính các méo mó của chuỗi thay vì nhu cầu thị trường thực, làm bullwhip tệ hơn."
         },
         {
-          "question": "Lead time tăng từ 2 lên 4 tuần ảnh hưởng quyết định replenishment như thế nào nếu demand trung bình không đổi?",
-          "answer": "Planner phải bảo vệ demand của khoảng thời gian dài gấp đôi, nên baseline demand during lead time tăng từ hai tuần lên bốn tuần. Forecast horizon xa hơn cũng có uncertainty lớn hơn, thường kéo reorder point và safety requirement tăng. Nếu chỉ giữ nguyên policy cũ, nguy cơ stockout sẽ tăng; nếu tăng buffer mà không đo variability, cash và excess inventory có thể tăng quá mức."
+          "question": "Lead time dài ảnh hưởng thế nào đến độ khó của việc lập kế hoạch, ngay cả khi nhu cầu trung bình không đổi?",
+          "answer": "Lead time càng dài thì quyết định đặt hàng càng phải dựa vào forecast cho một khoảng thời gian xa hơn thay vì dữ liệu thực tế gần, nên sai số dự báo tích lũy lớn hơn và cần nhiều tồn kho đệm hơn để che chắn. Ngoài ra, nếu bản thân lead time cũng biến động, bất định còn cộng hưởng thêm khiến việc canh đúng thời điểm và số lượng đặt hàng khó hơn nhiều."
         },
         {
-          "question": "Order batching tạo bullwhip bằng cơ chế nào?",
-          "answer": "Nhu cầu nhỏ và khá đều được gom lại thành các đơn lớn, thưa hơn vì MOQ, truckload hoặc chi phí đặt hàng. Upstream không nhìn thấy consumption đều mà chỉ thấy chuỗi nhiều tuần bằng 0 xen kẽ spike lớn, nên forecast và capacity plan biến động mạnh hơn nhu cầu cuối. Giảm batch size hoặc tăng order frequency có thể làm tín hiệu mượt hơn nếu economics cho phép."
+          "question": "Nêu hai trong bốn nguyên nhân vận hành của bullwhip effect và giải thích ngắn gọn cơ chế của chúng.",
+          "answer": "Order batching: đặt hàng theo lô lớn để tiết kiệm chi phí khiến tín hiệu order giật cục thay vì phản ánh mượt nhu cầu hằng ngày. Shortage gaming: khi lo khan hàng, các bên đặt nhiều hơn nhu cầu thật để giành phần phân bổ, tạo ra một đỉnh order ảo cao hơn hẳn nhu cầu thực tế và làm nhà cung cấp hiểu sai tín hiệu thị trường."
         },
         {
-          "question": "Chỉ số nào giúp phát hiện order đang biến động mạnh hơn demand?",
-          "answer": "Có thể so standard deviation hoặc coefficient of variation của order với sell-out ở cùng grain SKU-node-week. Amplification ratio lớn hơn 1 cho thấy order biến động mạnh hơn demand; tuy nhiên cần drill-down promotion, stockout, MOQ và lead time để biết nguyên nhân, vì một ratio cao tự nó chưa nói policy nào cần thay."
+          "question": "Vì sao chia sẻ dữ liệu sell-out tại điểm bán (POS) cho toàn chuỗi lại giảm bullwhip hiệu quả hơn việc mỗi tầng cố gắng dự báo giỏi hơn?",
+          "answer": "Vì gốc rễ của bullwhip là mỗi tầng chỉ nhìn thấy order đã bị bóp méo của tầng ngay dưới, nên dù dự báo tinh vi đến đâu họ vẫn đang dự báo trên một tín hiệu sai. Khi mọi tầng cùng nhìn được nhu cầu thật của khách hàng cuối, họ không còn phải đoán nhu cầu qua lớp order trung gian, nên phần khuếch đại do hiểu sai tín hiệu bị loại bỏ tận gốc."
         },
         {
-          "question": "Một hành động giảm bullwhip tốt cần chứng minh điều gì?",
-          "answer": "Hành động phải nhắm đúng cơ chế gây khuếch đại và có before-after metric. Ví dụ chia sẻ POS data nên làm giảm forecast updating delay; order frequency cao hơn nên giảm order CV và peak inventory; stable pricing nên giảm forward buying. Cần theo dõi thêm service, cost và cash để chắc rằng giảm variability không tạo trade-off tệ hơn ở nơi khác."
+          "question": "Sau khi một đợt khuyến mãi kết thúc, vì sao tồn kho thường dồn ứ ở nhiều tầng trong chuỗi cùng lúc?",
+          "answer": "Trong đợt khuyến mãi, mỗi tầng đã nâng đơn đặt hàng và tồn kho đệm theo mức nhu cầu bị khuếch đại, cao hơn nhiều nhu cầu thật. Khi khuyến mãi kết thúc và sell-out trở về bình thường, lượng hàng đã đặt và đang trên đường về vẫn theo mức cao đó, nên hàng đến kho đúng lúc không còn ai cần, tạo tồn kho dư thừa đồng thời ở cửa hàng, nhà phân phối lẫn nhà máy."
         }
       ]
     }
@@ -278,56 +278,57 @@
       }
     ],
     "lesson": {
-      "coreIdea": "Inventory là bộ đệm giữa demand và supply, nhưng mỗi đơn vị tồn kho đều khóa vốn và có thể che giấu lỗi planning. Cycle stock phục vụ nhu cầu bình thường giữa hai lần replenishment; safety stock bảo vệ trước uncertainty; reorder point quyết định khi nào đặt hàng; EOQ là baseline cho câu hỏi đặt bao nhiêu dưới một tập giả định đơn giản. Một policy đúng phải chứng minh trade-off service-cost-cash và phù hợp với segment SKU.",
+      "coreIdea": "Tồn kho là bộ đệm chống bất định nhưng đồng thời khóa vốn, nên mục tiêu không phải giảm mọi tồn kho mà chọn đúng policy theo demand, lead time, service target và chi phí. Hai câu hỏi cốt lõi là đặt bao nhiêu (EOQ cân bằng chi phí đặt hàng và chi phí giữ hàng) và khi nào đặt (reorder point bằng nhu cầu trong lead time cộng safety stock).",
       "sections": [
         {
-          "heading": "Inventory tồn tại để giải quyết những mismatch nào?",
-          "body": "Cycle stock xuất hiện vì doanh nghiệp replenishment theo lô thay vì đúng từng đơn vị demand; trung bình nó xấp xỉ một nửa order quantity nếu demand đều. Safety stock bảo vệ trước demand và lead-time variability. Pipeline inventory là hàng đã đặt nhưng còn đang di chuyển hoặc sản xuất. Anticipation inventory được build trước mùa cao điểm, shutdown hoặc promotion. Các loại này phục vụ mục đích khác nhau, nên nhìn một con số on-hand tổng không đủ để kết luận inventory cao hay thấp. Cùng 1.000 đơn vị tồn kho có thể hợp lý nếu phần lớn là stock chuẩn bị Tết, nhưng nguy hiểm nếu nằm ở SKU chậm bán trong khi SKU chủ lực stockout."
+          "heading": "Cycle stock và safety stock: hai lý do khác nhau để giữ hàng",
+          "body": "Tồn kho tại một điểm thường gồm hai thành phần với vai trò khác nhau. Cycle stock (tồn kho chu kỳ) là lượng hàng phát sinh do đặt hoặc sản xuất theo lô thay vì từng đơn vị một: nếu mỗi lần đặt Q đơn vị và tiêu thụ đều đặn, tồn kho dao động từ Q về 0 rồi lại lên Q, nên cycle stock trung bình xấp xỉ Q/2 và tồn tại kể cả khi mọi thứ hoàn toàn chắc chắn. Safety stock (tồn kho an toàn) là lượng đệm giữ thêm để hấp thụ bất định của demand và lead time — nó chỉ cần thiết vì thực tế không chắc chắn; nếu demand và lead time cố định tuyệt đối, safety stock bằng 0. Phân biệt hai loại này quan trọng vì chúng được điều khiển bởi các đòn bẩy khác nhau: cycle stock giảm khi đặt hàng lô nhỏ thường xuyên hơn (đánh đổi với chi phí đặt hàng), còn safety stock giảm khi giảm biến động hoặc chấp nhận service level thấp hơn."
         },
         {
-          "heading": "Reorder point trả lời khi nào đặt; EOQ trả lời đặt bao nhiêu",
-          "body": "Trong continuous review đơn giản, reorder point (ROP) bằng average demand during lead time cộng safety stock: ROP = d × L + SS, với d là demand trung bình mỗi time unit và L là lead time cùng đơn vị. Khi inventory position — on hand cộng on order trừ backorder — chạm ROP, hệ thống phát replenishment. EOQ = căn bậc hai của (2DS/H), cân bằng annual ordering cost và annual holding cost trong giả định demand đều, lead time ổn định, không stockout, không quantity discount và replenishment tức thời. EOQ vì thế là baseline để hiểu trade-off, không phải đáp án tự động khi có MOQ, case pack, shelf life, capacity hoặc promotion."
+          "heading": "EOQ: cân bằng chi phí đặt hàng và chi phí giữ hàng",
+          "body": "Economic Order Quantity (EOQ) trả lời câu hỏi nên đặt bao nhiêu mỗi lần, bằng cách cân bằng hai chi phí đối nghịch. Đặt lô lớn ít lần thì tổng chi phí đặt hàng (ordering cost) trong năm giảm nhưng cycle stock trung bình lớn nên chi phí giữ hàng (holding/carrying cost) tăng; đặt lô nhỏ nhiều lần thì ngược lại. Công thức cơ bản là EOQ = căn bậc hai của (2 × D × S / H), trong đó D là nhu cầu năm, S là chi phí mỗi lần đặt hàng, H là chi phí giữ một đơn vị hàng trong một năm. Tại điểm EOQ, tổng chi phí đặt hàng bằng tổng chi phí giữ hàng, và tổng chi phí là nhỏ nhất. EOQ chỉ là một baseline dựa trên các giả định đơn giản (nhu cầu đều, lead time cố định, không có chiết khấu số lượng, không giới hạn đóng gói); trong thực tế cần điều chỉnh theo MOQ, case pack và shelf life, nhưng nó vẫn là điểm khởi đầu hữu ích để không đặt hàng một cách tùy tiện."
         },
         {
-          "heading": "Safety stock và service level: thêm bảo vệ luôn có giá",
-          "body": "Nếu lead time cố định và demand mỗi kỳ độc lập, safety stock có thể ước lượng bằng z × σd × căn bậc hai L, trong đó z phản ánh target cycle service level. Nâng service từ 95% lên 98% làm z tăng khoảng 1,65 lên 2,05, nên buffer tăng ngay cả khi demand trung bình không đổi. Nếu lead time cũng biến động, uncertainty during lead time phải kết hợp cả demand và lead-time variance; dùng mỗi average lead time sẽ đánh giá thấp tail risk. Service target không nên giống nhau cho mọi SKU: margin, criticality, substitution, shelf life, forecastability và customer promise phải được đưa vào segmentation trước khi chọn z."
+          "heading": "Reorder point: khi nào cần đặt hàng lại",
+          "body": "Reorder point (ROP, điểm đặt hàng lại) trả lời câu hỏi khi nào đặt, và bằng nhu cầu kỳ vọng trong suốt lead time cộng với safety stock: ROP = (nhu cầu trung bình mỗi ngày × lead time tính bằng ngày) + safety stock. Phần đầu che nhu cầu bình thường trong thời gian chờ hàng về; phần safety stock che các trường hợp nhu cầu cao hơn hoặc lead time dài hơn dự kiến. Khi nhu cầu trong lead time biến động và xấp xỉ phân phối chuẩn, safety stock được tính là Z × độ lệch chuẩn của nhu cầu trong lead time, với Z là hệ số ứng với service level mong muốn (ví dụ Z ≈ 1,645 cho 95%, Z ≈ 2,054 cho 98%). Điểm mấu chốt là ROP không phải một con số cố định mãi mãi: khi lead time, mức tiêu thụ hoặc độ biến động thay đổi, ROP phải được tính lại, nếu không hệ thống sẽ đặt hàng quá sớm (thừa vốn) hoặc quá muộn (stockout)."
         },
         {
-          "heading": "Kiểm chứng policy bằng sensitivity và backtest",
-          "body": "Một calculator tốt phải tách input khỏi formula, ghi rõ unit, source và assumption, rồi cho phép thay demand, variability, lead time, service target, order cost và holding cost. Sau khi tính EOQ, ROP và safety stock, hãy round theo case pack/MOQ và kiểm tra shelf-life hoặc capacity constraint. Backtest policy trên lịch sử bằng cách mô phỏng inventory position và replenishment; báo fill rate, stockout days, average inventory, inventory value, order frequency và premium freight. Chỉ recommendation nào cải thiện service với cost/cash chấp nhận được và ổn định qua sensitivity mới đủ mạnh để triển khai pilot."
+          "heading": "Service level và inventory turns: hai mặt của cùng một đánh đổi",
+          "body": "Service level là xác suất hoặc tỷ lệ đáp ứng được nhu cầu theo định nghĩa đã thống nhất; nâng service level đòi hỏi tăng safety stock, nhưng quan hệ này không tuyến tính — càng gần 100%, mỗi điểm phần trăm tăng thêm càng đắt vì Z tăng dốc. Inventory turns (vòng quay tồn kho) đo tồn kho được bán hoặc dùng bao nhiêu lần trong một kỳ, bằng giá vốn hàng bán chia cho tồn kho trung bình; turns cao nghĩa là vốn quay nhanh, ít bị khóa trong hàng. Hai chỉ số này là hai mặt của cùng một đánh đổi service-cost-cash: giữ nhiều tồn kho giúp service cao nhưng làm turns thấp và khóa vốn; giữ ít giúp turns cao nhưng rủi ro stockout. Vì vậy không có một mức tồn kho đúng cho mọi SKU — SKU giá trị cao biến động mạnh cần cách quản trị khác SKU giá trị thấp ổn định, và quyết định luôn phải nêu rõ đang đánh đổi service lấy cash ở mức nào."
         }
       ],
       "workedExample": {
-        "title": "Ví dụ FMCG: Chính sách tồn kho cho nước cam 1L",
-        "narrative": "Một DC bán trung bình 100 chai nước cam mỗi ngày, standard deviation demand 20 chai/ngày, lead time ổn định 5 ngày. Công ty đang dùng service target 95%, order cost 150.000 đồng/lần, annual demand 36.500 chai và annual holding cost 5.000 đồng/chai. Case pack là 12 chai.",
+        "title": "Ví dụ FMCG: EOQ và reorder point cho một SKU nước đóng chai 500ml",
+        "narrative": "Một nhà phân phối bán một SKU nước đóng chai 500ml với nhu cầu ổn định 120.000 thùng/năm (tương đương 400 thùng/ngày trên 300 ngày làm việc). Chi phí mỗi lần đặt hàng (xử lý đơn, vận chuyển cố định) là 500.000 đồng; chi phí giữ một thùng trong kho một năm là 6.000 đồng. Lead time giao hàng trung bình 5 ngày, độ lệch chuẩn nhu cầu quan sát được là 60 thùng/ngày. Công ty muốn đạt service level 95%.",
         "steps": [
-          "Demand trong lead time là 100 × 5 = 500 chai. Với z = 1,65, safety stock xấp xỉ 1,65 × 20 × căn 5 = 74 chai; reorder point khoảng 574 chai.",
-          "EOQ baseline bằng căn(2 × 36.500 × 150.000 / 5.000), xấp xỉ 1.480 chai. Round theo case pack 12 thành 1.476 hoặc 1.488 chai rồi so total cost của hai phương án.",
-          "Tăng service target lên 98% với z khoảng 2,05 làm safety stock tăng lên khoảng 92 chai và ROP lên 592. Lợi ích là giảm stockout risk; cái giá là thêm 18 chai buffer và vốn tồn kho tương ứng.",
-          "Chạy sensitivity khi lead time tăng từ 5 lên 7 ngày và demand variability tăng 25%. Kiểm tra liệu ROP mới còn phù hợp với shelf life, storage capacity và order calendar hay không."
+          "Tính EOQ = căn(2 × D × S / H) = căn(2 × 120.000 × 500.000 / 6.000) = căn(20.000.000) ≈ 4.472 thùng mỗi lần đặt. Cycle stock trung bình = EOQ/2 ≈ 2.236 thùng, và số lần đặt hàng trong năm = 120.000 / 4.472 ≈ 27 lần (khoảng 11 ngày một lần).",
+          "Tính nhu cầu kỳ vọng trong lead time = 400 thùng/ngày × 5 ngày = 2.000 thùng.",
+          "Tính safety stock: độ lệch chuẩn nhu cầu trong 5 ngày lead time = 60 × căn(5) ≈ 134 thùng; safety stock ở service level 95% (Z = 1,645) = 1,645 × 134 ≈ 221 thùng.",
+          "Reorder point = nhu cầu trong lead time + safety stock = 2.000 + 221 = 2.221 thùng — tức khi tồn kho xuống còn 2.221 thùng thì đặt tiếp một lô 4.472 thùng.",
+          "Kiểm tra đánh đổi service: nếu nâng service level lên 98% (Z = 2,054), safety stock tăng lên 2,054 × 134 ≈ 275 thùng (thêm 54 thùng, +24%) chỉ để tăng 3 điểm phần trăm service — minh họa vì sao mỗi điểm service gần 100% ngày càng đắt."
         ],
-        "takeaway": "Policy không phải một con số cố định. Nó là tập assumption, formula, constraint và trade-off phải được backtest và cập nhật khi demand hoặc lead time thay đổi."
+        "takeaway": "EOQ cho biết đặt bao nhiêu để tổng chi phí đặt hàng và giữ hàng thấp nhất, còn reorder point cho biết khi nào đặt để không hết hàng trong lúc chờ; cả hai đều là baseline cần điều chỉnh theo ràng buộc thực tế, và việc nâng service level luôn phải cân với chi phí safety stock tăng theo cấp số nhân."
       },
       "selfCheck": [
         {
-          "question": "Cycle stock và safety stock khác nhau ở mục đích nào?",
-          "answer": "Cycle stock phục vụ nhu cầu bình thường giữa hai lần replenishment và chủ yếu đến từ quyết định order quantity hoặc review frequency. Safety stock là buffer bổ sung để bảo vệ trước demand hoặc lead-time uncertainty. Giảm batch size có thể giảm cycle stock, trong khi giảm variability hoặc rút lead time mới trực tiếp giảm safety stock requirement."
+          "question": "Cycle stock và safety stock khác nhau ở lý do tồn tại như thế nào, và điều gì xảy ra với mỗi loại nếu demand và lead time trở nên hoàn toàn chắc chắn?",
+          "answer": "Cycle stock phát sinh do đặt hàng theo lô thay vì từng đơn vị, nên vẫn tồn tại kể cả khi mọi thứ chắc chắn — mức trung bình xấp xỉ nửa lượng đặt mỗi lần. Safety stock chỉ tồn tại để hấp thụ bất định của demand và lead time; nếu cả hai hoàn toàn chắc chắn, safety stock có thể bằng 0 vì không còn rủi ro nào cần đệm."
         },
         {
-          "question": "Vì sao phải dùng inventory position thay vì chỉ on-hand khi so với reorder point?",
-          "answer": "On-hand bỏ qua lượng hàng đã đặt đang trên đường và backorder còn phải phục vụ. Inventory position = on hand + on order − backorder phản ánh đầy đủ nguồn cung đã cam kết so với nghĩa vụ demand; dùng chỉ on-hand có thể tạo duplicate orders và làm excess inventory khi hàng pipeline chưa về kho."
+          "question": "Tại điểm EOQ, mối quan hệ giữa tổng chi phí đặt hàng năm và tổng chi phí giữ hàng năm là gì, và vì sao điều đó khiến EOQ là điểm chi phí thấp nhất?",
+          "answer": "Tại EOQ, tổng chi phí đặt hàng trong năm bằng đúng tổng chi phí giữ hàng trong năm. Vì một chi phí giảm khi lượng đặt tăng còn chi phí kia tăng theo, tổng của chúng đạt cực tiểu đúng tại điểm hai chi phí cân bằng, nên đặt lô lớn hơn hay nhỏ hơn EOQ đều làm tổng chi phí cao hơn."
         },
         {
-          "question": "EOQ dựa trên những giả định nào khiến nó không thể áp thẳng cho mọi SKU FMCG?",
-          "answer": "EOQ cơ bản giả định demand và lead time ổn định, replenishment tức thời, không stockout, không discount và chỉ có ordering/holding cost. FMCG thực tế còn MOQ, case pack, shelf life, capacity, promotion, seasonality và service target; vì vậy EOQ nên là baseline rồi được round, constrained và backtest, không phải order quantity mặc định."
+          "question": "Reorder point gồm hai thành phần nào, và mỗi thành phần bảo vệ chống lại điều gì?",
+          "answer": "Reorder point bằng nhu cầu kỳ vọng trong lead time cộng safety stock. Phần nhu cầu trong lead time che lượng tiêu thụ bình thường trong thời gian chờ hàng về, còn phần safety stock che các tình huống nhu cầu cao hơn hoặc lead time dài hơn dự kiến để tránh hết hàng trước khi lô mới đến."
         },
         {
-          "question": "Tăng service level từ 95% lên 98% tác động safety stock ra sao?",
-          "answer": "z-score tăng nên safety stock tăng dù average demand không đổi. Mức tăng phụ thuộc standard deviation và lead time; đổi lại stockout risk giảm nhưng inventory value và holding cost tăng. Quyết định chỉ hợp lý khi incremental service benefit lớn hơn incremental cost/cash và phù hợp với criticality của SKU."
+          "question": "Vì sao việc nâng service level từ 98% lên gần 100% tốn nhiều safety stock hơn so với nâng từ 90% lên 95%?",
+          "answer": "Vì hệ số Z tương ứng với service level tăng theo một đường cong dốc dần khi xác suất tiến gần 100%, không tăng đều. Cùng một mức tăng phần trăm service level ở vùng gần 100% đòi hỏi Z tăng nhiều hơn, nên safety stock (bằng Z nhân độ lệch chuẩn nhu cầu trong lead time) cũng tăng nhanh hơn hẳn."
         },
         {
-          "question": "Một inventory policy calculator đáng tin cần có validation nào?",
-          "answer": "Cần kiểm tra unit và grain, reconcile input với lịch sử, round theo case pack/MOQ, kiểm tra shelf life/capacity, chạy sensitivity demand-lead time-service và backtest theo thời gian. Output phải báo cả service, stockout, average inventory, order frequency và cash impact thay vì chỉ hiển thị EOQ hoặc ROP."
+          "question": "Inventory turns cao nói lên điều gì về cách vốn được sử dụng, và vì sao turns cao không phải lúc nào cũng là mục tiêu tốt cho mọi SKU?",
+          "answer": "Inventory turns cao nghĩa là tồn kho được bán hoặc dùng nhiều lần trong kỳ, tức vốn ít bị khóa trong hàng và quay vòng nhanh. Tuy nhiên turns quá cao thường đi kèm mức tồn kho mỏng, làm tăng rủi ro stockout; với SKU quan trọng hoặc biến động mạnh, chấp nhận turns thấp hơn để giữ service có thể là lựa chọn đúng, nên mục tiêu turns phải cân với service target của từng SKU."
         }
       ]
     }
@@ -393,56 +394,56 @@
       }
     ],
     "lesson": {
-      "coreIdea": "KPI là hợp đồng về cách đo một quyết định, không chỉ là con số trên dashboard. Mỗi KPI cần business purpose, công thức, grain, numerator/denominator, data source, owner, frequency và action threshold. Service, cost và cash phải được nhìn cùng nhau: một đội có thể nâng OTIF bằng cách tăng inventory hoặc premium freight, nhưng toàn chuỗi chưa chắc tốt hơn.",
+      "coreIdea": "KPI chỉ hữu ích khi nối được mục tiêu kinh doanh với hành động cụ thể: OTIF và fill rate phản ánh lời hứa phục vụ khách hàng, forecast accuracy và bias phản ánh chất lượng dự báo, inventory turns và cash-to-cash phản ánh hiệu quả sử dụng vốn. Mỗi chỉ số phải có định nghĩa, công thức và grain rõ ràng, nếu không hai người có thể báo cùng một cái tên nhưng nói về hai con số khác nhau.",
       "sections": [
         {
-          "heading": "KPI dictionary: định nghĩa trước khi dựng dashboard",
-          "body": "Một tên KPI giống nhau có thể được tính khác nhau giữa hai đội. OTIF có thể đo theo order, order line hoặc unit; fill rate có thể đo ngay lần giao đầu hoặc sau toàn bộ kỳ. Vì vậy KPI dictionary phải ghi purpose, formula, grain, inclusion/exclusion, time window, data source, owner và target. Numerator và denominator phải cùng grain; cancelled order, free goods, return hoặc partial shipment cần rule rõ ràng. Không có dictionary, dashboard trông chuyên nghiệp vẫn có thể tạo tranh cãi vì mỗi người đang đọc một định nghĩa khác nhau."
+          "heading": "OTIF và fill rate: hai cách đo lời hứa phục vụ, không thể thay thế nhau",
+          "body": "OTIF (On Time In Full) đo tỷ lệ đơn hàng được giao vừa đúng hạn vừa đủ số lượng — một đơn chỉ được tính đạt khi thỏa đồng thời cả hai điều kiện. Vì là một điều kiện kép, OTIF luôn nhỏ hơn hoặc bằng từng chỉ số thành phần: nếu tỷ lệ giao đúng hạn là 95% và tỷ lệ giao đủ là 95% mà hai yếu tố gần như độc lập, OTIF chỉ khoảng 0,95 × 0,95 ≈ 90%. Fill rate đo tỷ lệ nhu cầu được đáp ứng ngay từ tồn kho sẵn có, và có thể tính theo nhiều grain khác nhau: theo đơn hàng (order fill rate), theo dòng đơn hàng (line fill rate), hoặc theo đơn vị sản phẩm (unit fill rate) — ba con số này thường khác nhau cho cùng một tình huống. Điểm quan trọng là phải nêu rõ đang đo fill rate theo grain nào; báo cáo 'fill rate 95%' mà không nói theo line hay theo unit dễ khiến các bộ phận hiểu sai và tranh cãi về những con số thực ra không so sánh được với nhau."
         },
         {
-          "heading": "Service KPIs: OTIF và fill rate trả lời hai câu hỏi khác nhau",
-          "body": "OTIF kiểm tra lời hứa giao hàng: một order line chỉ đạt khi actual delivery date không muộn hơn promised date và quantity giao đủ theo rule đã chọn. OTIF = số line đạt cả on-time và in-full chia tổng line hợp lệ. Fill rate đo phần demand được đáp ứng ngay: fulfilled units chia demanded hoặc ordered units. Một customer có thể nhận 96% units nhưng nhiều order line vẫn trễ, nên fill rate cao không đảm bảo OTIF cao. Drill-down cần đi từ KPI tổng xuống customer, SKU, DC, carrier và reason code để phân biệt lỗi forecast, production, allocation, picking hay transport."
+          "heading": "Forecast accuracy và forecast bias: sai bao nhiêu và sai lệch về hướng nào",
+          "body": "Forecast accuracy đo mức độ dự báo gần với thực tế, thường biểu diễn qua sai số như MAE, MAPE hoặc WAPE (các thước đo lấy trị tuyệt đối nên luôn dương và cho biết độ lớn sai số). Forecast bias thì khác về bản chất: nó giữ nguyên dấu của sai số để cho biết dự báo có xu hướng lệch một chiều hay không — bias dương kéo dài nghĩa là forecast liên tục cao hơn thực tế (over-forecast, dễ gây tồn kho dư), bias âm kéo dài nghĩa là forecast liên tục thấp hơn thực tế (under-forecast, dễ gây stockout). Hai chỉ số này phải đọc cùng nhau: một forecast có bias gần 0 vẫn có thể có sai số lớn nếu các kỳ sai lệch mạnh theo cả hai hướng rồi triệt tiêu nhau khi lấy trung bình; ngược lại, một bias lớn ổn định là dấu hiệu quy trình dự báo có lỗi hệ thống cần sửa, chứ không phải nhiễu ngẫu nhiên sẽ tự cân bằng."
         },
         {
-          "heading": "Planning và cash KPIs: accuracy, bias, turns và cash-to-cash",
-          "body": "Forecast accuracy đo độ lớn sai số; WAPE = tổng absolute error chia tổng actual thường phù hợp portfolio volume, trong khi bias = tổng forecast trừ tổng actual cho biết xu hướng forecast cao hay thấp. Inventory turns = annual COGS chia average inventory value; số vòng cao thường giải phóng cash nhưng có thể làm service yếu nếu cắt sai SKU. Days inventory outstanding xấp xỉ 365 chia turns. Cash-to-cash = DIO + DSO − DPO, nối tốc độ tồn kho với thời gian thu tiền khách và trả supplier. Không KPI nào nên được tối ưu độc lập: bias cao có thể làm inventory tăng, còn giảm inventory cực đoan có thể làm OTIF giảm và premium freight tăng."
+          "heading": "Inventory turns và cash-to-cash: đo hiệu quả sử dụng vốn",
+          "body": "Inventory turns (vòng quay tồn kho) bằng giá vốn hàng bán trong kỳ chia cho tồn kho trung bình, cho biết vốn nằm trong hàng quay được bao nhiêu lần; từ đó suy ra days of supply (số ngày tồn kho) ≈ 365 chia cho số vòng quay. Cash-to-cash cycle đo số ngày từ khi doanh nghiệp chi tiền mua hàng đến khi thu được tiền từ khách, bằng số ngày tồn kho cộng số ngày phải thu trừ số ngày phải trả. Hai chỉ số này quan trọng vì chúng nối supply chain với tài chính: một quyết định vận hành trông tốt (ví dụ mua lô lớn để được giá rẻ) có thể làm turns giảm và cash-to-cash dài ra, tức khóa thêm vốn — điều mà một chỉ số chi phí đơn lẻ không phản ánh. Vì vậy dashboard supply chain tốt luôn đặt các chỉ số service cạnh các chỉ số vốn, để mỗi quyết định được nhìn đồng thời trên cả hai mặt thay vì tối ưu một chỉ số và vô tình làm xấu chỉ số kia."
         },
         {
-          "heading": "Từ metric sang action: evidence → impact → action",
-          "body": "Dashboard ra quyết định phải ưu tiên exception và causal drill-down. Action title nên nói kết luận, ví dụ 'Ba customer miền Nam kéo OTIF xuống do allocation thiếu SKU-003', thay vì chỉ ghi 'OTIF by region'. Mỗi insight cần evidence cụ thể, business impact và owner/action có deadline. Dùng leading indicator như production adherence, supplier OTIF hoặc backlog age để can thiệp trước; lagging KPI như monthly OTIF xác nhận kết quả sau. Trước khi publish, reconcile control total, kiểm tra filter context và sample vài order line từ dashboard về dữ liệu nguồn."
+          "heading": "Metric dictionary: điều kiện để một dashboard nói cùng một ngôn ngữ",
+          "body": "Một KPI chỉ điều hành được khi mọi người hiểu nó theo cùng một cách, và điều đó đòi hỏi một metric dictionary (từ điển chỉ số) viết trước khi dựng dashboard. Với mỗi chỉ số, dictionary nên ghi rõ: mục đích (chỉ số này hỗ trợ quyết định nào), công thức chính xác, grain (đo theo đơn hàng, dòng đơn, đơn vị, SKU, khách hàng hay vùng), nguồn dữ liệu, tần suất cập nhật, chủ sở hữu (ai chịu trách nhiệm), và action threshold (ngưỡng nào thì phải hành động). Thiếu dictionary, cùng một cái tên như 'fill rate' hay 'forecast accuracy' có thể được các bộ phận tính theo grain hoặc công thức khác nhau, dẫn tới các cuộc họp tranh cãi về việc con số của ai đúng thay vì bàn về hành động. Ngoài ra, phải phân biệt leading metric (chỉ số dẫn dắt, báo sớm vấn đề như forecast bias) với lagging metric (chỉ số kết quả, phản ánh hậu quả đã xảy ra như OTIF tháng trước); một dashboard tốt kết hợp cả hai để vừa giải thích quá khứ vừa cảnh báo tương lai."
         }
       ],
       "workedExample": {
-        "title": "Ví dụ FMCG: Control tower tháng cho 100 order lines",
-        "narrative": "Một DC xử lý 100 order lines trong tháng, tổng ordered quantity 10.000 units. Có 90 line giao đúng hạn, 92 line giao đủ, nhưng chỉ 87 line đạt đồng thời cả hai điều kiện. Tổng fulfilled quantity trong lần giao đầu là 9.600 units. Annual COGS là 12 tỷ đồng và average inventory value là 2 tỷ đồng.",
+        "title": "Ví dụ FMCG: đọc bộ KPI hằng tháng của một công ty snack",
+        "narrative": "Một công ty snack tổng hợp KPI tháng để review với ban giám đốc. Trong tháng, công ty nhận 500 đơn hàng gồm 4.000 dòng đơn (order lines); giao đúng hạn 475 đơn, giao đủ số lượng ở 3.800 dòng; giá vốn hàng bán 120 tỷ đồng với tồn kho trung bình 20 tỷ đồng; forecast và thực tế bán ra của một dòng sản phẩm chủ lực được ghi lại theo 4 tuần.",
         "steps": [
-          "OTIF theo order line = 87 / 100 = 87%. Không được nhân 90% on-time với 92% in-full vì hai tập line có thể không trùng nhau; phải kiểm tra điều kiện AND trên từng line trước khi aggregate.",
-          "Unit fill rate = 9.600 / 10.000 = 96%. Chênh lệch giữa fill rate 96% và OTIF 87% cho thấy nhiều line giao gần đủ nhưng vẫn vi phạm promise hoặc thiếu một phần nhỏ.",
-          "Inventory turns = 12 / 2 = 6 vòng/năm; DIO xấp xỉ 365 / 6 = 60,8 ngày. Nếu DSO là 35 và DPO là 30 ngày, cash-to-cash khoảng 65,8 ngày.",
-          "Drill-down 13 line OTIF fail theo reason code. Nếu 8 line thuộc SKU-003 tại DC-S vì allocation shortage, insight phải nêu đúng evidence, lost-sales/service impact, owner allocation và chỉ số theo dõi trong tuần tiếp theo."
+          "Tính hai chỉ số phục vụ theo đúng grain của chúng: on-time rate theo đơn = 475/500 = 95%; line fill rate = 3.800/4.000 = 95%. Nếu OTIF được định nghĩa là đơn hàng vừa đúng hạn vừa đủ và hai điều kiện gần độc lập, OTIF ≈ 0,95 × 0,95 ≈ 90,25% — thấp hơn cả hai thành phần, đúng bản chất của một điều kiện kép.",
+          "Tính inventory turns = giá vốn hàng bán / tồn kho trung bình = 120 / 20 = 6 vòng/năm, suy ra days of supply ≈ 365 / 6 ≈ 61 ngày — tức trung bình hàng nằm trong kho khoảng hai tháng trước khi bán.",
+          "Tính forecast bias cho dòng sản phẩm chủ lực với 4 tuần: forecast lần lượt 1.000, 1.000, 1.000, 1.000; thực tế 900, 950, 1.050, 1.000. Sai số (forecast − thực tế) = +100, +50, −50, 0; bias trung bình = (+100+50−50+0)/4 = +25 đơn vị/tuần, tức forecast hơi cao hơn thực tế một cách nhẹ nhưng có hệ thống.",
+          "Đọc bộ chỉ số cùng nhau để ra hành động: OTIF 90% chưa đạt mục tiêu 95%, nhưng vì on-time và fill rate đều 95%, vấn đề nằm ở việc hai lỗi rơi vào các đơn khác nhau chứ không phải một khâu duy nhất yếu; đồng thời days of supply 61 ngày là khá cao trong khi bias dương +25/tuần cho thấy forecast đang over-forecast nhẹ, có thể là một nguyên nhân góp phần làm tồn kho dư — hành động đề xuất là hiệu chỉnh bias forecast và điều tra reason code của các đơn giao trễ/thiếu, thay vì chỉ tăng tồn kho."
         ],
-        "takeaway": "Một dashboard tốt không dừng ở việc KPI đỏ hay xanh; nó giúp người dùng truy được dòng dữ liệu gây lỗi, hiểu trade-off và giao một action có owner."
+        "takeaway": "Không chỉ số nào một mình kể hết câu chuyện: OTIF thấp hơn các thành phần vì là điều kiện kép, days of supply cao cùng bias dương gợi ý over-forecast, và chỉ khi đọc service cạnh vốn cạnh chất lượng dự báo mới ra được hành động đúng — đây là lý do mỗi chỉ số cần định nghĩa và grain rõ ràng trong một metric dictionary."
       },
       "selfCheck": [
         {
-          "question": "Vì sao OTIF không thể tính bằng on-time rate nhân in-full rate?",
-          "answer": "OTIF yêu cầu cùng một order line phải đạt đồng thời cả hai điều kiện. Tập line on-time và tập line in-full có thể khác nhau, nên nhân hai tỷ lệ aggregate không cho biết chính xác giao điểm của chúng. Cần đánh cờ on-time và in-full ở line-level, dùng điều kiện AND rồi mới lấy số line đạt chia tổng line hợp lệ."
+          "question": "Vì sao OTIF của một tháng luôn nhỏ hơn hoặc bằng cả tỷ lệ giao đúng hạn lẫn tỷ lệ giao đủ số lượng của tháng đó?",
+          "answer": "Vì OTIF chỉ tính một đơn là đạt khi nó thỏa đồng thời cả hai điều kiện đúng hạn và đủ số lượng, nên bất kỳ đơn nào lỗi ở một trong hai khâu đều bị loại. Do đó tập đơn đạt OTIF là giao của hai tập, không thể lớn hơn từng tập thành phần; khi hai loại lỗi rơi vào các đơn khác nhau, OTIF còn thấp hơn hẳn từng tỷ lệ riêng lẻ."
         },
         {
-          "question": "Fill rate cao nhưng OTIF thấp có thể phản ánh điều gì?",
-          "answer": "Doanh nghiệp đáp ứng phần lớn units nhưng giao trễ hoặc thiếu một phần nhỏ trên nhiều order lines. Customer experience và lời hứa giao hàng vẫn bị vi phạm dù volume fulfilled cao. Cần drill-down delivery timing, partial shipment và customer/SKU để xác định root cause thay vì kết luận service tốt từ fill rate một mình."
+          "question": "Vì sao báo cáo 'fill rate 95%' mà không nói rõ grain có thể gây hiểu lầm giữa các bộ phận?",
+          "answer": "Fill rate có thể tính theo đơn hàng, theo dòng đơn, hoặc theo đơn vị sản phẩm, và ba con số này thường khác nhau cho cùng một tình huống. Nếu không nêu grain, hai bộ phận có thể đang nói về hai phép đo khác nhau nhưng tưởng là cùng một con số, dẫn tới tranh cãi hoặc quyết định dựa trên cách hiểu sai."
         },
         {
-          "question": "Forecast accuracy và forecast bias trả lời hai câu hỏi khác nhau như thế nào?",
-          "answer": "Accuracy đo độ lớn sai số bất kể hướng, còn bias cho biết forecast có xu hướng cao hơn hay thấp hơn actual một cách hệ thống. Hai model có WAPE tương tự nhưng một model bias âm ở peak season có thể gây stockout lớn hơn; vì vậy planner cần xem cả magnitude, direction và business impact."
+          "question": "Forecast bias khác forecast accuracy (đo bằng MAE hoặc WAPE) ở điểm cốt lõi nào, và vì sao cần đọc cả hai cùng lúc?",
+          "answer": "Accuracy dùng trị tuyệt đối sai số nên luôn dương và cho biết độ lớn sai số, còn bias giữ nguyên dấu nên cho biết dự báo lệch về một hướng (cao hơn hay thấp hơn thực tế) một cách hệ thống. Cần đọc cả hai vì một forecast có bias gần 0 vẫn có thể có sai số lớn do các kỳ lệch mạnh hai chiều triệt tiêu nhau, và một bias lớn ổn định lại báo hiệu lỗi hệ thống mà accuracy trung bình có thể không làm nổi bật."
         },
         {
-          "question": "Tại sao inventory turns cao không phải lúc nào cũng tốt?",
-          "answer": "Turns cao có thể đến từ inventory lean và cash hiệu quả, nhưng cũng có thể do cắt buffer quá mức làm stockout, lost sales và premium freight tăng. Phải xem cùng service target, lead-time variability, SKU segmentation và total cost; mục tiêu là policy cân bằng service-cost-cash chứ không tối đa một ratio."
+          "question": "Một quyết định mua lô lớn để được giá chiết khấu có thể ảnh hưởng thế nào đến inventory turns và cash-to-cash cycle, và vì sao điều này quan trọng?",
+          "answer": "Mua lô lớn làm tồn kho trung bình tăng, nên inventory turns giảm và số ngày tồn kho dài ra, kéo theo cash-to-cash cycle dài hơn vì tiền bị khóa trong hàng lâu hơn. Điều này quan trọng vì khoản tiết kiệm nhờ giá chiết khấu có thể bị bù trừ hoặc vượt qua bởi chi phí vốn và rủi ro của lượng tồn kho tăng thêm, điều mà một chỉ số giá mua đơn lẻ không phản ánh."
         },
         {
-          "question": "Một KPI dictionary tối thiểu cần chứa những gì?",
-          "answer": "Cần business purpose, formula, grain, numerator/denominator, inclusion-exclusion rules, time window, unit, data source, owner, update frequency, target và action threshold. Với KPI quan trọng nên thêm ví dụ line-level và reconciliation control để người dùng có thể truy từ dashboard về dữ liệu nguồn."
+          "question": "Một metric dictionary nên ghi những gì cho mỗi chỉ số, và vì sao thiếu nó lại làm các cuộc họp review KPI kém hiệu quả?",
+          "answer": "Với mỗi chỉ số, metric dictionary nên ghi mục đích, công thức chính xác, grain, nguồn dữ liệu, tần suất cập nhật, chủ sở hữu và ngưỡng hành động. Thiếu dictionary, các bộ phận có thể tính cùng một tên chỉ số theo công thức hoặc grain khác nhau, khiến cuộc họp sa vào tranh cãi con số của ai đúng thay vì tập trung vào việc chỉ số đang báo hiệu cần hành động gì."
         }
       ]
     }
