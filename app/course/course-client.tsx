@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { FormEvent, useCallback, useEffect, useMemo, useState, type CSSProperties } from "react";
 import { assignments, curriculum, modules } from "../../lib/content";
+import { buildLearningInsights } from "../../lib/learning-insights.mjs";
 
 type Settings = { startDate: string; weeklyHours: number; updatedAt?: string };
 type ProgressRow = {
@@ -19,6 +20,7 @@ type LabRow = { week: number; score: number; passed: boolean; attemptCount: numb
 type LabHistoryRow = { week: number; score: number; passed: boolean; createdAt: string };
 type QuizRow = { module: number; score: number; correct: number; total: number; createdAt: string };
 type CaseRow = { id: number; assignmentModule: number | null; stage: string; title: string; updatedAt: string };
+type ReviewRow = { submissionId: number; version: number; decision: string; scores: Record<string, number>; createdAt: string };
 type CourseState = {
   settings: Settings;
   progress: ProgressRow[];
@@ -27,11 +29,12 @@ type CourseState = {
   labHistory: LabHistoryRow[];
   quizzes: QuizRow[];
   cases: CaseRow[];
+  reviews: ReviewRow[];
 };
 
 const emptyState: CourseState = {
   settings: { startDate: new Date().toISOString().slice(0, 10), weeklyHours: 6 },
-  progress: [], submissions: [], labs: [], labHistory: [], quizzes: [], cases: [],
+  progress: [], submissions: [], labs: [], labHistory: [], quizzes: [], cases: [], reviews: [],
 };
 
 export default function CourseClient({ learnerName }: { learnerName: string }) {
@@ -55,6 +58,7 @@ export default function CourseClient({ learnerName }: { learnerName: string }) {
         labHistory: Array.isArray(data.labHistory) ? data.labHistory : [],
         quizzes: Array.isArray(data.quizzes) ? data.quizzes : [],
         cases: Array.isArray(data.cases) ? data.cases : [],
+        reviews: Array.isArray(data.reviews) ? data.reviews : [],
       };
       setState(next);
       setSettingsDraft(next.settings);
@@ -108,6 +112,14 @@ export default function CourseClient({ learnerName }: { learnerName: string }) {
   const nextAction = getNextAction(currentWeek.week, progressMap.get(currentWeek.week), labMap.get(currentWeek.week), currentSubmission);
   const targetDate = addDays(state.settings.startDate, 24 * 7 - 1);
   const certificateReady = appliedCount === 24 && labPassedCount === 24 && quizPassedCount === 6 && portfolioReadyCount === 6;
+  const learningInsights = useMemo(() => buildLearningInsights({
+    settings: state.settings,
+    progress: state.progress,
+    labs: state.labs,
+    submissions: state.submissions,
+    quizzes: state.quizzes,
+    reviews: state.reviews,
+  }), [state]);
 
   const saveSettings = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -158,7 +170,7 @@ export default function CourseClient({ learnerName }: { learnerName: string }) {
       </section>
 
       <nav className="course-tabs" aria-label="Mục trong khoá học">
-        <a href="#overview">Tổng quan</a><a href="#syllabus">Nội dung</a><a href="#gradebook">Điểm</a><a href="#certificate">Chứng nhận</a>
+        <a href="#overview">Tổng quan</a><a href="#insights">Tiến độ</a><a href="#syllabus">Nội dung</a><a href="#gradebook">Điểm</a><a href="#certificate">Chứng nhận</a>
       </nav>
 
       <div className="course-container">
@@ -170,6 +182,63 @@ export default function CourseClient({ learnerName }: { learnerName: string }) {
             <p>{nextAction.reason}</p>
           </div>
           <Link href={nextAction.href}>{nextAction.label}<span>→</span></Link>
+        </section>
+
+        <section className="course-section course-learning-health" id="insights" aria-labelledby="learning-health-title">
+          <div className="course-section-head">
+            <div><p className="kicker">LEARNING HEALTH · LIVE</p><h2 id="learning-health-title">Biết mình đang ở đâu, cứu đúng việc trước</h2><p>Phân tích từ Applied progress, best score và mentor review; không tự nâng trạng thái mastery.</p></div>
+            <span>{learningInsights.attention.total ? `${learningInsights.attention.total} việc cần chú ý` : "NO RECOVERY BLOCKERS"}</span>
+          </div>
+
+          <div className="learning-health-grid">
+            <article className={`learning-health-card pace-${learningInsights.pace.status}`}>
+              <div className="learning-health-card-head"><span>PACE</span><i aria-hidden="true" /></div>
+              <strong>{learningInsights.pace.label}</strong>
+              <p>{learningInsights.pace.detail}</p>
+              <div className="pace-comparison" aria-label={`Applied ${learningInsights.applied} tuần; kế hoạch ${learningInsights.expectedApplied} tuần`}>
+                <div><span>Applied thật</span><i><b style={{ width: `${learningInsights.applied / 24 * 100}%` }} /></i><em>{learningInsights.applied}/24</em></div>
+                <div><span>Kế hoạch</span><i><b style={{ width: `${learningInsights.expectedApplied / 24 * 100}%` }} /></i><em>{learningInsights.expectedApplied}/24</em></div>
+              </div>
+              <small>Còn khoảng {learningInsights.workload.estimatedHours} giờ · {learningInsights.workload.weeklyHours} giờ/tuần</small>
+            </article>
+
+            <article className="learning-health-card">
+              <div className="learning-health-card-head"><span>MENTOR SIGNAL</span><i aria-hidden="true" /></div>
+              {learningInsights.weakestRubric ? <>
+                <strong>{learningInsights.weakestRubric.label}</strong>
+                <p>Điểm rubric trung bình thấp nhất: <b>{learningInsights.weakestRubric.score}/100</b> từ review mới nhất của {learningInsights.weakestRubric.samples} bài.</p>
+                <div className="skill-meter"><i><b style={{ width: `${learningInsights.weakestRubric.score}%` }} /></i><span>Ưu tiên nâng dimension này trong evidence tiếp theo.</span></div>
+              </> : <>
+                <strong>Chưa đủ dữ liệu rubric</strong>
+                <p>Nộp evidence và yêu cầu mentor review để hệ thống tìm dimension cần củng cố.</p>
+                <div className="skill-meter empty"><i><b /></i><span>Tín hiệu xuất hiện sau review đầu tiên.</span></div>
+              </>}
+            </article>
+
+            <article className="learning-health-card">
+              <div className="learning-health-card-head"><span>RECOVERY QUEUE</span><i aria-hidden="true" /></div>
+              <strong>{learningInsights.attention.total ? "Xử lý trước khi mở rộng" : "Không có blocker tồn đọng"}</strong>
+              <dl className="attention-counts">
+                <div><dt>Evidence cần sửa</dt><dd>{learningInsights.attention.needsRevision}</dd></div>
+                <div><dt>Lab chưa đạt</dt><dd>{learningInsights.attention.failedLabs}</dd></div>
+                <div><dt>Assessment &lt;80%</dt><dd>{learningInsights.attention.lowAssessments}</dd></div>
+              </dl>
+              <small>{learningInsights.attention.total ? "Queue chỉ dùng kết quả đã lưu, không suy đoán điểm." : "Tiếp tục bước học hiện tại để tạo evidence mới."}</small>
+            </article>
+          </div>
+
+          <div className="learning-priority-list" aria-label="Ưu tiên học tập">
+            <div><span>PRIORITY PLAN</span><strong>{learningInsights.priorityActions.length ? "Recovery trước, nội dung mới sau" : "Không có việc cứu điểm — tiếp tục lộ trình"}</strong></div>
+            {learningInsights.priorityActions.length ? learningInsights.priorityActions.map((action) => (
+              <Link key={action.kind} href={action.href} className={`priority-action priority-${action.kind}`}>
+                <span>{action.eyebrow}</span><strong>{action.title}</strong><p>{action.detail}</p><b>Thực hiện →</b>
+              </Link>
+            )) : (
+              <Link href={nextAction.href} className="priority-action priority-current">
+                <span>RECOMMENDED NEXT STEP</span><strong>{nextAction.label}</strong><p>{nextAction.reason}</p><b>Tiếp tục →</b>
+              </Link>
+            )}
+          </div>
         </section>
 
         <section className="course-overview-grid">

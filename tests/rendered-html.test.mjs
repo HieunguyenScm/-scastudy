@@ -146,6 +146,8 @@ test("course home and interactive labs form a complete graded learning path", as
 
   assert.match(coursePage, /requireChatGPTUser\("\/course"\)/);
   assert.match(courseClient, /TIẾP TỤC HỌC/);
+  assert.match(courseClient, /LEARNING HEALTH · LIVE/);
+  assert.match(courseClient, /buildLearningInsights/);
   assert.match(courseClient, /GRADEBOOK/);
   assert.match(courseClient, /CERTIFICATE &amp; LEARNING REPORT/);
   assert.match(courseClient, /lessonComplete[\s\S]*lab[\s\S]*submission/);

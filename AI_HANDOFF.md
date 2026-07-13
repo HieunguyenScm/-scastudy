@@ -5,12 +5,12 @@ start and end of every material task.
 
 ## Active assignment
 
-- Owner: `NONE`
-- Role: `CLOSED`
+- Owner: `CLAUDE`
+- Role: `REVIEWER`
 - Branch: `lesson-ux-concise`
-- Scope: Lab-grading fairness and cross-question hint-leakage workstream is complete.
-- Acceptance criteria: Met — natural numeric answers grade fairly, signed FVA is explicit, and identified hints no longer expose answers.
-- Reviewer: Claude PASS plus Codex regression coverage and full release gate.
+- Scope: Read-only review of the new Course Home Learning Health implementation listed in the latest completed handoff.
+- Acceptance criteria: Verify pace math, latest-review aggregation, recovery ordering, learner-facing wording, responsive/accessibility basics, and that no mastery or grading rule changed.
+- Writer: `CODEX` has completed implementation and the full gate; Claude should record PASS or exact actionable findings without editing product files.
 
 ## Current product state
 
@@ -135,6 +135,27 @@ P3 — Ambiguity / minor:
   - `npm run check` — passed: lint, types, production build, 8/8 site tests, 13 verified sources, 3/3 ChatGPT App tests.
 - Risks/open questions: NONE.
 - Next action: Codex to publish the validated source; next product workstream can begin from Suggested queue item 3 or 4.
+
+### 2026-07-13 — Codex — Add learner-facing Learning Health
+
+- Role: Writer / integrator
+- Branch: `lesson-ux-concise`
+- Claimed files: `lib/learning-insights.*`, `app/course/course-client.tsx`, `app/globals.css`, related tests and coordination docs.
+- Changed:
+  - Added a pure, tested insight model that compares truthful Applied progress with the learner's own schedule.
+  - Added weakest-rubric aggregation using only the latest mentor review per submission, with submission version as the deterministic tie-breaker.
+  - Added a recovery queue that prioritizes evidence revision, failed labs, and sub-80 module assessments without inventing mastery.
+  - Added a responsive Learning Health section and priority plan to Course Home.
+- Decisions:
+  - Reused existing private course-state data; no schema, migration, authentication, grading, or mastery change.
+  - Best quiz attempt remains the assessment signal, matching the existing gradebook.
+  - Recommendations are deterministic and explain their source; an empty state points to the existing next action.
+- Verification:
+  - `node --test tests/learning-insights.test.mjs` — passed, 5/5, including first due-day, 24-week cap, and equal-timestamp review versions.
+  - `npm run check` — passed: lint, types, production build, 13/13 site tests, 13 verified sources, 3/3 ChatGPT App tests.
+  - `git diff --check` — passed.
+- Risks/open questions: Visual QA was not requested; responsive behavior is covered by the existing Course Home breakpoints and source review.
+- Next action: CLAUDE to perform the narrow read-only verification in Active assignment and record PASS or findings; Codex will integrate and publish.
 
 ## Task handoff template
 

@@ -1173,6 +1173,49 @@ details.refs-panel[open] > summary::after { content: "▾"; }
 .course-next-action p:not(.kicker) { margin: 0; color: #c4d6df; font-size: .8rem; }
 .course-next-action > a { min-width: 190px; padding: .8rem 1rem; display: flex; align-items: center; justify-content: space-between; color: #17324d; border-radius: .65rem; background: #fff; font-size: .75rem; font-weight: 800; }
 .course-next-action > a span { color: #0f7f76; font-size: 1rem; }
+.course-learning-health { background: linear-gradient(145deg, #fff, #f3f9f8); }
+.learning-health-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8rem; }
+.learning-health-card { min-height: 230px; padding: 1rem; display: flex; flex-direction: column; border: 1px solid #d8e4e8; border-radius: .8rem; background: rgba(255,255,255,.9); }
+.learning-health-card-head { margin-bottom: .9rem; display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.learning-health-card-head > span { color: #60778a; font: 800 .58rem var(--font-geist-mono), monospace; letter-spacing: .09em; }
+.learning-health-card-head > i { width: 8px; height: 8px; border-radius: 50%; background: #8fa5b3; box-shadow: 0 0 0 5px rgba(143,165,179,.12); }
+.learning-health-card > strong { color: #17324d; font-size: 1rem; letter-spacing: -.02em; }
+.learning-health-card > p { margin: .45rem 0 .8rem; color: #60778a; font-size: .68rem; line-height: 1.55; }
+.learning-health-card > p b { color: #294b64; }
+.learning-health-card > small { margin-top: auto; color: #71889a; font-size: .62rem; line-height: 1.45; }
+.learning-health-card.pace-ahead .learning-health-card-head > i, .learning-health-card.pace-on-track .learning-health-card-head > i { background: #0f7f76; box-shadow: 0 0 0 5px rgba(15,127,118,.12); }
+.learning-health-card.pace-watch .learning-health-card-head > i { background: #d89a2b; box-shadow: 0 0 0 5px rgba(216,154,43,.14); }
+.learning-health-card.pace-behind .learning-health-card-head > i { background: #c7655b; box-shadow: 0 0 0 5px rgba(199,101,91,.14); }
+.pace-comparison { margin: .15rem 0 .85rem; display: grid; gap: .45rem; }
+.pace-comparison > div { display: grid; grid-template-columns: 72px 1fr 34px; align-items: center; gap: .45rem; }
+.pace-comparison span, .pace-comparison em { color: #71889a; font-size: .58rem; font-style: normal; }
+.pace-comparison em { text-align: right; }
+.pace-comparison i, .skill-meter > i { height: 6px; overflow: hidden; border-radius: 999px; background: #e2ebed; }
+.pace-comparison i b, .skill-meter > i b { height: 100%; display: block; border-radius: inherit; background: #0f7f76; }
+.pace-comparison > div:nth-child(2) i b { background: #8fa5b3; }
+.skill-meter { margin-top: auto; display: grid; gap: .55rem; }
+.skill-meter > i { height: 8px; }
+.skill-meter > i b { background: linear-gradient(90deg, #d89a2b, #0f7f76); }
+.skill-meter > span { color: #71889a; font-size: .62rem; line-height: 1.45; }
+.skill-meter.empty > i b { width: 0; }
+.attention-counts { margin: .2rem 0 .8rem; display: grid; gap: .4rem; }
+.attention-counts > div { padding: .48rem .55rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; border-radius: .5rem; background: #f3f7f8; }
+.attention-counts dt { color: #60778a; font-size: .62rem; }
+.attention-counts dd { margin: 0; color: #294b64; font: 800 .68rem var(--font-geist-mono), monospace; }
+.learning-priority-list { margin-top: .9rem; padding-top: .9rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: .7rem; border-top: 1px solid #dce6e9; }
+.learning-priority-list > div { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.learning-priority-list > div span { color: #0b7068; font: 800 .58rem var(--font-geist-mono), monospace; letter-spacing: .09em; }
+.learning-priority-list > div strong { color: #536e81; font-size: .68rem; }
+.priority-action { min-height: 150px; padding: .9rem; position: relative; display: flex; flex-direction: column; border: 1px solid #d6e2e6; border-radius: .7rem; background: #fff; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.priority-action:hover { transform: translateY(-2px); border-color: #9ccbc5; box-shadow: 0 12px 28px rgba(35,78,103,.08); }
+.priority-action > span { color: #71889a; font: 800 .55rem var(--font-geist-mono), monospace; letter-spacing: .07em; }
+.priority-action > strong { margin-top: .45rem; color: #294b64; font-size: .76rem; }
+.priority-action > p { margin: .35rem 0 .8rem; color: #60778a; font-size: .63rem; line-height: 1.5; }
+.priority-action > b { margin-top: auto; color: #0b7068; font-size: .63rem; }
+.priority-revision { border-left: 4px solid #c7655b; }
+.priority-lab { border-left: 4px solid #d89a2b; }
+.priority-assessment { border-left: 4px solid #507fa8; }
+.priority-current { border-left: 4px solid #0f7f76; }
 .course-overview-grid { display: grid; grid-template-columns: 1.15fr .85fr; gap: 1rem; }
 .course-overview-grid > article, .course-schedule-card, .course-section { padding: clamp(1.5rem, 3vw, 2.2rem); border: 1px solid #d4e2e6; border-radius: 1rem; background: #fff; box-shadow: 0 12px 36px rgba(35,78,103,.05); }
 .course-overview-grid h2, .course-schedule-card h2, .course-section-head h2 { margin: .35rem 0 1rem; font-size: clamp(1.45rem, 3vw, 2.1rem); letter-spacing: -.045em; }
@@ -1286,6 +1329,8 @@ details.refs-panel[open] > summary::after { content: "▾"; }
   .module-project-line { min-width: 880px; }
   .gradebook-table { overflow-x: auto; }
   .gradebook-head, .gradebook-line { min-width: 820px; }
+  .learning-health-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .learning-health-card:last-child { grid-column: 1 / -1; min-height: 0; }
 }
 
 @media (max-width: 720px) {
@@ -1298,6 +1343,9 @@ details.refs-panel[open] > summary::after { content: "▾"; }
   .course-container { width: calc(100% - 32px); }
   .course-next-action, .course-section-head { align-items: stretch; flex-direction: column; }
   .course-next-action > a { min-width: 0; }
+  .learning-health-grid { grid-template-columns: 1fr; }
+  .learning-health-card:last-child { grid-column: auto; }
+  .learning-priority-list > div { align-items: flex-start; flex-direction: column; }
   .course-overview-grid, .certificate-grid, .capstone-report { grid-template-columns: 1fr; }
   .course-module-list > details > summary { grid-template-columns: 42px 1fr; }
   .module-summary-progress { grid-column: 2; }
