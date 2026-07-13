@@ -1625,7 +1625,7 @@
       "Kết hợp forecast, inventory và service",
       "Đề xuất action có trade-off"
     ],
-    "summary": "Case tổng hợp buộc mày đi từ symptom tới root cause: forecast bias, promotion uplift, lead-time variability hay policy sai. Recommendation tốt phải định lượng impact lên service, inventory và working capital, đồng thời nêu risk triển khai.",
+    "summary": "Case tổng hợp buộc bạn đi từ symptom tới root cause: forecast bias, promotion uplift, lead-time variability hay policy sai. Recommendation tốt phải định lượng impact lên service, inventory và working capital, đồng thời nêu risk triển khai.",
     "summaryEn": "An integrated planning case connects forecast error, inventory policy and service outcomes to a quantified recommendation.",
     "concepts": [
       "Problem statement",
@@ -1674,7 +1674,7 @@
         },
         {
           "heading": "Root cause vs symptom: khi con số tổng nhìn ổn nhưng vấn đề thật nằm ở một node cụ thể",
-          "body": "Một sai lầm phổ biến là dừng lại ở symptom thay vì đi tới root cause. Trong một case theo mô hình route-to-market nhiều tầng (nhà máy, kho vùng, nhà phân phối cấp 1, điểm bán), chỉ số days on hand (DOH) tổng công ty có thể trông rất lành mạnh, ví dụ 55 ngày, trong khi general trade vẫn liên tục thiếu hàng. Phân tích theo từng node cho thấy phần lớn tồn kho — ví dụ 40 trong 55 ngày — nằm ở kho vùng, trong khi nhà phân phối cấp 1, nơi trực tiếp cấp hàng cho general trade, chỉ giữ khoảng 8 ngày, không đủ để che chắn biến động nhu cầu và lead time thực tế. Việc kho vùng đổi chu kỳ cấp hàng cho nhà phân phối từ hàng tuần sang hai tuần một lần, cộng với forecast chưa cập nhật kịp một chương trình khuyến mãi tại điểm bán, khiến nhà phân phối luôn ở trạng thái thiếu hụt dù công ty nhìn tổng thể vẫn dư thừa hàng. Root cause ở đây không phải là thiếu hàng, mà là hàng nằm sai chỗ và chu kỳ bổ sung sai tần suất."
+          "body": "Một sai lầm phổ biến là dừng lại ở symptom thay vì đi tới root cause. Trong một case theo mô hình route-to-market nhiều tầng (nhà máy, kho vùng, nhà phân phối cấp 1, điểm bán), chỉ số days on hand (DOH, tương đương Days of Supply/DOS đã học ở tuần 4) tổng công ty có thể trông rất lành mạnh, ví dụ 55 ngày, trong khi general trade vẫn liên tục thiếu hàng. Phân tích theo từng node cho thấy phần lớn tồn kho — ví dụ 40 trong 55 ngày — nằm ở kho vùng, trong khi nhà phân phối cấp 1, nơi trực tiếp cấp hàng cho general trade, chỉ giữ khoảng 8 ngày, không đủ để che chắn biến động nhu cầu và lead time thực tế. Việc kho vùng đổi chu kỳ cấp hàng cho nhà phân phối từ hàng tuần sang hai tuần một lần, cộng với forecast chưa cập nhật kịp một chương trình khuyến mãi tại điểm bán, khiến nhà phân phối luôn ở trạng thái thiếu hụt dù công ty nhìn tổng thể vẫn dư thừa hàng. Root cause ở đây không phải là thiếu hàng, mà là hàng nằm sai chỗ và chu kỳ bổ sung sai tần suất."
         },
         {
           "heading": "Scenario và recommendation: lượng hóa đánh đổi trước khi đề xuất hành động",
@@ -2057,7 +2057,7 @@
       "Làm sensitivity analysis",
       "Đóng gói recommendation có risk"
     ],
-    "summary": "Project prescriptive analytics phải vượt qua câu hỏi 'model chạy chưa?'. Mày cần chứng minh dữ liệu hợp lý, constraints phản ánh thực tế, kết quả ổn định dưới scenario và recommendation có thể triển khai với owner, milestone, risk.",
+    "summary": "Project prescriptive analytics phải vượt qua câu hỏi 'model chạy chưa?'. Bạn cần chứng minh dữ liệu hợp lý, constraints phản ánh thực tế, kết quả ổn định dưới scenario và recommendation có thể triển khai với owner, milestone, risk.",
     "summaryEn": "A prescriptive analytics project is complete only when the model, assumptions, sensitivities and implementation recommendation are defensible.",
     "concepts": [
       "Model validation",
@@ -2499,7 +2499,7 @@
       "Trình bày business impact",
       "Bảo vệ assumptions và model choices"
     ],
-    "summary": "Capstone chứng minh mày có thể đi từ câu hỏi kinh doanh tới dữ liệu, model, insight và recommendation. Portfolio cần thể hiện cả cách suy nghĩ, không chỉ ảnh dashboard: problem, data, assumptions, approach, result, limitation và next step.",
+    "summary": "Capstone chứng minh bạn có thể đi từ câu hỏi kinh doanh tới dữ liệu, model, insight và recommendation. Portfolio cần thể hiện cả cách suy nghĩ, không chỉ ảnh dashboard: problem, data, assumptions, approach, result, limitation và next step.",
     "summaryEn": "The capstone proves an end-to-end ability to frame a business problem, analyse data, build a model and defend a recommendation.",
     "concepts": [
       "Portfolio narrative",

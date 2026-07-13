@@ -8,7 +8,7 @@
   {"term":"Forecast horizon","vi":"Tầm dự báo","category":"Demand","meaning":"Khoảng thời gian từ hiện tại tới kỳ đang được forecast.","example":"Horizon 13 tuần phù hợp cho một số quyết định mua hàng."},
   {"term":"Forecast bias","vi":"Độ lệch dự báo","category":"Demand","meaning":"Xu hướng forecast liên tục cao hơn hoặc thấp hơn actual.","example":"Over-forecast kéo dài có thể tạo excess inventory."},
   {"term":"Forecast Value Added (FVA)","vi":"Giá trị gia tăng dự báo","category":"Demand","meaning":"Đo xem một bước hoặc override có làm forecast tốt hơn baseline hay không.","example":"Sales override làm WAPE xấu hơn thì FVA của bước đó âm."},
-  {"term":"Lead time","vi":"Thời gian đáp ứng","category":"Planning","meaning":"Thời gian từ khi phát sinh yêu cầu đến khi hàng hoặc dịch vụ sẵn sàng.","example":"Supplier lead time là 14 ngày từ PO tới receipt."},
+  {"term":"Lead time","vi":"Thời gian chờ đáp ứng (từ đặt tới nhận)","category":"Planning","meaning":"Thời gian từ khi phát sinh yêu cầu đến khi hàng hoặc dịch vụ sẵn sàng.","example":"Supplier lead time là 14 ngày từ PO tới receipt."},
   {"term":"Service level","vi":"Mức dịch vụ","category":"Inventory","meaning":"Mức xác suất hoặc tỷ lệ đáp ứng nhu cầu theo định nghĩa đã thống nhất.","example":"A-X SKU có target cycle service level 98%."},
   {"term":"Fill rate","vi":"Tỷ lệ đáp ứng ngay","category":"KPI","meaning":"Tỷ lệ nhu cầu được đáp ứng ngay từ inventory có sẵn.","example":"Giao được 950 trên 1.000 units yêu cầu tương ứng fill rate 95%."},
   {"term":"OTIF","vi":"Đúng hạn và đủ","category":"KPI","meaning":"On Time In Full - tỷ lệ đơn giao đúng hạn và đủ số lượng.","example":"90 trong 100 đơn đạt cả hai điều kiện tạo OTIF 90%."},
