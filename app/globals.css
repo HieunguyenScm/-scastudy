@@ -1049,7 +1049,7 @@ body {
 .lesson-reader-body { padding: .5rem 1.2rem 1.2rem; }
 
 /* collapsed references panel */
-details.refs-panel { padding: 0; }
+details.refs-panel { padding: 0; display: block; }
 details.refs-panel > summary { list-style: none; cursor: pointer; padding: clamp(1rem, 2vw, 1.4rem); display: flex; align-items: baseline; gap: 1rem; }
 details.refs-panel > summary::-webkit-details-marker { display: none; }
 details.refs-panel > summary .kicker { margin: 0; }
@@ -1057,6 +1057,7 @@ details.refs-panel > summary h2 { margin: 0; font-size: 1.15rem; }
 details.refs-panel > summary::after { content: "▸"; margin-left: auto; color: #9eb5ca; }
 details.refs-panel[open] > summary::after { content: "▾"; }
 .refs-body { padding: 0 clamp(1rem, 2vw, 1.4rem) clamp(1rem, 2vw, 1.4rem); }
+.refs-body > .panel-intro { margin: .75rem 0 1.4rem; }
 .refs-body .source-reading-list { margin-top: 1.25rem; }
 .refs-body .source-reading-list details { margin-top: .5rem; border: 1px solid #e1e8ee; border-radius: .6rem; padding: .55rem .85rem; }
 .refs-body .source-reading-list summary { cursor: pointer; font-weight: 700; font-size: .85rem; }

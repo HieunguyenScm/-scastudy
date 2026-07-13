@@ -5,12 +5,12 @@ start and end of every material task.
 
 ## Active assignment
 
-- Owner: `CLAUDE`
-- Role: `REVIEWER`
+- Owner: `CODEX`
+- Role: `WRITER`
 - Branch: `lesson-ux-concise`
-- Scope: Read-only review of the new Course Home Learning Health implementation listed in the latest completed handoff.
-- Acceptance criteria: Verify pace math, latest-review aggregation, recovery ordering, learner-facing wording, responsive/accessibility basics, and that no mastery or grading rule changed.
-- Writer: `CODEX` has completed implementation and the full gate; Claude should record PASS or exact actionable findings without editing product files.
+- Scope: Fix the screenshot-reported overlap in the week-page Sources & references panel; exclusive claim on the relevant `app/globals.css` rules and regression test only.
+- Acceptance criteria: The open references panel uses one content column at desktop and mobile widths; its summary, English summary, page note, source cards, and excerpts do not overlap; no learning content or behavior changes.
+- Reviewer: Independent read-only layout audit confirmed both root causes and the scoped fix. `CLAUDE` remains queued for the previously completed Learning Health review after this urgent visual regression is integrated.
 
 ## Current product state
 
@@ -156,6 +156,25 @@ P3 — Ambiguity / minor:
   - `git diff --check` — passed.
 - Risks/open questions: Visual QA was not requested; responsive behavior is covered by the existing Course Home breakpoints and source review.
 - Next action: CLAUDE to perform the narrow read-only verification in Active assignment and record PASS or findings; Codex will integrate and publish.
+
+### 2026-07-13 — Codex — Fix Sources panel overlap
+
+- Role: Writer / integrator
+- Branch: `lesson-ux-concise`
+- Claimed files: the `details.refs-panel` rules in `app/globals.css`, `tests/layout-regressions.test.mjs`, and coordination docs.
+- Changed:
+  - Reset the references `<details>` from the generic two-column content-panel grid to a one-column block layout.
+  - Scoped a positive margin to the references page note so the generic negative intro margin no longer pulls it over the English summary.
+  - Added a targeted regression test for both layout invariants.
+- Decisions:
+  - Kept the component markup and all source content unchanged; the fix is isolated to the references panel.
+  - Used the same layout at every breakpoint instead of relying on the incidental mobile-only grid collapse.
+- Verification:
+  - `node --test tests/layout-regressions.test.mjs` — passed, 1/1.
+  - `npm run check` — passed: lint, types, production build, 14/14 site tests, 13 verified sources, 3/3 ChatGPT App tests.
+  - Independent read-only source audit — confirmed the two-column inheritance and negative margin as the two overlap causes.
+- Risks/open questions: In-app browser backend was unavailable, so visual verification used the supplied screenshot, computed layout/source inspection, responsive-rule audit, and regression coverage.
+- Next action: Codex to publish this as a production hotfix without releasing the still-pending Learning Health review scope.
 
 ## Task handoff template
 
