@@ -1,4 +1,5 @@
 import labsData from "../content/interactive-labs.json";
+import { parseNumericAnswer } from "./numeric-answer.mjs";
 
 export type LabAnswer = string | number;
 export type LabAnswers = Record<string, LabAnswer>;
@@ -142,15 +143,6 @@ export function gradeInteractiveLab(lab: InteractiveLab, answers: LabAnswers): L
   const earned = results.reduce((sum, result) => sum + result.earned, 0);
   const score = possible > 0 ? Math.round((earned / possible) * 100) : 0;
   return { score, passed: score >= lab.passScore, earned, possible, results };
-}
-
-function parseNumericAnswer(value: LabAnswer | undefined): number | null {
-  if (typeof value === "number" && Number.isFinite(value)) return value;
-  if (typeof value !== "string") return null;
-  const normalized = value.trim().replace(",", ".");
-  if (!normalized) return null;
-  const parsed = Number(normalized);
-  return Number.isFinite(parsed) ? parsed : null;
 }
 
 function normalizeText(value: string): string {

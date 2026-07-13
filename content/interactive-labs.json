@@ -85,7 +85,7 @@
     "passScore": 70,
     "questions": [
       {"id":"w6-q1","kind":"number","prompt":"Tổng sales Hồ Chí Minh là bao nhiêu?","expected":230,"tolerance":0,"unit":"units","points":35,"hint":"Cộng hai dòng Hồ Chí Minh.","explanation":"80 + 150 = 230."},
-      {"id":"w6-q2","kind":"choice","prompt":"Region nào đứng đầu?","options":["Hồ Chí Minh","Hà Nội","Bằng nhau"],"correctIndex":0,"points":35,"hint":"Hà Nội đạt 220.","explanation":"Hồ Chí Minh đạt 230, cao hơn Hà Nội 220."},
+      {"id":"w6-q2","kind":"choice","prompt":"Region nào đứng đầu?","options":["Hồ Chí Minh","Hà Nội","Bằng nhau"],"correctIndex":0,"points":35,"hint":"Cộng sales theo từng region rồi so sánh hai tổng.","explanation":"Hồ Chí Minh đạt 230, cao hơn Hà Nội 220."},
       {"id":"w6-q3","kind":"text","prompt":"Nêu hai thành phần SQL bắt buộc để tạo bảng tổng hợp.","keywords":["SUM","GROUP BY"],"minKeywords":2,"points":30,"hint":"Một hàm aggregate và một clause phân nhóm.","explanation":"Query cần SUM(Sales) và GROUP BY Region."}
     ]
   },
@@ -175,7 +175,7 @@
     "passScore": 70,
     "questions": [
       {"id":"w12-q1","kind":"number","prompt":"FVA của SKU A?","expected":5,"tolerance":0,"unit":"units","points":35,"hint":"20 - 15.","explanation":"Consensus cải thiện 5 units."},
-      {"id":"w12-q2","kind":"number","prompt":"FVA của SKU B?","expected":-8,"tolerance":0,"unit":"units","points":35,"hint":"10 - 18.","explanation":"FVA -8 nghĩa override làm tệ hơn 8 units."},
+      {"id":"w12-q2","kind":"number","prompt":"FVA có dấu của SKU B là bao nhiêu? Dùng FVA = baseline absolute error − consensus absolute error.","expected":-8,"tolerance":0,"unit":"units","points":35,"hint":"Giữ nguyên dấu của phép tính; FVA âm nghĩa là override làm forecast tệ hơn.","explanation":"FVA -8 nghĩa override làm tệ hơn 8 units."},
       {"id":"w12-q3","kind":"choice","prompt":"Override nào cần bị thách thức đầu tiên?","options":["SKU B","SKU A","SKU C"],"correctIndex":0,"points":30,"hint":"Negative FVA là tín hiệu xấu.","explanation":"SKU B có negative FVA lớn nhất."}
     ]
   },
@@ -221,7 +221,7 @@
     "questions": [
       {"id":"w15-q1","kind":"number","prompt":"ROP là bao nhiêu units?","expected":130,"tolerance":0,"unit":"units","points":35,"hint":"40 × 3 + 10.","explanation":"ROP = 130 units."},
       {"id":"w15-q2","kind":"number","prompt":"Order quantity sau khi làm tròn pack?","expected":216,"tolerance":0,"unit":"units","points":35,"hint":"Raw order 260 - 50 = 210; làm tròn lên bội số 12.","explanation":"Bội số 12 đầu tiên ≥210 là 216."},
-      {"id":"w15-q3","kind":"choice","prompt":"Vì sao phải làm tròn lên thay vì xuống 204?","options":["Để không thiếu target stock","Để tăng forecast","Vì ROP bằng 204"],"correctIndex":0,"points":30,"hint":"So 204 với raw requirement 210.","explanation":"204 không đáp ứng raw requirement 210."}
+      {"id":"w15-q3","kind":"choice","prompt":"Vì sao phải làm tròn lên thay vì xuống 204?","options":["Để không thiếu target stock","Để tăng forecast","Vì ROP bằng 204"],"correctIndex":0,"points":30,"hint":"Kiểm tra phương án làm tròn xuống có còn đáp ứng đủ nhu cầu trước khi áp dụng pack size hay không.","explanation":"204 không đáp ứng raw requirement 210."}
     ]
   },
   {
@@ -249,7 +249,7 @@
     "expectedOutput": "Feasible route plan và objective cost đã kiểm tra.",
     "passScore": 70,
     "questions": [
-      {"id":"w17-q1","kind":"number","prompt":"Optimal total cost là bao nhiêu?","expected":740,"tolerance":0,"unit":"cost units","points":40,"hint":"B→South 100; A→North 80; A→South 20.","explanation":"100×3 + 80×4 + 20×6 = 740."},
+      {"id":"w17-q1","kind":"number","prompt":"Optimal total cost là bao nhiêu?","expected":740,"tolerance":0,"unit":"cost units","points":40,"hint":"Ưu tiên các route có unit cost thấp nhất, sau đó bù phần demand còn thiếu mà không vượt supply.","explanation":"100×3 + 80×4 + 20×6 = 740."},
       {"id":"w17-q2","kind":"number","prompt":"Flow A → South là bao nhiêu units?","expected":20,"tolerance":0,"unit":"units","points":30,"hint":"South cần 120, B chỉ có supply 100.","explanation":"20 units còn thiếu của South đi từ A."},
       {"id":"w17-q3","kind":"text","prompt":"Nêu hai nhóm constraint phải được thỏa.","keywords":["supply","demand"],"minKeywords":2,"points":30,"hint":"Một phía là nguồn, một phía là nhu cầu.","explanation":"Mô hình phải tôn trọng supply capacity và demand fulfillment."}
     ]
