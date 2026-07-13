@@ -131,7 +131,7 @@
     "questions": [
       {"id":"w9-q1","kind":"number","prompt":"Naive forecast cho period 5?","expected":130,"tolerance":0,"unit":"units","points":35,"hint":"Naive dùng demand gần nhất.","explanation":"Demand period 4 là 130."},
       {"id":"w9-q2","kind":"number","prompt":"Moving average 3 kỳ cho period 5?","expected":120,"tolerance":0,"unit":"units","points":35,"hint":"Trung bình period 2–4.","explanation":"(110 + 120 + 130) / 3 = 120."},
-      {"id":"w9-q3","kind":"choice","prompt":"Model nào có absolute error thấp hơn với actual 128?","options":["Naive","Moving average","Bằng nhau"],"correctIndex":0,"points":30,"hint":"So |128-130| với |128-120|.","explanation":"Naive error 2, moving average error 8."}
+      {"id":"w9-q3","kind":"choice","prompt":"Model nào có absolute error thấp hơn với actual 128?","options":["Naive","Moving average","Bằng nhau"],"correctIndex":0,"points":30,"hint":"Tính sai số tuyệt đối của từng forecast so với actual rồi chọn sai số nhỏ hơn.","explanation":"Naive error 2, moving average error 8."}
     ]
   },
   {

@@ -5,12 +5,12 @@ start and end of every material task.
 
 ## Active assignment
 
-- Owner: `CLAUDE`
-- Role: `REVIEWER`
+- Owner: `NONE`
+- Role: `CLOSED`
 - Branch: `lesson-ux-concise`
-- Scope: Read-only verification of `lib/numeric-answer.mjs`, `tests/numeric-answer.test.mjs`, and changed prompts/hints in `content/interactive-labs.json`; no product edits.
-- Acceptance criteria: Confirm unit-suffixed/signed numeric answers are fairly parsed, w12 requires signed FVA, weeks 6/15/17 no longer leak cross-question answers, and grading keys remain unchanged.
-- Reviewer: `CODEX` will integrate after Claude records PASS or actionable findings.
+- Scope: Lab-grading fairness and cross-question hint-leakage workstream is complete.
+- Acceptance criteria: Met — natural numeric answers grade fairly, signed FVA is explicit, and identified hints no longer expose answers.
+- Reviewer: Claude PASS plus Codex regression coverage and full release gate.
 
 ## Current product state
 
@@ -99,6 +99,42 @@ P3 — Ambiguity / minor:
   - `npm run check` — passed: lint, types, production build, 7/7 site tests, 13 verified sources, 3/3 ChatGPT App tests.
 - Risks/open questions: Claude re-review is pending; no known implementation risk.
 - Next action: CLAUDE to perform the narrow read-only verification in Active assignment and record PASS or exact remaining findings.
+
+### 2026-07-13 — Claude — Verify Codex lab-grading fixes
+
+- Role: Reviewer
+- Branch: `lesson-ux-concise`
+- Claimed files (read-only): `lib/numeric-answer.mjs`, `lib/interactive-labs.ts`, `content/interactive-labs.json`, `tests/numeric-answer.test.mjs`, `package.json`.
+- Verdict: **PASS.** All four acceptance criteria met.
+- Verification performed:
+  - **Parser fairness (P1-1):** ran `parseNumericAnswer` on 26 inputs. Unit suffixes now pass (`"13.3 units"`→13.3, `"216 units"`→216, `"-8 units"`→-8, `"85%"`→85, `"740 cost units"`→740, `"3 lần"`→3). Vietnamese comma (`"13,3 units"`→13.3) and Unicode minus (`−8`, `–8`) normalized. Regressions safe: prose→null, `"units 13.3"`→null, and two-number strings (`"13 3"`, `"100 80 20"`) correctly rejected by the leading-number + non-digit-remainder guard.
+  - **Signed FVA (P1-2):** w12-q2 prompt now defines FVA = baseline − consensus abs error and instructs to keep the sign; `-8` parses correctly.
+  - **Leak fixes (P2):** confirmed w6-q2, w15-q3, w17-q1 hints no longer contain the leaked values (220 / 210 / 20). New hints are method cues only.
+  - **Keys unchanged:** diffed every question vs `193033d` — expected, tolerance, correctIndex, keywords, minKeywords, points, and passScore are byte-identical across all 24 labs. Only 5 strings changed (w6-q2 hint, w12-q2 prompt+hint, w15-q3 hint, w17-q1 hint). No explanation or answer altered.
+  - **Wiring:** `gradeInteractiveLab` imports and calls the shared parser (`lib/interactive-labs.ts:120`); no key added to the public payload.
+  - **Gate:** `node --test tests/numeric-answer.test.mjs` 3/3; `npm run check` PASS (lint, types, build, 7/7 site tests, 13 sources verified, 3/3 ChatGPT app tests).
+- New finding (P3, low priority) discovered during re-scan, not part of the original 5:
+  - **w9-q3 hint** `"So |128-130| với |128-120|"` states w9-q1's answer (naive=130) and w9-q2's answer (MA3=120). Same class as the P2 leaks but lower severity — q3 explicitly builds on q1/q2 as prerequisites and the two forecasts are the substance of q3's own error comparison. Optional to fix; suggested reword: `"So sánh sai số tuyệt đối của naive và moving average với actual 128."` Recorded in Active assignment for Codex.
+- Risks/open questions: NONE for the merged changes.
+- Next action: CODEX to optionally address w9-q3 hint or accept-as-is; then this fairness/leakage workstream is closed.
+
+### 2026-07-13 — Codex — Remove the remaining week 9 hint leak
+
+- Role: Writer / integrator
+- Branch: `lesson-ux-concise`
+- Claimed files: `content/interactive-labs.json`, `tests/lab-hints.test.mjs`, coordination docs.
+- Changed:
+  - Replaced the `w9-q3` answer-revealing arithmetic with a method-only absolute-error hint.
+  - Added a targeted regression test that rejects the prerequisite answers 120 and 130 in this hint.
+- Decisions:
+  - Kept the actual value 128 in the question, where it is required input rather than a hidden grading key.
+  - Preserved the question type, correct choice, score, explanation, and every other grading field.
+- Verification:
+  - `node --test tests/numeric-answer.test.mjs tests/lab-hints.test.mjs` — passed, 4/4.
+  - `git diff --check` — passed.
+  - `npm run check` — passed: lint, types, production build, 8/8 site tests, 13 verified sources, 3/3 ChatGPT App tests.
+- Risks/open questions: NONE.
+- Next action: Codex to publish the validated source; next product workstream can begin from Suggested queue item 3 or 4.
 
 ## Task handoff template
 
