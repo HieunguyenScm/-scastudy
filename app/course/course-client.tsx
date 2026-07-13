@@ -83,13 +83,13 @@ export default function CourseClient({ learnerName }: { learnerName: string }) {
   const progressMap = useMemo(() => new Map(state.progress.map((row) => [row.week, row])), [state.progress]);
   const submissionMap = useMemo(() => new Map(state.submissions.map((row) => [row.week, row])), [state.submissions]);
   const labMap = useMemo(() => new Map(state.labs.map((row) => [row.week, row])), [state.labs]);
-  const bestQuizMap = useMemo(() => {
-    const map = new Map<number, QuizRow>();
-    state.quizzes.forEach((row) => {
-      if (!map.has(row.module) || row.score > map.get(row.module)!.score) map.set(row.module, row);
+  const assessmentScoreMap = useMemo(() => {
+    const map = new Map<number, number>();
+    state.progress.forEach((row) => {
+      if (row.week % 4 === 0 && row.quizScore != null) map.set(row.week / 4, row.quizScore);
     });
     return map;
-  }, [state.quizzes]);
+  }, [state.progress]);
   const portfolioCaseMap = useMemo(() => {
     const map = new Map<number, CaseRow>();
     state.cases.forEach((row) => {
@@ -103,7 +103,7 @@ export default function CourseClient({ learnerName }: { learnerName: string }) {
   const lessonCount = state.progress.filter((row) => row.lessonComplete).length;
   const labPassedCount = state.labs.filter((row) => row.passed).length;
   const evidencePassedCount = state.submissions.filter((row) => row.status === "passed" || row.status === "portfolio-ready").length;
-  const quizPassedCount = Array.from(bestQuizMap.values()).filter((row) => row.score >= 80).length;
+  const quizPassedCount = Array.from(assessmentScoreMap.values()).filter((score) => score >= 80).length;
   const portfolioReadyCount = Array.from(portfolioCaseMap.values()).filter((row) => row.stage === "Portfolio-ready").length;
   const milestoneCount = lessonCount + labPassedCount + evidencePassedCount + appliedCount;
   const overallPercent = Math.round((milestoneCount / (24 * 4)) * 100);
@@ -117,7 +117,6 @@ export default function CourseClient({ learnerName }: { learnerName: string }) {
     progress: state.progress,
     labs: state.labs,
     submissions: state.submissions,
-    quizzes: state.quizzes,
     reviews: state.reviews,
   }), [state]);
 
@@ -317,14 +316,14 @@ export default function CourseClient({ learnerName }: { learnerName: string }) {
               const weekNumbers = curriculum.filter((week) => week.module === module.id).map((week) => week.week);
               const labs = weekNumbers.map((week) => labMap.get(week)).filter((row): row is LabRow => Boolean(row));
               const labAverage = labs.length ? Math.round(labs.reduce((sum, row) => sum + row.score, 0) / labs.length) : null;
-              const assessment = bestQuizMap.get(module.id);
+              const assessmentScore = assessmentScoreMap.get(module.id);
               const artifact = portfolioCaseMap.get(module.id);
-              const ready = weekNumbers.every((week) => progressMap.get(week)?.completed) && labs.filter((row) => row.passed).length === 4 && (assessment?.score ?? 0) >= 80 && artifact?.stage === "Portfolio-ready";
+              const ready = weekNumbers.every((week) => progressMap.get(week)?.completed) && labs.filter((row) => row.passed).length === 4 && (assessmentScore ?? 0) >= 80 && artifact?.stage === "Portfolio-ready";
               return (
                 <div className="gradebook-line" key={module.id}>
                   <span><small>M{module.id}</small><strong>{module.name}</strong></span>
                   <b>{labAverage == null ? "—" : `${labAverage}%`}</b>
-                  <b className={(assessment?.score ?? 0) >= 80 ? "pass-text" : ""}>{assessment ? `${assessment.score}%` : "—"}</b>
+                  <b className={(assessmentScore ?? 0) >= 80 ? "pass-text" : ""}>{assessmentScore == null ? "—" : `${assessmentScore}%`}</b>
                   <span>{artifact ? artifact.stage : "Chưa có"}</span>
                   <strong className={ready ? "module-ready" : "module-working"}>{ready ? "Module passed" : "Đang hoàn thiện"}</strong>
                 </div>

@@ -1,11 +1,10 @@
 import { sql } from "drizzle-orm";
-import { deriveProgressState } from "../../../db/mastery";
 import { getDb } from "../../../db";
 import { ensureDatabase } from "../../../db/ensure";
+import { recomputeLearningState } from "../../../db/learning-state";
 import {
   progress,
   quizAttempts,
-  type MasteryStatus,
 } from "../../../db/schema";
 import {
   ApiRequestError,
@@ -91,27 +90,6 @@ export async function POST(request: Request) {
     const total = results.length;
     const score = Math.round((correct / total) * 100);
     const moduleEndWeek = moduleNumber * 4;
-    const initialState = deriveProgressState({
-      week: moduleEndWeek,
-      confidence: 0,
-      practiceMask: 0,
-      reflection: "",
-      quizScore: score,
-      reviewCount: 0,
-    });
-    const completionCondition = sql`
-      ${progress.practiceMask} = 7
-      AND ${progress.confidence} >= 3
-      AND length(trim(${progress.reflection})) >= 20
-      AND ${score} >= 80
-    `;
-    const completedUpdate = sql<boolean>`CASE WHEN ${completionCondition} THEN 1 ELSE 0 END`;
-    const masteryUpdate = sql<MasteryStatus>`CASE
-      WHEN ${completionCondition} AND ${progress.reviewCount} >= 1 AND ${progress.confidence} >= 4
-        THEN 'mastered'
-      WHEN ${completionCondition} THEN 'completed'
-      ELSE 'in-progress'
-    END`;
 
     await ensureDatabase();
     const db = getDb();
@@ -128,27 +106,30 @@ export async function POST(request: Request) {
       .values({
         userEmail: user.email,
         week: moduleEndWeek,
-        completed: initialState.completed,
-        confidence: 0,
         quizScore: score,
-        practiceMask: 0,
-        reflection: "",
-        masteryStatus: initialState.masteryStatus,
-        reviewCount: 0,
       })
       .onConflictDoUpdate({
         target: [progress.userEmail, progress.week],
         set: {
-          quizScore: score,
-          completed: completedUpdate,
-          masteryStatus: masteryUpdate,
+          quizScore: sql<number>`MAX(COALESCE(${progress.quizScore}, -1), ${score})`,
           updatedAt: sql`CURRENT_TIMESTAMP`,
         },
       });
     await db.batch([attemptInsert, progressUpsert] as const);
+    const learningProgress = await recomputeLearningState(db, user.email, moduleEndWeek);
+    const bestScore = learningProgress?.quizScore ?? score;
 
     return jsonResponse(
-      { score, correct, total, results, requestId },
+      {
+        attempt: { score, correct, total },
+        score,
+        bestScore,
+        correct,
+        total,
+        results,
+        progress: learningProgress,
+        requestId,
+      },
       { requestId },
     );
   } catch (error) {

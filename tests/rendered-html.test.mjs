@@ -90,7 +90,7 @@ test("learning progression requires evidence and retrieval, not clicks", async (
   assert.match(mastery, /passedRetrievals/);
   assert.match(learningState, /submission.*status|evidencePassed/s);
   assert.match(learningState, /itemType === "transfer"/);
-  assert.match(learningState, /lessonComplete && row\.practiceMask === 7/);
+  assert.match(learningState, /lessonComplete\s*&&\s*row\.practiceMask === 7/);
   assert.match(retrievalRoute, /scoreRetrievalResponse/);
   assert.match(mentorRoute, /cannot issue a pass|không cấp Passed/);
   assert.match(weekLesson, /BƯỚC 1[\s\S]*Học bài/);

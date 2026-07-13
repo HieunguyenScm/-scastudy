@@ -5,7 +5,7 @@ import { buildLearningInsights } from "../lib/learning-insights.mjs";
 test("learning insights compare truthful Applied progress with the learner schedule", () => {
   const insight = buildLearningInsights({
     settings: { startDate: "2026-01-01", weeklyHours: 6 },
-    progress: [{ completed: true }, { completed: true }],
+    progress: [{ week: 1, completed: true }, { week: 2, completed: true }],
     now: "2026-01-21T12:00:00Z",
   });
 
@@ -31,10 +31,9 @@ test("learning insights prioritize recovery without inventing mastery", () => {
     settings: { startDate: "2026-01-01", weeklyHours: 5 },
     submissions: [{ week: 4, status: "needs-revision" }],
     labs: [{ week: 3, score: 60, passed: false, attemptCount: 2 }],
-    quizzes: [
-      { module: 1, score: 60 },
-      { module: 1, score: 75 },
-      { module: 2, score: 90 },
+    progress: [
+      { week: 4, quizScore: 75 },
+      { week: 8, quizScore: 90 },
     ],
     now: "2026-01-02T00:00:00Z",
   });

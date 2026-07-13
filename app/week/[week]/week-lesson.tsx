@@ -45,6 +45,7 @@ type SourceItem = {
 };
 type QuizResult = {
   attempt: { score: number; correct: number; total: number };
+  bestScore: number;
   results: Array<{ id: string; correct: boolean; correctIndex: number; explanation: string }>;
 };
 type SyncState = "loading" | "saving" | "saved" | "error";
@@ -283,6 +284,7 @@ export default function WeekLesson({
       });
       const data = (await response.json().catch(() => ({}))) as Partial<QuizResult> & {
         score?: number;
+        bestScore?: number;
         correct?: number;
         total?: number;
         error?: string;
@@ -295,11 +297,16 @@ export default function WeekLesson({
       if (!response.ok || !attempt || !Array.isArray(data.results)) {
         throw new Error(data.error ?? "Không thể chấm bài lúc này.");
       }
-      const result = { attempt, results: data.results };
+      const bestScore = typeof data.bestScore === "number" ? data.bestScore : attempt.score;
+      const result = { attempt, bestScore, results: data.results };
       setQuizResult(result);
-      setProgress((current) => ({ ...current, quizScore: result.attempt.score }));
+      setProgress((current) => ({ ...current, quizScore: result.bestScore }));
       setQuizStatus(
-        `Kết quả ${result.attempt.score}%, đúng ${result.attempt.correct}/${result.attempt.total}. ${result.attempt.score >= 80 ? "Đã đạt completion gate." : "Chưa đạt 80%, hãy xem giải thích và thử lại."}`,
+        result.attempt.score >= 80
+          ? `Kết quả lượt này ${result.attempt.score}%, đúng ${result.attempt.correct}/${result.attempt.total}. Best score ${result.bestScore}% — đã đạt completion gate.`
+          : result.bestScore >= 80
+            ? `Kết quả lượt này ${result.attempt.score}%, đúng ${result.attempt.correct}/${result.attempt.total}. Best score ${result.bestScore}% vẫn được giữ; completion gate không bị hạ.`
+            : `Kết quả lượt này ${result.attempt.score}%, đúng ${result.attempt.correct}/${result.attempt.total}. Best score ${result.bestScore}%; cần đạt 80%, hãy xem giải thích và thử lại.`,
       );
 
       try {
@@ -571,7 +578,7 @@ export default function WeekLesson({
                     <div className="quiz-result-actions">
                       <div className="quiz-result" role="status" aria-live="assertive">
                         <strong>{quizResult.attempt.score}%</strong>
-                        <div><b>{quizResult.attempt.score >= 80 ? "Đạt module assessment" : "Cần ôn và thử lại"}</b><p>Đúng {quizResult.attempt.correct}/{quizResult.attempt.total} câu.</p></div>
+                        <div><b>{quizResult.bestScore >= 80 ? "Đạt module assessment" : "Cần ôn và thử lại"}</b><p>Đúng {quizResult.attempt.correct}/{quizResult.attempt.total} câu · Best score {quizResult.bestScore}%.</p></div>
                       </div>
                       <button type="button" className="secondary-button" onClick={retryQuiz}>Làm lại assessment</button>
                     </div>

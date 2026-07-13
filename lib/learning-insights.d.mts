@@ -1,9 +1,8 @@
 export type LearningInsightInput = {
   settings?: { startDate?: string; weeklyHours?: number };
-  progress?: Array<{ completed?: boolean }>;
+  progress?: Array<{ week: number; completed?: boolean; quizScore?: number | null }>;
   labs?: Array<{ week: number; score: number; passed: boolean; attemptCount: number }>;
   submissions?: Array<{ week: number; status: string }>;
-  quizzes?: Array<{ module: number; score: number }>;
   reviews?: Array<{ submissionId: number; version: number; scores: Record<string, number>; createdAt: string }>;
   now?: string;
 };
