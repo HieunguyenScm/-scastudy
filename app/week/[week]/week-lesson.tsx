@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import { FormEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { SourceExcerpt, Week } from "../../../lib/content";
+import { curriculum, type SourceExcerpt, type Week } from "../../../lib/content";
 import TutorAnswer, { type TutorPayload } from "../../tutor-answer";
 import SubmissionWorkspace from "./submission-workspace";
 import type { LearningAsset, LessonBlock } from "../../../lib/learning";
 import type { TeachingNote } from "../../../content/teaching-notes";
 import RetrievalPractice from "./retrieval-practice";
 import LessonReader from "./lesson-reader";
+import InteractiveLab from "./interactive-lab";
+import type { PublicInteractiveLab } from "../../../lib/interactive-labs";
 
 export type LessonQuiz = {
   module: number;
@@ -114,6 +116,7 @@ export default function WeekLesson({
   lessonBlocks,
   learningAssets,
   rubric,
+  interactiveLab,
 }: {
   week: Week;
   quiz: LessonQuiz | null;
@@ -123,6 +126,7 @@ export default function WeekLesson({
   lessonBlocks: LessonBlock[];
   learningAssets: LearningAsset[];
   rubric: Array<{ id: string; label: string; weight: number }>;
+  interactiveLab: PublicInteractiveLab;
 }) {
   const [progress, setProgress] = useState<ProgressRow>(() => emptyProgress(week.week));
   const [syncState, setSyncState] = useState<SyncState>("loading");
@@ -461,12 +465,22 @@ export default function WeekLesson({
             <span>BƯỚC 3</span>
             <div><h2>Làm lab và nộp sản phẩm</h2><p>Học bằng output: hoàn thành các task, viết reflection, rồi nộp bằng chứng để mentor chấm.</p></div>
           </div>
+          <InteractiveLab
+            lab={interactiveLab}
+            onPass={(saved) => {
+              if (saved) {
+                setProgress((current) => normalizeProgress({ ...current, ...(saved as Partial<ProgressRow>) }, week.week));
+              } else {
+                queueProgress({ practiceMask: 7 });
+              }
+            }}
+          />
           <section className="content-panel practice-panel">
-            <div className="panel-index">3a</div>
+            <div className="panel-index">3b</div>
             <div>
-              <p className="kicker">PRACTICE PLAN</p>
-              <h2>Học bằng output</h2>
-              <p className="panel-intro">Đánh dấu từng task sau khi thực sự tạo được output. Mỗi thay đổi được tự động lưu.</p>
+              <p className="kicker">APPLIED WORK · FULL LEARNING PACK</p>
+              <h2>Mở rộng lab thành sản phẩm thật</h2>
+              <p className="panel-intro">Mini-lab phía trên kiểm tra logic cốt lõi. Tiếp theo, dùng workbook/dataset đầy đủ và đánh dấu từng task sau khi thực sự tạo được output.</p>
               <ol className="practice-list">
                 {week.practice.map((item, index) => {
                   const bit = 1 << index;
@@ -623,6 +637,15 @@ export default function WeekLesson({
               <button disabled={asking || !message.trim()}>{asking ? "Đang nghĩ..." : "Gửi câu hỏi ↗"}</button>
             </form>
           </div>
+          <nav className="course-outline" aria-label="Nội dung module hiện tại">
+            <div><span>COURSE OUTLINE</span><Link href="/course">Xem toàn khoá →</Link></div>
+            <strong>Module {week.module} · {week.moduleName}</strong>
+            {curriculum.filter((item) => item.module === week.module).map((item) => (
+              <Link key={item.week} href={`/week/${item.week}`} aria-current={item.week === week.week ? "page" : undefined}>
+                <span>W{String(item.week).padStart(2, "0")}</span><b>{item.title}</b>{item.week === week.week ? <em>Đang học</em> : null}
+              </Link>
+            ))}
+          </nav>
           <nav className="week-navigation" aria-label="Điều hướng giữa các tuần">
             <span>ĐIỀU HƯỚNG</span>
             {week.week > 1 ? <Link href={`/week/${week.week - 1}`}>← Tuần {String(week.week - 1).padStart(2, "0")}</Link> : null}

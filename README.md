@@ -41,7 +41,8 @@ cash-to-cash, LP, network design…), và 5 câu `selfCheck` kèm đáp án mẫ
 ## Các surface chính (`app/`)
 
 - `/` dashboard: roadmap 24 tuần, tiến độ mastery, AI tutor.
-- `/week/[week]`: bài giảng theo block (`lesson-reader.tsx`), retrieval practice (`retrieval-practice.tsx`), guided lab + submission (`submission-workspace.tsx`), quiz cuối module.
+- `/course`: Course Home theo mô hình professional certificate, gồm next action, lịch học cá nhân, syllabus 6 module, deadline 24 tuần, gradebook và điều kiện cấp chứng nhận.
+- `/week/[week]`: bài giảng theo block (`lesson-reader.tsx`), mini-lab chấm điểm trực tiếp trên web (`interactive-lab.tsx`), applied work + submission (`submission-workspace.tsx`), retrieval practice và quiz cuối module.
 - `/case-study`: workspace case kiểu tư vấn (problem → hypothesis → evidence → recommendation), chấm rubric, lưu revision.
 - `/boss/[module]`: thử thách tổng hợp cuối mỗi module.
 - `/portfolio`: evidence portfolio đã đạt.
@@ -92,7 +93,9 @@ Drizzle + Cloudflare D1. Schema (`db/schema.ts`) gồm: `progress` (mastery +
 spaced-repetition), `lesson_block_progress`, `retrieval_attempts`, `quiz_attempts`,
 `submissions` + `submission_versions`, `mentor_reviews`, `case_studies` +
 `case_revisions` (immutable qua trigger), `ai_daily_usage` + `ai_executions`
-(telemetry). `db/ensure.ts` dựng lại schema idempotent khi D1 local bị degraded.
+(telemetry), `lab_attempts` + `lab_attempt_history` (best score và lịch sử lượt
+chấm), và `course_settings` (ngày bắt đầu, cường độ học). `db/ensure.ts` dựng lại
+schema idempotent khi D1 local bị degraded.
 
 ```bash
 npm run db:generate      # sinh migration Drizzle sau khi đổi schema

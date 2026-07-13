@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
   const host = requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host");
   const protocol = requestHeaders.get("x-forwarded-proto") ?? (host?.includes("localhost") ? "http" : "https");
-  const imageUrl = host ? `${protocol}://${host}/og.png` : undefined;
+  const imageUrl = host ? `${protocol}://${host}/og-course.png` : undefined;
   return {
     title: "ctnascm — Supply Chain AI Learning OS",
     description: "Nền tảng học Supply Chain riêng tư trong 24 tuần: Demand Planning, Analytics, Planning, Optimization và Supply Chain AI.",
@@ -28,7 +28,13 @@ export async function generateMetadata(): Promise<Metadata> {
       description: "Từ intern đến Supply Chain AI trong 24 tuần.",
       type: "website",
       locale: "vi_VN",
-      images: imageUrl ? [{ url: imageUrl, width: 1680, height: 945, alt: "ctnascm Supply Chain AI Learning OS" }] : undefined,
+      images: imageUrl ? [{ url: imageUrl, width: 1672, height: 941, alt: "ctnascm Supply Chain & AI Professional Path" }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "ctnascm — Supply Chain & AI Professional Path",
+      description: "24 tuần · 6 modules · graded labs · portfolio evidence.",
+      images: imageUrl ? [imageUrl] : undefined,
     },
   };
 }

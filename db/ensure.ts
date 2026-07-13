@@ -171,6 +171,33 @@ async function initializeDevelopmentDatabase(): Promise<void> {
           passed INTEGER NOT NULL DEFAULT 0,
           created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
         )`),
+        env.DB.prepare(`CREATE TABLE IF NOT EXISTS lab_attempts (
+          user_email TEXT NOT NULL,
+          week INTEGER NOT NULL CHECK (week BETWEEN 1 AND 24),
+          answers TEXT NOT NULL DEFAULT '{}' CHECK (json_valid(answers)),
+          results TEXT NOT NULL DEFAULT '[]' CHECK (json_valid(results)),
+          score INTEGER NOT NULL DEFAULT 0 CHECK (score BETWEEN 0 AND 100),
+          passed INTEGER NOT NULL DEFAULT 0,
+          attempt_count INTEGER NOT NULL DEFAULT 0 CHECK (attempt_count >= 0),
+          updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+          PRIMARY KEY (user_email, week)
+        )`),
+        env.DB.prepare(`CREATE TABLE IF NOT EXISTS lab_attempt_history (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          user_email TEXT NOT NULL,
+          week INTEGER NOT NULL CHECK (week BETWEEN 1 AND 24),
+          answers TEXT NOT NULL CHECK (json_valid(answers)),
+          results TEXT NOT NULL CHECK (json_valid(results)),
+          score INTEGER NOT NULL CHECK (score BETWEEN 0 AND 100),
+          passed INTEGER NOT NULL,
+          created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )`),
+        env.DB.prepare(`CREATE TABLE IF NOT EXISTS course_settings (
+          user_email TEXT PRIMARY KEY NOT NULL,
+          start_date TEXT NOT NULL CHECK (length(start_date) = 10),
+          weekly_hours INTEGER NOT NULL DEFAULT 6 CHECK (weekly_hours BETWEEN 1 AND 40),
+          updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+        )`),
         env.DB.prepare(`CREATE TABLE IF NOT EXISTS lesson_block_progress (
           user_email TEXT NOT NULL,
           week INTEGER NOT NULL CHECK (week BETWEEN 1 AND 24),
@@ -210,6 +237,8 @@ async function initializeDevelopmentDatabase(): Promise<void> {
         env.DB.prepare("CREATE INDEX IF NOT EXISTS submission_versions_user_created_idx ON submission_versions(user_email, created_at)"),
         env.DB.prepare("CREATE INDEX IF NOT EXISTS mentor_reviews_submission_created_idx ON mentor_reviews(submission_id, created_at)"),
         env.DB.prepare("CREATE INDEX IF NOT EXISTS retrieval_attempts_user_week_created_idx ON retrieval_attempts(user_email, week, created_at)"),
+        env.DB.prepare("CREATE INDEX IF NOT EXISTS lab_attempts_user_passed_idx ON lab_attempts(user_email, passed)"),
+        env.DB.prepare("CREATE INDEX IF NOT EXISTS lab_attempt_history_user_week_created_idx ON lab_attempt_history(user_email, week, created_at)"),
         env.DB.prepare("CREATE INDEX IF NOT EXISTS lesson_block_progress_user_week_idx ON lesson_block_progress(user_email, week)"),
         env.DB.prepare(`CREATE TRIGGER IF NOT EXISTS case_studies_snapshot_after_insert
           AFTER INSERT ON case_studies

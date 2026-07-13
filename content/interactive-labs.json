@@ -1,0 +1,362 @@
+[
+  {
+    "week": 1,
+    "title": "Vẽ dòng chảy end-to-end",
+    "businessQuestion": "Đơn hàng FMCG mất bao lâu để đi từ supplier tới store và nút thắt nằm ở đâu?",
+    "instructions": ["Đọc bảng process theo thứ tự.", "Tính total lead time và xác định bước dài nhất.", "Viết một hành động cải thiện có owner rõ ràng."],
+    "columns": ["Process", "Lead time (days)", "Owner", "Output"],
+    "rows": [["Supplier", 4, "Procurement", "Material"], ["DC", 2, "Warehouse", "Ready-to-ship"], ["Store", 1, "Sales", "Shelf availability"]],
+    "expectedOutput": "Một process map có total lead time, bottleneck và hành động giảm lead time.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w1-q1","kind":"number","prompt":"Total lead time là bao nhiêu ngày?","expected":7,"tolerance":0,"unit":"ngày","points":40,"hint":"Cộng lead time của ba process.","explanation":"4 + 2 + 1 = 7 ngày."},
+      {"id":"w1-q2","kind":"choice","prompt":"Process nào là bottleneck hiện tại?","options":["Supplier","DC","Store"],"correctIndex":0,"points":30,"hint":"So sánh lead time giữa các bước.","explanation":"Supplier có lead time dài nhất: 4 ngày."},
+      {"id":"w1-q3","kind":"text","prompt":"Đề xuất một hành động giảm bottleneck, có nhắc đúng process và metric.","keywords":["supplier","lead time"],"minKeywords":2,"points":30,"hint":"Nêu nơi hành động và chỉ số cần giảm.","explanation":"Một khuyến nghị tốt phải nhắm supplier và đo bằng lead time."}
+    ]
+  },
+  {
+    "week": 2,
+    "title": "Đo bullwhip bằng range",
+    "businessQuestion": "Đơn đặt hàng biến động mạnh hơn nhu cầu thực bao nhiêu lần?",
+    "instructions": ["Tính max trừ min cho Demand và Orders.", "So sánh hai range.", "Chọn cơ chế gây khuếch đại hợp lý nhất."],
+    "columns": ["Week", "Consumer demand", "Orders to supplier"],
+    "rows": [[1,100,100],[2,110,130],[3,90,70],[4,105,125]],
+    "expectedOutput": "Một bullwhip diagnosis có demand range, order range và nguyên nhân.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w2-q1","kind":"number","prompt":"Demand range bằng bao nhiêu units?","expected":20,"tolerance":0,"unit":"units","points":35,"hint":"Max demand trừ min demand.","explanation":"110 - 90 = 20 units."},
+      {"id":"w2-q2","kind":"number","prompt":"Order range lớn gấp bao nhiêu lần demand range?","expected":3,"tolerance":0,"unit":"lần","points":35,"hint":"Tính order range rồi chia demand range.","explanation":"Order range = 130 - 70 = 60; 60 / 20 = 3 lần."},
+      {"id":"w2-q3","kind":"choice","prompt":"Hành vi nào dễ tạo bullwhip nhất?","options":["Batch ordering và phản ứng quá mức","Bán đúng bằng nhu cầu","Rút ngắn review cycle"],"correctIndex":0,"points":30,"hint":"Tìm hành vi làm tín hiệu bị phóng đại.","explanation":"Đặt theo lô và phản ứng quá mức khuếch đại tín hiệu demand."}
+    ]
+  },
+  {
+    "week": 3,
+    "title": "Inventory policy calculator",
+    "businessQuestion": "SKU chủ lực cần reorder ở mức nào và lot size kinh tế là bao nhiêu?",
+    "instructions": ["Tính ROP = demand/ngày × lead time + safety stock.", "Tính EOQ = √(2DS/H).", "Giải thích trade-off khi tăng service level."],
+    "columns": ["Daily demand", "Lead time", "Safety stock", "Annual demand", "Order cost", "Holding cost"],
+    "rows": [[50,4,30,18000,120,9]],
+    "expectedOutput": "Inventory policy gồm ROP, EOQ và recommendation về service-cost trade-off.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w3-q1","kind":"number","prompt":"Reorder point (ROP) là bao nhiêu units?","expected":230,"tolerance":0,"unit":"units","points":35,"hint":"50 × 4 rồi cộng 30.","explanation":"ROP = 50 × 4 + 30 = 230 units."},
+      {"id":"w3-q2","kind":"number","prompt":"EOQ xấp xỉ bao nhiêu units?","expected":693,"tolerance":2,"unit":"units","points":35,"hint":"√(2 × 18,000 × 120 / 9).","explanation":"EOQ ≈ √480,000 ≈ 693 units."},
+      {"id":"w3-q3","kind":"choice","prompt":"Tăng service level thường tác động thế nào?","options":["Tăng safety stock và holding cost","Giảm safety stock về 0","Không đổi tồn kho"],"correctIndex":0,"points":30,"hint":"Service cao cần buffer lớn hơn.","explanation":"Service level cao thường yêu cầu safety stock lớn hơn và tăng chi phí giữ hàng."}
+    ]
+  },
+  {
+    "week": 4,
+    "title": "KPI control tower",
+    "businessQuestion": "Service gap lớn nhất đang nằm ở OTIF hay fill rate?",
+    "instructions": ["Tính OTIF trên tổng orders.", "Tính fill rate trên requested units.", "So sánh với target để ưu tiên hành động."],
+    "columns": ["Orders", "OTIF orders", "Requested units", "Delivered units", "OTIF target", "Fill target"],
+    "rows": [[200,170,1000,950,"95%","98%"]],
+    "expectedOutput": "KPI card có actual, target, gap và một ưu tiên điều hành.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w4-q1","kind":"number","prompt":"OTIF actual là bao nhiêu %?","expected":85,"tolerance":0,"unit":"%","points":35,"hint":"170 / 200 × 100.","explanation":"OTIF = 170 / 200 = 85%."},
+      {"id":"w4-q2","kind":"number","prompt":"Fill rate actual là bao nhiêu %?","expected":95,"tolerance":0,"unit":"%","points":35,"hint":"950 / 1,000 × 100.","explanation":"Fill rate = 95%."},
+      {"id":"w4-q3","kind":"choice","prompt":"KPI nào có gap lớn hơn so với target?","options":["OTIF","Fill rate","Hai gap bằng nhau"],"correctIndex":0,"points":30,"hint":"So actual với target theo percentage point.","explanation":"OTIF gap 10 điểm %, fill-rate gap 3 điểm %."}
+    ]
+  },
+  {
+    "week": 5,
+    "title": "Data quality triage",
+    "businessQuestion": "Dataset supplier có đủ sạch để dùng cho phân tích lead time không?",
+    "instructions": ["Tìm record trùng khóa.", "Tìm giá trị thiếu ở trường quan trọng.", "Xác định grain trước khi làm sạch."],
+    "columns": ["PO", "SKU", "Supplier", "Lead time"],
+    "rows": [["PO01","A","S1",4],["PO02","B","S2",8],["PO02","B","S2",8],["PO03","C","S1",null]],
+    "expectedOutput": "Data-quality log có duplicate, missing value, grain và cleaning rule.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w5-q1","kind":"number","prompt":"Có bao nhiêu dòng duplicate cần loại?","expected":1,"tolerance":0,"unit":"dòng","points":35,"hint":"Giữ một bản ghi PO02 và đếm bản thừa.","explanation":"PO02 xuất hiện hai lần giống hệt nhau, nên có một dòng thừa."},
+      {"id":"w5-q2","kind":"number","prompt":"Có bao nhiêu lead-time value bị thiếu?","expected":1,"tolerance":0,"unit":"value","points":35,"hint":"Quan sát cột Lead time.","explanation":"PO03 có lead time null."},
+      {"id":"w5-q3","kind":"text","prompt":"Nêu grain của bảng bằng hai trường khóa chính.","keywords":["PO","SKU"],"minKeywords":2,"points":30,"hint":"Mỗi dòng mô tả một SKU trên một chứng từ nào?","explanation":"Grain phù hợp là một dòng cho mỗi PO–SKU."}
+    ]
+  },
+  {
+    "week": 6,
+    "title": "SQL sales aggregation",
+    "businessQuestion": "Region nào có doanh số cao nhất và query phải group ở cấp nào?",
+    "instructions": ["Cộng sales theo Region.", "Xếp hạng kết quả.", "Nêu các SQL clause cần dùng."],
+    "columns": ["Order", "Region", "Sales"],
+    "rows": [["O1","Hà Nội",100],["O2","Hồ Chí Minh",80],["O3","Hà Nội",120],["O4","Hồ Chí Minh",150]],
+    "expectedOutput": "Một aggregate query và bảng sales by region đã kiểm tra.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w6-q1","kind":"number","prompt":"Tổng sales Hồ Chí Minh là bao nhiêu?","expected":230,"tolerance":0,"unit":"units","points":35,"hint":"Cộng hai dòng Hồ Chí Minh.","explanation":"80 + 150 = 230."},
+      {"id":"w6-q2","kind":"choice","prompt":"Region nào đứng đầu?","options":["Hồ Chí Minh","Hà Nội","Bằng nhau"],"correctIndex":0,"points":35,"hint":"Hà Nội đạt 220.","explanation":"Hồ Chí Minh đạt 230, cao hơn Hà Nội 220."},
+      {"id":"w6-q3","kind":"text","prompt":"Nêu hai thành phần SQL bắt buộc để tạo bảng tổng hợp.","keywords":["SUM","GROUP BY"],"minKeywords":2,"points":30,"hint":"Một hàm aggregate và một clause phân nhóm.","explanation":"Query cần SUM(Sales) và GROUP BY Region."}
+    ]
+  },
+  {
+    "week": 7,
+    "title": "Pandas supplier profile",
+    "businessQuestion": "Supplier nào có lead time trung bình cao và biến động đáng chú ý?",
+    "instructions": ["Group dữ liệu theo Supplier.", "Tính mean và max lead time.", "Chọn supplier cần điều tra."],
+    "columns": ["Shipment", "Supplier", "Lead time"],
+    "rows": [["S01","A",4],["S02","A",6],["S03","B",8],["S04","B",10]],
+    "expectedOutput": "Pandas summary table theo supplier và một exception flag.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w7-q1","kind":"number","prompt":"Mean lead time của supplier A?","expected":5,"tolerance":0,"unit":"ngày","points":35,"hint":"(4 + 6) / 2.","explanation":"Mean của A là 5 ngày."},
+      {"id":"w7-q2","kind":"number","prompt":"Max lead time của supplier B?","expected":10,"tolerance":0,"unit":"ngày","points":35,"hint":"Lấy giá trị lớn nhất của hai shipment B.","explanation":"Max của B là 10 ngày."},
+      {"id":"w7-q3","kind":"choice","prompt":"Pandas pattern nào phù hợp nhất?","options":["groupby().agg()","drop_duplicates() duy nhất","sort_values() duy nhất"],"correctIndex":0,"points":30,"hint":"Cần phân nhóm rồi tính nhiều metric.","explanation":"groupby().agg() tạo mean và max theo supplier."}
+    ]
+  },
+  {
+    "week": 8,
+    "title": "Executive variance story",
+    "businessQuestion": "Category nào tạo forecast gap lớn nhất và headline nên nói gì?",
+    "instructions": ["Tính Forecast minus Actual cho từng category.", "Xác định contributor lớn nhất.", "Viết action title thay vì title mô tả."],
+    "columns": ["Category", "Forecast", "Actual"],
+    "rows": [["Beverage",120,100],["Snack",90,100],["Dairy",110,110]],
+    "expectedOutput": "Một chart-ready table và action title cho management.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w8-q1","kind":"number","prompt":"Net over-forecast toàn portfolio là bao nhiêu units?","expected":10,"tolerance":0,"unit":"units","points":35,"hint":"Cộng forecast rồi trừ tổng actual.","explanation":"320 - 310 = 10 units over-forecast."},
+      {"id":"w8-q2","kind":"choice","prompt":"Category đóng góp over-forecast lớn nhất?","options":["Beverage","Snack","Dairy"],"correctIndex":0,"points":35,"hint":"Tính Forecast - Actual từng dòng.","explanation":"Beverage over-forecast 20 units."},
+      {"id":"w8-q3","kind":"text","prompt":"Viết headline có category và hành động cần làm.","keywords":["Beverage","forecast"],"minKeywords":2,"points":30,"hint":"Headline phải nói rõ đối tượng và quyết định.","explanation":"Headline tốt nêu Beverage là driver và yêu cầu điều chỉnh forecast."}
+    ]
+  },
+  {
+    "week": 9,
+    "title": "Baseline forecast showdown",
+    "businessQuestion": "Naive hay moving average là baseline tốt hơn cho kỳ kế tiếp?",
+    "instructions": ["Tạo naive forecast từ kỳ gần nhất.", "Tính moving average 3 kỳ.", "So sai số với actual kỳ 5."],
+    "columns": ["Period", "Demand"],
+    "rows": [[1,100],[2,110],[3,120],[4,130],[5,128]],
+    "expectedOutput": "Baseline comparison có forecast, error và lựa chọn model.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w9-q1","kind":"number","prompt":"Naive forecast cho period 5?","expected":130,"tolerance":0,"unit":"units","points":35,"hint":"Naive dùng demand gần nhất.","explanation":"Demand period 4 là 130."},
+      {"id":"w9-q2","kind":"number","prompt":"Moving average 3 kỳ cho period 5?","expected":120,"tolerance":0,"unit":"units","points":35,"hint":"Trung bình period 2–4.","explanation":"(110 + 120 + 130) / 3 = 120."},
+      {"id":"w9-q3","kind":"choice","prompt":"Model nào có absolute error thấp hơn với actual 128?","options":["Naive","Moving average","Bằng nhau"],"correctIndex":0,"points":30,"hint":"So |128-130| với |128-120|.","explanation":"Naive error 2, moving average error 8."}
+    ]
+  },
+  {
+    "week": 10,
+    "title": "Forecast accuracy diagnostics",
+    "businessQuestion": "Forecast có chính xác và có bias hệ thống hay không?",
+    "instructions": ["Tính absolute error từng kỳ.", "Tính MAE và WAPE.", "Kiểm tra tổng signed error."],
+    "columns": ["Period", "Forecast", "Actual"],
+    "rows": [[1,100,110],[2,120,100],[3,90,100]],
+    "expectedOutput": "Accuracy scorecard gồm MAE, WAPE và bias diagnosis.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w10-q1","kind":"number","prompt":"MAE bằng bao nhiêu units?","expected":13.3,"tolerance":0.2,"unit":"units","points":35,"hint":"Mean của 10, 20 và 10.","explanation":"MAE = 40 / 3 ≈ 13.3."},
+      {"id":"w10-q2","kind":"number","prompt":"WAPE bằng bao nhiêu %?","expected":12.9,"tolerance":0.2,"unit":"%","points":35,"hint":"40 / tổng actual 310 × 100.","explanation":"WAPE ≈ 12.9%."},
+      {"id":"w10-q3","kind":"choice","prompt":"Tổng signed error Forecast − Actual cho thấy gì?","options":["Net bias bằng 0","Over-forecast bias","Under-forecast bias"],"correctIndex":0,"points":30,"hint":"Cộng -10, +20, -10.","explanation":"Tổng signed error bằng 0; sample này không có net bias."}
+    ]
+  },
+  {
+    "week": 11,
+    "title": "Multi-SKU exception queue",
+    "businessQuestion": "SKU nào nên được planner xử lý trước thay vì chỉ nhìn phần trăm error?",
+    "instructions": ["Tính absolute error theo SKU.", "Tính portfolio WAPE.", "Ưu tiên exception theo impact kinh doanh."],
+    "columns": ["SKU", "Actual", "Forecast", "Revenue weight"],
+    "rows": [["A",100,90,"High"],["B",200,250,"High"],["C",50,80,"Low"]],
+    "expectedOutput": "Exception queue có error, value weight và priority reason.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w11-q1","kind":"choice","prompt":"SKU nào có absolute unit error lớn nhất?","options":["A","B","C"],"correctIndex":1,"points":35,"hint":"So 10, 50 và 30 units.","explanation":"SKU B sai 50 units."},
+      {"id":"w11-q2","kind":"number","prompt":"Portfolio WAPE là bao nhiêu %?","expected":25.7,"tolerance":0.2,"unit":"%","points":35,"hint":"Tổng absolute error 90 chia total actual 350.","explanation":"90 / 350 × 100 ≈ 25.7%."},
+      {"id":"w11-q3","kind":"text","prompt":"Giải thích ngắn vì sao SKU B nên được ưu tiên.","keywords":["B","impact"],"minKeywords":2,"points":30,"hint":"Nhắc SKU và business impact, không chỉ percentage.","explanation":"B vừa có unit error lớn nhất vừa có revenue weight cao nên impact lớn."}
+    ]
+  },
+  {
+    "week": 12,
+    "title": "Forecast Value Add review",
+    "businessQuestion": "Consensus override nào tạo giá trị và override nào làm forecast tệ hơn?",
+    "instructions": ["Tính FVA = baseline absolute error − consensus absolute error.", "Tách positive và negative FVA.", "Đề xuất rule cho override."],
+    "columns": ["SKU", "Baseline abs error", "Consensus abs error"],
+    "rows": [["A",20,15],["B",10,18],["C",15,12]],
+    "expectedOutput": "FVA table và recommendation giữ/bỏ override.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w12-q1","kind":"number","prompt":"FVA của SKU A?","expected":5,"tolerance":0,"unit":"units","points":35,"hint":"20 - 15.","explanation":"Consensus cải thiện 5 units."},
+      {"id":"w12-q2","kind":"number","prompt":"FVA của SKU B?","expected":-8,"tolerance":0,"unit":"units","points":35,"hint":"10 - 18.","explanation":"FVA -8 nghĩa override làm tệ hơn 8 units."},
+      {"id":"w12-q3","kind":"choice","prompt":"Override nào cần bị thách thức đầu tiên?","options":["SKU B","SKU A","SKU C"],"correctIndex":0,"points":30,"hint":"Negative FVA là tín hiệu xấu.","explanation":"SKU B có negative FVA lớn nhất."}
+    ]
+  },
+  {
+    "week": 13,
+    "title": "Planning hierarchy disaggregation",
+    "businessQuestion": "Family plan phải được phân rã xuống SKU và tuần như thế nào?",
+    "instructions": ["Phân bổ family volume theo product mix.", "Phân bổ tháng theo weekly profile.", "Chọn planning cadence đúng tầng."],
+    "columns": ["Family monthly", "SKU A mix", "SKU B mix", "Weekly profile"],
+    "rows": [[10000,"60%","40%","25% each week"]],
+    "expectedOutput": "Disaggregation bridge từ family-month tới SKU-week.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w13-q1","kind":"number","prompt":"Monthly volume của SKU B?","expected":4000,"tolerance":0,"unit":"units","points":35,"hint":"10,000 × 40%.","explanation":"SKU B nhận 4,000 units."},
+      {"id":"w13-q2","kind":"number","prompt":"Weekly volume của SKU A?","expected":1500,"tolerance":0,"unit":"units","points":35,"hint":"10,000 × 60% × 25%.","explanation":"SKU A mỗi tuần = 1,500 units."},
+      {"id":"w13-q3","kind":"choice","prompt":"Cadence phù hợp cho S&OP family plan?","options":["Monthly","Mỗi phút","Chỉ cuối năm"],"correctIndex":0,"points":30,"hint":"S&OP thường cân bằng tactical plan theo tháng.","explanation":"Family-level S&OP thường chạy theo monthly cadence."}
+    ]
+  },
+  {
+    "week": 14,
+    "title": "ABC/XYZ policy design",
+    "businessQuestion": "SKU nào cần policy kiểm soát chặt nhất dựa trên value và variability?",
+    "instructions": ["So sánh annual consumption value.", "Gán X/Y/Z từ coefficient of variation.", "Chọn policy cho SKU high-value stable."],
+    "columns": ["SKU", "Annual value", "CV", "Variability class"],
+    "rows": [["A",100000,0.2,"X"],["B",40000,1.1,"Z"],["C",15000,0.6,"Y"]],
+    "expectedOutput": "Segmentation matrix và policy khác biệt theo segment.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w14-q1","kind":"choice","prompt":"SKU nào có annual value cao nhất?","options":["A","B","C"],"correctIndex":0,"points":35,"hint":"So cột Annual value.","explanation":"SKU A có annual value 100,000."},
+      {"id":"w14-q2","kind":"choice","prompt":"SKU nào thuộc nhóm biến động Z?","options":["B","A","C"],"correctIndex":0,"points":35,"hint":"Z có CV cao nhất.","explanation":"SKU B có CV 1.1 và được gán Z."},
+      {"id":"w14-q3","kind":"text","prompt":"Nêu policy phù hợp cho SKU A/X bằng hai ý.","keywords":["service","review"],"minKeywords":2,"points":30,"hint":"Nghĩ về service target và review frequency.","explanation":"A/X thường cần service cao và review thường xuyên vì giá trị lớn, demand ổn định."}
+    ]
+  },
+  {
+    "week": 15,
+    "title": "Replenishment under constraints",
+    "businessQuestion": "Khi chạm reorder point, phải order bao nhiêu sau khi làm tròn pack size?",
+    "instructions": ["Tính ROP.", "Tính raw order tới target stock.", "Làm tròn lên theo pack size."],
+    "columns": ["Daily demand", "Lead time", "Safety stock", "Target stock", "On hand", "Pack size"],
+    "rows": [[40,3,10,260,50,12]],
+    "expectedOutput": "Replenishment recommendation có trigger, raw quantity và constrained quantity.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w15-q1","kind":"number","prompt":"ROP là bao nhiêu units?","expected":130,"tolerance":0,"unit":"units","points":35,"hint":"40 × 3 + 10.","explanation":"ROP = 130 units."},
+      {"id":"w15-q2","kind":"number","prompt":"Order quantity sau khi làm tròn pack?","expected":216,"tolerance":0,"unit":"units","points":35,"hint":"Raw order 260 - 50 = 210; làm tròn lên bội số 12.","explanation":"Bội số 12 đầu tiên ≥210 là 216."},
+      {"id":"w15-q3","kind":"choice","prompt":"Vì sao phải làm tròn lên thay vì xuống 204?","options":["Để không thiếu target stock","Để tăng forecast","Vì ROP bằng 204"],"correctIndex":0,"points":30,"hint":"So 204 với raw requirement 210.","explanation":"204 không đáp ứng raw requirement 210."}
+    ]
+  },
+  {
+    "week": 16,
+    "title": "FMCG promotion case",
+    "businessQuestion": "Promo override có cải thiện forecast và nên giữ assumption nào?",
+    "instructions": ["So baseline và final forecast với actual.", "Tính improvement về absolute error.", "Ghi assumption promo có thể kiểm chứng."],
+    "columns": ["Baseline forecast", "Promo uplift", "Final forecast", "Actual"],
+    "rows": [[110,15,125,120]],
+    "expectedOutput": "Case memo có baseline, scenario, error comparison và recommendation.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w16-q1","kind":"number","prompt":"Final forecast over actual bao nhiêu units?","expected":5,"tolerance":0,"unit":"units","points":35,"hint":"125 - 120.","explanation":"Final forecast over 5 units."},
+      {"id":"w16-q2","kind":"number","prompt":"Override cải thiện absolute error bao nhiêu units?","expected":5,"tolerance":0,"unit":"units","points":35,"hint":"Baseline error 10; final error 5.","explanation":"Absolute error giảm từ 10 xuống 5, cải thiện 5 units."},
+      {"id":"w16-q3","kind":"text","prompt":"Nêu assumption cần lưu cho lần promo sau.","keywords":["promo","uplift"],"minKeywords":2,"points":30,"hint":"Nêu event và tác động dự kiến.","explanation":"Assumption log cần ghi promo uplift để so với actual và học cho chu kỳ sau."}
+    ]
+  },
+  {
+    "week": 17,
+    "title": "Transportation optimization",
+    "businessQuestion": "Phân bổ 200 units thế nào để đủ demand với chi phí nhỏ nhất?",
+    "instructions": ["Ưu tiên route chi phí thấp nhưng tôn trọng supply/demand.", "Tính flow từng route.", "Tính total transportation cost."],
+    "columns": ["Route", "Unit cost", "Capacity"],
+    "rows": [["A → North",4,100],["A → South",6,100],["B → North",5,80],["B → South",3,120],["Supply A/B","100 / 100",200],["Demand North/South","80 / 120",200]],
+    "expectedOutput": "Feasible route plan và objective cost đã kiểm tra.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w17-q1","kind":"number","prompt":"Optimal total cost là bao nhiêu?","expected":740,"tolerance":0,"unit":"cost units","points":40,"hint":"B→South 100; A→North 80; A→South 20.","explanation":"100×3 + 80×4 + 20×6 = 740."},
+      {"id":"w17-q2","kind":"number","prompt":"Flow A → South là bao nhiêu units?","expected":20,"tolerance":0,"unit":"units","points":30,"hint":"South cần 120, B chỉ có supply 100.","explanation":"20 units còn thiếu của South đi từ A."},
+      {"id":"w17-q3","kind":"text","prompt":"Nêu hai nhóm constraint phải được thỏa.","keywords":["supply","demand"],"minKeywords":2,"points":30,"hint":"Một phía là nguồn, một phía là nhu cầu.","explanation":"Mô hình phải tôn trọng supply capacity và demand fulfillment."}
+    ]
+  },
+  {
+    "week": 18,
+    "title": "Network design scenario",
+    "businessQuestion": "Mở DC mới có đồng thời giảm cost và tăng service không?",
+    "instructions": ["Tính total cost từng scenario.", "So cost saving và service uplift.", "Chọn scenario và nêu trade-off."],
+    "columns": ["Scenario", "Fixed cost", "Transport cost", "Service"],
+    "rows": [["Current",200,500,"92%"],["New DC",350,300,"97%"]],
+    "expectedOutput": "Scenario comparison và network recommendation.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w18-q1","kind":"number","prompt":"Total cost của New DC?","expected":650,"tolerance":0,"unit":"cost units","points":35,"hint":"350 + 300.","explanation":"New DC total cost = 650."},
+      {"id":"w18-q2","kind":"number","prompt":"New DC tiết kiệm bao nhiêu so với Current?","expected":50,"tolerance":0,"unit":"cost units","points":35,"hint":"Current total 700 trừ New DC 650.","explanation":"Tiết kiệm 50 cost units."},
+      {"id":"w18-q3","kind":"choice","prompt":"Scenario nào dominate trong bảng này?","options":["New DC","Current","Không thể so"],"correctIndex":0,"points":30,"hint":"Một phương án vừa rẻ hơn vừa service cao hơn.","explanation":"New DC giảm cost 50 và tăng service 5 điểm %."}
+    ]
+  },
+  {
+    "week": 19,
+    "title": "Warehouse simulation experiment",
+    "businessQuestion": "Thêm nhân sự tới mức nào thì bắt đầu có diminishing returns?",
+    "instructions": ["So throughput và wait time theo staffing.", "Tính marginal throughput.", "Chọn knee point thay vì tối đa mù quáng."],
+    "columns": ["Staff", "Throughput/hour", "Wait minutes"],
+    "rows": [[3,210,18],[4,270,12],[5,315,8],[6,325,7]],
+    "expectedOutput": "Experiment result có baseline, marginal gain và staffing recommendation.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w19-q1","kind":"number","prompt":"Marginal throughput từ 5 lên 6 staff?","expected":10,"tolerance":0,"unit":"units/hour","points":35,"hint":"325 - 315.","explanation":"Chỉ tăng thêm 10 units/hour."},
+      {"id":"w19-q2","kind":"number","prompt":"Wait time giảm bao nhiêu % từ 3 lên 5 staff?","expected":55.6,"tolerance":0.3,"unit":"%","points":35,"hint":"(18 - 8) / 18 × 100.","explanation":"Wait giảm khoảng 55.6%."},
+      {"id":"w19-q3","kind":"choice","prompt":"Knee point hợp lý nhất?","options":["5 staff","6 staff","3 staff"],"correctIndex":0,"points":30,"hint":"Sau điểm này marginal gain tụt mạnh.","explanation":"5 staff cân bằng throughput và wait; người thứ 6 chỉ tăng 10 units/hour."}
+    ]
+  },
+  {
+    "week": 20,
+    "title": "Prescriptive scenario decision",
+    "businessQuestion": "Scenario nào tạo profit tốt nhưng vẫn bảo vệ service target 90%?",
+    "instructions": ["Loại scenario vi phạm service floor.", "So profit của các phương án còn lại.", "Viết recommendation có guardrail."],
+    "columns": ["Scenario", "Profit", "Service"],
+    "rows": [["Base",100,"92%"],["Aggressive promo",120,"82%"],["Balanced",115,"95%"]],
+    "expectedOutput": "Decision memo có objective, constraint và selected scenario.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w20-q1","kind":"choice","prompt":"Scenario nào tối ưu khi service phải ≥90%?","options":["Balanced","Aggressive promo","Base"],"correctIndex":0,"points":40,"hint":"Loại scenario service 82%, rồi so profit.","explanation":"Balanced đạt profit 115 và service 95%."},
+      {"id":"w20-q2","kind":"number","prompt":"Balanced tăng profit bao nhiêu so với Base?","expected":15,"tolerance":0,"unit":"profit units","points":30,"hint":"115 - 100.","explanation":"Profit tăng 15."},
+      {"id":"w20-q3","kind":"number","prompt":"Balanced tăng service bao nhiêu percentage points so với Base?","expected":3,"tolerance":0,"unit":"pp","points":30,"hint":"95% - 92%.","explanation":"Service tăng 3 điểm phần trăm."}
+    ]
+  },
+  {
+    "week": 21,
+    "title": "Cost-to-serve segmentation",
+    "businessQuestion": "Channel nào đang phá margin và cần commercial action?",
+    "instructions": ["Tính contribution margin.", "Tính margin rate.", "Chọn policy theo cost-to-serve driver."],
+    "columns": ["Channel", "Revenue", "Cost-to-serve"],
+    "rows": [["Modern trade",1000,850],["E-commerce",800,760],["Traditional",700,560]],
+    "expectedOutput": "Channel profitability view và action cho segment kém hiệu quả.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w21-q1","kind":"number","prompt":"E-commerce margin rate là bao nhiêu %?","expected":5,"tolerance":0,"unit":"%","points":35,"hint":"(800 - 760) / 800 × 100.","explanation":"E-commerce margin = 40, tương đương 5%."},
+      {"id":"w21-q2","kind":"choice","prompt":"Channel nào có margin rate cao nhất?","options":["Traditional","Modern trade","E-commerce"],"correctIndex":0,"points":35,"hint":"Traditional margin = 140 trên revenue 700.","explanation":"Traditional đạt 20%, cao nhất."},
+      {"id":"w21-q3","kind":"text","prompt":"Đề xuất một commercial lever cho E-commerce.","keywords":["minimum order","delivery"],"minKeywords":1,"points":30,"hint":"Giảm delivery cost trên mỗi order hoặc thu hồi chi phí.","explanation":"Ví dụ: minimum-order threshold hoặc delivery fee để giảm cost-to-serve."}
+    ]
+  },
+  {
+    "week": 22,
+    "title": "AI planner guardrails",
+    "businessQuestion": "AI alert có đủ chính xác để tự động hóa và ở đâu cần human-in-the-loop?",
+    "instructions": ["Tính precision của alert.", "Tính acceptance rate.", "Đặt guardrail theo impact và confidence."],
+    "columns": ["Alerts", "Correct alerts", "Executed", "Overridden"],
+    "rows": [[50,40,30,20]],
+    "expectedOutput": "AI scorecard có precision, acceptance và escalation rule.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w22-q1","kind":"number","prompt":"Alert precision là bao nhiêu %?","expected":80,"tolerance":0,"unit":"%","points":35,"hint":"40 / 50 × 100.","explanation":"Precision = 80%."},
+      {"id":"w22-q2","kind":"number","prompt":"Acceptance rate là bao nhiêu %?","expected":60,"tolerance":0,"unit":"%","points":35,"hint":"30 executed trên 50 quyết định.","explanation":"Acceptance = 60%."},
+      {"id":"w22-q3","kind":"choice","prompt":"Trường hợp nào bắt buộc human review?","options":["High-impact, low-confidence decision","Low-impact, high-confidence reorder","Mọi alert đều tự động"],"correctIndex":0,"points":30,"hint":"Kết hợp rủi ro và độ chắc chắn.","explanation":"Quyết định impact cao nhưng confidence thấp cần con người phê duyệt."}
+    ]
+  },
+  {
+    "week": 23,
+    "title": "Systems leverage map",
+    "businessQuestion": "Firefighting đang tự khuếch đại như thế nào và can thiệp ở đâu?",
+    "instructions": ["Đọc chuỗi quan hệ nhân quả.", "Phân loại reinforcing/balancing loop.", "Chọn leverage point tác động vào nguyên nhân."],
+    "columns": ["From", "Effect", "To"],
+    "rows": [["Demand spike","increases","Expedite"],["Expedite","increases","Capacity pressure"],["Capacity pressure","increases","Delay"],["Delay","increases","More expedite"]],
+    "expectedOutput": "Causal loop map, leverage point và executive storyline.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w23-q1","kind":"choice","prompt":"Đây là loại feedback loop nào?","options":["Reinforcing","Balancing","Không có feedback"],"correctIndex":0,"points":35,"hint":"Kết quả quay lại làm hành vi ban đầu mạnh hơn.","explanation":"Delay tạo thêm expedite, tiếp tục tăng pressure: reinforcing loop."},
+      {"id":"w23-q2","kind":"choice","prompt":"Leverage point tốt hơn firefighting là gì?","options":["Giảm demand batching và ổn định planning cadence","Expedite mọi đơn","Tăng số dashboard"],"correctIndex":0,"points":35,"hint":"Can thiệp vào nguồn gây biến động.","explanation":"Giảm batching và ổn định cadence xử lý nguyên nhân thay vì triệu chứng."},
+      {"id":"w23-q3","kind":"text","prompt":"Viết một action title có loop và leverage point.","keywords":["expedite","planning"],"minKeywords":2,"points":30,"hint":"Nêu vòng lặp cần phá và hành động hệ thống.","explanation":"Storyline tốt kết nối expedite loop với cải thiện planning cadence."}
+    ]
+  },
+  {
+    "week": 24,
+    "title": "Capstone readiness review",
+    "businessQuestion": "Portfolio đã đủ chuẩn trình bày và điểm yếu nào phải sửa trước demo?",
+    "instructions": ["Tính weighted rubric score.", "Tìm tiêu chí yếu nhất.", "Viết CV bullet theo action–method–impact."],
+    "columns": ["Criterion", "Score", "Weight"],
+    "rows": [["Logic",80,"30%"],["Evidence",80,"30%"],["Action",85,"25%"],["Communication",70,"15%"]],
+    "expectedOutput": "Capstone score, revision priority và project demo/CV narrative.",
+    "passScore": 70,
+    "questions": [
+      {"id":"w24-q1","kind":"number","prompt":"Weighted rubric score là bao nhiêu?","expected":79.8,"tolerance":0.1,"unit":"/100","points":40,"hint":"Nhân từng score với weight rồi cộng.","explanation":"80×.30 + 80×.30 + 85×.25 + 70×.15 = 79.75 ≈ 79.8."},
+      {"id":"w24-q2","kind":"choice","prompt":"Tiêu chí nào cần ưu tiên revision?","options":["Communication","Action","Logic"],"correctIndex":0,"points":30,"hint":"Tìm score thấp nhất.","explanation":"Communication có score thấp nhất: 70."},
+      {"id":"w24-q3","kind":"text","prompt":"Viết cấu trúc CV bullet bằng ba thành phần bắt buộc.","keywords":["action","method","impact"],"minKeywords":3,"points":30,"hint":"Bạn đã làm gì, bằng cách nào, tạo kết quả gì?","explanation":"CV bullet mạnh theo cấu trúc action–method–impact."}
+    ]
+  }
+]

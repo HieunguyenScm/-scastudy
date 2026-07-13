@@ -5,6 +5,7 @@ import SiteNavigation from "../../site-navigation";
 import WeekLesson, { type LessonQuiz } from "./week-lesson";
 import { getLearningAssets, getLessonBlocks, getRubric } from "../../../lib/learning";
 import { getTeachingNote } from "../../../content/teaching-notes";
+import { getPublicInteractiveLab } from "../../../lib/interactive-labs";
 
 export const dynamic = "force-dynamic";
 
@@ -44,7 +45,7 @@ export default async function WeekPage({ params }: { params: Promise<{ week: str
         user={{ displayName: user.displayName, email: user.email }}
         signOutPath={chatGPTSignOutPath(`/week/${week.week}`)}
       />
-      <WeekLesson week={week} quiz={quiz} sourceMap={sourceMap} sourceExcerpts={getSourceExcerptsForWeek(week.week)} teachingNote={getTeachingNote(week.week)} lessonBlocks={getLessonBlocks(week)} learningAssets={getLearningAssets(week)} rubric={getRubric()} />
+      <WeekLesson week={week} quiz={quiz} sourceMap={sourceMap} sourceExcerpts={getSourceExcerptsForWeek(week.week)} teachingNote={getTeachingNote(week.week)} lessonBlocks={getLessonBlocks(week)} learningAssets={getLearningAssets(week)} rubric={getRubric()} interactiveLab={getPublicInteractiveLab(week.week)!} />
     </>
   );
 }

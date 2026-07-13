@@ -225,7 +225,7 @@ export default function DashboardClient({
           <div className="hero-main">
             <div className="status-pill"><span /> PRIVATE LEARNING OS · 24 WEEKS</div>
             <p className="kicker">SUPPLY CHAIN AI · DEMAND PLANNING · FMCG</p>
-            <h1>{label(language, "Từ intern đến", "From intern to")}<br /><em>Supply Chain AI.</em></h1>
+            <h1><span>{label(language, "Từ intern đến", "From intern to")} </span><br /><em>Supply Chain AI.</em></h1>
             <p className="hero-description">
               {label(
                 language,
@@ -237,7 +237,7 @@ export default function DashboardClient({
               <Link className="primary-action" href={nextAction.href}>
                 {nextAction.label} <span>→</span>
               </Link>
-              <Link className="secondary-action" href="#roadmap">Xem roadmap</Link>
+              <Link className="secondary-action" href="/course">Mở Course Home</Link>
             </div>
           </div>
           <div className="control-tower" aria-label={`Đã hoàn thành ${completionRate}% lộ trình`}>

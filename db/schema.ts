@@ -333,3 +333,80 @@ export const retrievalAttempts = sqliteTable(
     check("retrieval_attempts_response_length_check", sql`length(${table.response}) BETWEEN 40 AND 5000`),
   ],
 );
+
+export type SavedLabResult = {
+  id: string;
+  correct: boolean;
+  earned: number;
+  points: number;
+  explanation: string;
+  expectedLabel: string;
+};
+
+export const labAttempts = sqliteTable(
+  "lab_attempts",
+  {
+    userEmail: text("user_email").notNull(),
+    week: integer("week").notNull(),
+    answers: text("answers", { mode: "json" })
+      .$type<Record<string, string | number>>()
+      .notNull()
+      .default(sql`'{}'`),
+    results: text("results", { mode: "json" })
+      .$type<SavedLabResult[]>()
+      .notNull()
+      .default(sql`'[]'`),
+    score: integer("score").notNull().default(0),
+    passed: integer("passed", { mode: "boolean" }).notNull().default(false),
+    attemptCount: integer("attempt_count").notNull().default(0),
+    updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [
+    primaryKey({ columns: [table.userEmail, table.week] }),
+    index("lab_attempts_user_passed_idx").on(table.userEmail, table.passed),
+    check("lab_attempts_week_check", sql`${table.week} BETWEEN 1 AND 24`),
+    check("lab_attempts_answers_json_check", sql`json_valid(${table.answers})`),
+    check("lab_attempts_results_json_check", sql`json_valid(${table.results})`),
+    check("lab_attempts_score_check", sql`${table.score} BETWEEN 0 AND 100`),
+    check("lab_attempts_attempt_count_check", sql`${table.attemptCount} >= 0`),
+  ],
+);
+
+export const labAttemptHistory = sqliteTable(
+  "lab_attempt_history",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    userEmail: text("user_email").notNull(),
+    week: integer("week").notNull(),
+    answers: text("answers", { mode: "json" })
+      .$type<Record<string, string | number>>()
+      .notNull(),
+    results: text("results", { mode: "json" })
+      .$type<SavedLabResult[]>()
+      .notNull(),
+    score: integer("score").notNull(),
+    passed: integer("passed", { mode: "boolean" }).notNull(),
+    createdAt: text("created_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [
+    index("lab_attempt_history_user_week_created_idx").on(table.userEmail, table.week, table.createdAt),
+    check("lab_attempt_history_week_check", sql`${table.week} BETWEEN 1 AND 24`),
+    check("lab_attempt_history_answers_json_check", sql`json_valid(${table.answers})`),
+    check("lab_attempt_history_results_json_check", sql`json_valid(${table.results})`),
+    check("lab_attempt_history_score_check", sql`${table.score} BETWEEN 0 AND 100`),
+  ],
+);
+
+export const courseSettings = sqliteTable(
+  "course_settings",
+  {
+    userEmail: text("user_email").primaryKey(),
+    startDate: text("start_date").notNull(),
+    weeklyHours: integer("weekly_hours").notNull().default(6),
+    updatedAt: text("updated_at").notNull().default(sql`CURRENT_TIMESTAMP`),
+  },
+  (table) => [
+    check("course_settings_start_date_check", sql`length(${table.startDate}) = 10`),
+    check("course_settings_weekly_hours_check", sql`${table.weeklyHours} BETWEEN 1 AND 40`),
+  ],
+);

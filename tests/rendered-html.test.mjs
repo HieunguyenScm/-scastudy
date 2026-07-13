@@ -110,3 +110,62 @@ test("learning progression requires evidence and retrieval, not clicks", async (
   assert.match(hosting, /"r2": "FILES"/);
   assert.ok(workbookStat.size > 100_000, "learning pack must be a substantive workbook, not a placeholder");
 });
+
+test("course home and interactive labs form a complete graded learning path", async () => {
+  const [
+    labs,
+    coursePage,
+    courseClient,
+    labRoute,
+    labComponent,
+    labLibrary,
+    weekPage,
+    weekLesson,
+    schema,
+    migration,
+    navigation,
+  ] = await Promise.all([
+    read("../content/interactive-labs.json").then(JSON.parse),
+    read("../app/course/page.tsx"),
+    read("../app/course/course-client.tsx"),
+    read("../app/api/labs/route.ts"),
+    read("../app/week/[week]/interactive-lab.tsx"),
+    read("../lib/interactive-labs.ts"),
+    read("../app/week/[week]/page.tsx"),
+    read("../app/week/[week]/week-lesson.tsx"),
+    read("../db/schema.ts"),
+    read("../drizzle/0004_course_experience.sql"),
+    read("../app/site-navigation.tsx"),
+  ]);
+
+  assert.equal(labs.length, 24);
+  assert.deepEqual(labs.map((lab) => lab.week), Array.from({ length: 24 }, (_, index) => index + 1));
+  assert.ok(labs.every((lab) => lab.businessQuestion && lab.expectedOutput && lab.questions.length >= 3));
+  assert.ok(labs.every((lab) => lab.questions.reduce((total, question) => total + question.points, 0) === 100));
+  assert.ok(labs.every((lab) => lab.passScore >= 70 && lab.passScore <= 100));
+
+  assert.match(coursePage, /requireChatGPTUser\("\/course"\)/);
+  assert.match(courseClient, /TIẾP TỤC HỌC/);
+  assert.match(courseClient, /GRADEBOOK/);
+  assert.match(courseClient, /CERTIFICATE &amp; LEARNING REPORT/);
+  assert.match(courseClient, /lessonComplete[\s\S]*lab[\s\S]*submission/);
+  assert.match(navigation, /href: "\/course"/);
+
+  assert.match(weekPage, /getPublicInteractiveLab/);
+  assert.match(weekLesson, /<InteractiveLab/);
+  assert.match(labComponent, /Lưu bản nháp/);
+  assert.match(labComponent, /Nộp chấm điểm/);
+  assert.match(labRoute, /getChatGPTUser/);
+  assert.match(labRoute, /labAttemptHistory/);
+  assert.match(labRoute, /gradeInteractiveLab/);
+  assert.match(labRoute, /practiceMask: 7/);
+  assert.match(labLibrary, /Omit<InteractiveLab, "questions">/);
+  assert.doesNotMatch(labLibrary.match(/getPublicInteractiveLab[\s\S]*?return \{[\s\S]*?\n\}/)?.[0] ?? "", /correctIndex|expected:/);
+
+  assert.match(schema, /export const labAttempts/);
+  assert.match(schema, /export const labAttemptHistory/);
+  assert.match(schema, /export const courseSettings/);
+  assert.match(migration, /CREATE TABLE IF NOT EXISTS `lab_attempts`/);
+  assert.match(migration, /CREATE TABLE IF NOT EXISTS `lab_attempt_history`/);
+  assert.match(migration, /CREATE TABLE IF NOT EXISTS `course_settings`/);
+});
