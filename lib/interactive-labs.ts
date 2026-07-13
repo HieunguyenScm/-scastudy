@@ -75,6 +75,8 @@ export type LabGrade = {
   results: LabQuestionResult[];
 };
 
+export { redactUnearnedResults } from "./redact-results.mjs";
+
 export const interactiveLabs = labsData as InteractiveLab[];
 
 export function getInteractiveLab(week: number): InteractiveLab | undefined {

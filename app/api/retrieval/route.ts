@@ -42,8 +42,21 @@ export async function POST(request: Request) {
     const grade = scoreRetrievalResponse(item, body.response, assisted);
     await ensureDatabase();
     const db = getDb();
+    const priorForPrompt = await db
+      .select({ id: retrievalAttempts.id })
+      .from(retrievalAttempts)
+      .where(and(
+        eq(retrievalAttempts.userEmail, user.email),
+        eq(retrievalAttempts.week, week.week),
+        eq(retrievalAttempts.promptId, item.id),
+      ));
     const [attempt] = await db.insert(retrievalAttempts).values({ userEmail: user.email, week: week.week, promptId: item.id, itemType: item.type, response: body.response.trim(), confidence: body.confidence, assisted, score: grade.score, passed: grade.passed }).returning();
     const learningState = await recomputeLearningState(db, user.email, week.week);
-    return jsonResponse({ attempt, grade, modelAnswer: item.modelAnswer, learningState, requestId }, { requestId });
+    // Reveal the model answer only once the learner has demonstrated a genuine effort:
+    // on a passing attempt, or from the second attempt of this prompt onward. This keeps
+    // retrieval's try-then-check pedagogy while preventing a one-shot junk answer from
+    // harvesting the model answer to paste back and pass.
+    const revealModelAnswer = grade.passed || priorForPrompt.length >= 1;
+    return jsonResponse({ attempt, grade, modelAnswer: revealModelAnswer ? item.modelAnswer : null, learningState, requestId }, { requestId });
   } catch (error) { return handleApiError(error, requestId); }
 }

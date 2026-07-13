@@ -7,6 +7,7 @@ import {
   getInteractiveLab,
   getPublicInteractiveLab,
   gradeInteractiveLab,
+  redactUnearnedResults,
   type LabAnswers,
   type LabQuestion,
 } from "../../../lib/interactive-labs";
@@ -45,7 +46,10 @@ export async function GET(request: Request) {
       .orderBy(desc(labAttemptHistory.createdAt))
       .limit(10);
 
-    return jsonResponse({ lab, attempt: attempt ?? null, history, requestId }, { requestId });
+    const safeAttempt = attempt
+      ? { ...attempt, results: redactUnearnedResults(attempt.results) }
+      : null;
+    return jsonResponse({ lab, attempt: safeAttempt, history, requestId }, { requestId });
   } catch (error) {
     return handleApiError(error, requestId);
   }
@@ -95,7 +99,11 @@ export async function POST(request: Request) {
           set: preservePassedWork ? { updatedAt } : { answers, updatedAt },
         })
         .returning();
-      return jsonResponse({ attempt: saved, saved: true, requestId }, { requestId });
+      const safeSavedAttempt = { ...saved, results: redactUnearnedResults(saved.results) };
+      // When the lab is already passed we intentionally keep the passing answers on
+      // record; signal that so the client can tell the learner instead of implying the
+      // new draft was stored.
+      return jsonResponse({ attempt: safeSavedAttempt, saved: true, preserved: preservePassedWork, requestId }, { requestId });
     }
 
     const grade = gradeInteractiveLab(lab, answers);
@@ -146,7 +154,9 @@ export async function POST(request: Request) {
       learningProgress = await recomputeLearningState(db, user.email, week);
     }
 
-    return jsonResponse({ attempt: saved, grade, progress: learningProgress, requestId }, { requestId });
+    const safeGrade = { ...grade, results: redactUnearnedResults(grade.results) };
+    const safeSaved = { ...saved, results: redactUnearnedResults(saved.results) };
+    return jsonResponse({ attempt: safeSaved, grade: safeGrade, progress: learningProgress, requestId }, { requestId });
   } catch (error) {
     return handleApiError(error, requestId);
   }

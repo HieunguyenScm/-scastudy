@@ -1,4 +1,4 @@
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, inArray } from "drizzle-orm";
 import { getDb } from "../../../db";
 import { ensureDatabase } from "../../../db/ensure";
 import { mentorReviews, submissions, submissionVersions } from "../../../db/schema";
@@ -12,12 +12,27 @@ export async function GET(request: Request) {
     const user = await getChatGPTUser();
     if (!user) return errorResponse("AUTH_REQUIRED", 401, "Authentication is required.", requestId);
     const weekParam = new URL(request.url).searchParams.get("week");
+    let weekFilter: number | null = null;
+    if (weekParam !== null) {
+      const parsed = Number(weekParam);
+      if (!Number.isInteger(parsed) || parsed < 1 || parsed > 24) {
+        throw new ApiRequestError("INVALID_WEEK", 400, "week must be an integer from 1 to 24.");
+      }
+      weekFilter = parsed;
+    }
     await ensureDatabase();
     const db = getDb();
     const rows = await db.select().from(submissions).where(
-      weekParam ? and(eq(submissions.userEmail, user.email), eq(submissions.week, Number(weekParam))) : eq(submissions.userEmail, user.email),
+      weekFilter !== null ? and(eq(submissions.userEmail, user.email), eq(submissions.week, weekFilter)) : eq(submissions.userEmail, user.email),
     ).orderBy(desc(submissions.updatedAt));
-    const reviews = rows.length ? await db.select().from(mentorReviews).where(eq(mentorReviews.userEmail, user.email)).orderBy(desc(mentorReviews.createdAt)) : [];
+    // Scope reviews to the submissions actually returned so a single-week request
+    // does not receive mentor reviews for every other week.
+    const submissionIds = rows.map((row) => row.id);
+    const reviews = submissionIds.length
+      ? await db.select().from(mentorReviews).where(
+          and(eq(mentorReviews.userEmail, user.email), inArray(mentorReviews.submissionId, submissionIds)),
+        ).orderBy(desc(mentorReviews.createdAt))
+      : [];
     return jsonResponse({ submissions: rows, reviews, requestId }, { requestId });
   } catch (error) { return handleApiError(error, requestId); }
 }

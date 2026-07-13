@@ -103,12 +103,15 @@ export default function InteractiveLab({
         attempt?: SavedAttempt;
         grade?: LabGrade;
         progress?: Record<string, unknown> | null;
+        preserved?: boolean;
         error?: string;
       };
       if (!response.ok || !data.attempt) throw new Error(data.error ?? "Không thể lưu lab.");
       setAttempt(data.attempt);
       if (action === "save") {
-        setStatus("Đã lưu bản nháp. Bạn có thể rời trang và quay lại sau.");
+        setStatus(data.preserved
+          ? "Lab đã đạt nên bản làm đạt được giữ nguyên; chỉnh sửa mới không ghi đè kết quả đã pass."
+          : "Đã lưu bản nháp. Bạn có thể rời trang và quay lại sau.");
       } else if (data.grade) {
         setGrade(data.grade);
         const now = new Date().toISOString();
@@ -161,7 +164,7 @@ export default function InteractiveLab({
 
         <div className="lab-table-wrap" tabIndex={0} aria-label="Bảng dữ liệu synthetic cho lab">
           <table>
-            <thead><tr>{lab.columns.map((column) => <th key={column}>{column}</th>)}</tr></thead>
+            <thead><tr>{lab.columns.map((column) => <th key={column} scope="col">{column}</th>)}</tr></thead>
             <tbody>
               {lab.rows.map((row, rowIndex) => (
                 <tr key={rowIndex}>{row.map((cell, cellIndex) => <td key={`${rowIndex}-${cellIndex}`}>{cell == null ? <em>missing</em> : String(cell)}</td>)}</tr>
@@ -219,6 +222,7 @@ export default function InteractiveLab({
                   type="button"
                   className="lab-hint-button"
                   aria-expanded={hintVisible}
+                  aria-controls={`lab-hint-${question.id}`}
                   onClick={() => setRevealedHints((current) => {
                     const next = new Set(current);
                     if (next.has(question.id)) next.delete(question.id); else next.add(question.id);
@@ -227,7 +231,7 @@ export default function InteractiveLab({
                 >
                   {hintVisible ? "Ẩn hint" : "Mở hint cấp 1"}
                 </button>
-                {hintVisible ? <p className="lab-hint">{question.hint}</p> : null}
+                {hintVisible ? <p className="lab-hint" id={`lab-hint-${question.id}`}>{question.hint}</p> : null}
                 {result ? (
                   <div className="lab-feedback" role="status">
                     <strong>{result.correct ? `Đúng · +${result.earned}` : "Chưa đúng · +0"}</strong>
