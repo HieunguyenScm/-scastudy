@@ -5,17 +5,17 @@ start and end of every material task.
 
 ## Active assignment
 
-- Owner: `NONE` (idle — canonical best-attempt assessment task completed & committed by Claude at explicit user request)
+- Owner: `NONE` (idle)
 - Role: —
 - Branch: `lesson-ux-concise`
-- Scope: No active writer. Next queued item: Codex to add learner-facing progress insights surfacing (see Suggested queue #4), or Claude to review VI/EN terminology & outcome claims (#3).
+- Scope: No active writer. Full-site quality sweep (3 audits) completed and all real findings fixed; see the two completed handoffs below.
 - Acceptance criteria: n/a until a new task is claimed.
-- Note: The best-attempt assessment implementation was verified end-to-end (live API + full gate) and integrated. See the completed handoff below.
+- Note: `npm run check` green (21/21 site tests). Queue #3 (VI/EN terminology) and #4 (learner insights) are both effectively done — insights already surface on Course Home; terminology audited and fixed.
 
 ## Current product state
 
 - Product baseline: `193033d` — graded Course Home and 24 interactive labs.
-- Current branch HEAD adds the Codex–Claude workflow, Claude-audited lab-grading fairness fixes, the references-panel layout fix, learning-health insights, and canonical best-attempt assessment scoring.
+- Current branch HEAD adds the Codex–Claude workflow, Claude-audited lab-grading fairness fixes, the references-panel layout fix, learning-health insights, canonical best-attempt assessment scoring, and a full-site quality sweep (answer-leak fixes, content register/terminology, WCAG contrast).
 - Production: private Sites deployment is live.
 - Learning path: lesson → lab → evidence → mentor review → retrieval → mastery.
 - Quality gate: `npm run check` passes on the current branch HEAD.
@@ -234,6 +234,29 @@ P3 — Ambiguity / minor:
   - Committed the work (normally Codex's implementation lane) because the user explicitly asked Claude to finish it and the release gate is green. `quizzes` retained only in the Course Home grade-history panel as an honest per-attempt audit trail; all decision logic uses the canonical best.
 - Risks/open questions: NONE. All acceptance criteria met and verified live.
 - Next action: pick up Suggested queue #3 (Claude: VI/EN terminology & outcome-claim review) or #4 (Codex: learner-facing progress insights surfacing) when requested.
+
+### 2026-07-13 — Claude — Full-site quality sweep (3 audits) + fixes
+
+- Role: Writer / Integrator (explicit user request: finish everything to "10/10, 100%", full autonomy granted)
+- Branch: `lesson-ux-concise`
+- Method: ran three parallel read-only audits (VI/EN terminology & outcome-claim accuracy; WCAG 2.1 AA accessibility; server-route correctness/security bug sweep), drove the live app end-to-end myself, then fixed every real finding. No feature bloat — only genuine defects.
+- Commits: `2e8409f` (security/correctness), `f41a5b6` (content + a11y).
+- P1 (security/integrity) — FIXED & verified live:
+  - Lab answer-key leak: `GET /api/labs` returned `attempt.results[].expectedLabel/explanation` after any single (even failing) grade, so a learner could grade junk, read the key, and resubmit to pass. Added `redactUnearnedResults` (shared `lib/redact-results.mjs`, re-exported from `lib/interactive-labs.ts`) applied on GET + POST; wrong answers now reveal nothing, correct ones keep feedback. Regression test `tests/answer-leak.test.mjs`.
+- P2 — FIXED & verified live:
+  - Retrieval `modelAnswer` was returned for any 40-char submission; now revealed only on a passing attempt or the 2nd attempt of the same prompt. Result block moved into an `aria-live` region (also fixes a11y P1).
+- P2/P3 correctness — FIXED:
+  - `submissions` GET validated the `week` param (was `Number(NaN)`) and scoped mentor reviews to the returned submission ids (was returning all weeks' reviews).
+  - lab "save" on an already-passed lab returns `preserved:true`; UI now tells the learner instead of implying a fresh save.
+- Content (from terminology audit; math verified 100% correct across all 24 worked examples) — FIXED:
+  - Removed rough pronoun "mày" → "bạn" in week 16/20/24 summaries (register break in a professional LMS).
+  - Linked DOH↔DOS on first use in week 16; aligned glossary "Lead time" VN label with lesson usage.
+- Accessibility (WCAG AA) — FIXED:
+  - Darkened 8 small-text color rules to ≥4.5:1; added `scope="col"` to the lab data table; `aria-controls`+`id` on lab hint; retrieval result now in a live region.
+- Verification: `npm run check` PASS — lint, typecheck, production build, **21/21 site tests** (was 18; +3 answer-leak), 13 sources, 3/3 ChatGPT app tests. Live: pages 200; cannot self-complete a week; no answer-key leak on GET/POST; retrieval withholds then reveals correctly; a fully-correct lab still passes at 100%.
+- Audit dimensions that came back CLEAN (no changes needed): all worked-example math, outcome/certificate claims (honestly conservative gate), completion-gate integrity, quiz-score inflation, auth/ownership on every route, SQL injection, mentor-review pass trust.
+- Risks/open questions: NONE. Optional future polish (not defects): course-page tab `aria-current`, learning-stats endpoint recompute-freshness, focus ring contrast on light surfaces.
+- Next action: none required; site is at a clean, fully-verified state.
 
 ## Task handoff template
 
