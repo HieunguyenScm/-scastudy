@@ -21,16 +21,26 @@ export async function getChatGPTUser(): Promise<ChatGPTUser | null> {
   return user && isAuthorizedEmail(user.email) ? user : null;
 }
 
+const GUEST_IDENTITY: ChatGPTUser = {
+  displayName: "Chàng trai năm ấy",
+  email: "local-dev@ctnascm.private",
+  fullName: "Chàng trai năm ấy",
+};
+
+function isPublicDemo(): boolean {
+  const flag = process.env.PUBLIC_DEMO?.trim().toLowerCase();
+  return flag === "1" || flag === "true" || flag === "yes";
+}
+
 async function getChatGPTIdentity(): Promise<ChatGPTUser | null> {
   const requestHeaders = await headers();
   const email = requestHeaders.get(USER_EMAIL_HEADER);
   if (!email) {
-    if (process.env.NODE_ENV !== "production") {
-      return {
-        displayName: "Chàng trai năm ấy",
-        email: "local-dev@ctnascm.private",
-        fullName: "Chàng trai năm ấy",
-      };
+    // Local dev, or an explicitly opted-in public demo deploy, sign in as a shared
+    // guest so the whole app is viewable without the ChatGPT App identity header.
+    // Production stays private unless PUBLIC_DEMO is set.
+    if (process.env.NODE_ENV !== "production" || isPublicDemo()) {
+      return GUEST_IDENTITY;
     }
     return null;
   }
